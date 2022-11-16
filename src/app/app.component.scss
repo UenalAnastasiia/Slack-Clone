@@ -12,11 +12,13 @@
   height: 100%;
   align-items: center;
   justify-content: center;
+  color: white !important;
 }
 
 .example-sidenav {
-  width: 250px;
+  width: 280px;
   user-select: none;
+  background: #970909cf;
 }
 
 .full-width {
@@ -37,10 +39,17 @@
   transition: transform 300ms ease;
   transform: scaleY(0);
   transform-origin: top;
-  padding-left: 30px;
+  display: none;
+
+  a {
+    color: white;
+    padding-left: 40px;
+    width: calc(100% - 40px);
+  }
 }
 
 .submenu.expanded {
+  display: block;
   transform: scaleY(1);
 }
 
@@ -48,8 +57,58 @@
   width: 60px;
 }
 
+.tag-icon {
+  margin-left: 18px;
+  color: #ffc17d;
+}
+
 .addChannel-btn {
   position: absolute;
-  right: 48px;
-  color: #a9a8a8;
+  right: 18px;
+  color: #ffc17d;
+  z-index: 1;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+  }
+}
+
+.mat-toolbar {
+  background: #970909;
+  color: white;
+}
+
+.mat-list-item {
+  &:hover {
+    background: #ffe3bc6b;
+  }
+}
+
+.add-channel-container {
+
+  button {
+    background: #ffc17d;
+    width: 80%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+    color: #7d4646;
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(1.2);
+    }
+  }
+
+  span {
+    font-weight: 600;
+  }
+
+  mat-icon {
+    margin-right: 8px;
+    margin-left: -6px;
+  }
 }

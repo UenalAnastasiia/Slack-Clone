@@ -1,8 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
     <mat-toolbar-row>
         <button mat-icon-button class="example-icon">
             <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
         </button>
+        <mat-icon class="tag-icon">tag</mat-icon>
         <span>Slack-Clone</span>
         <span class="example-spacer"></span>
     </mat-toolbar-row>
@@ -10,16 +11,52 @@
 
 <mat-sidenav-container class="example-container" autosize>
     <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+
+    <!-- Channels Block -->
         <mat-nav-list>
-            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
-                <span class="full-width">Channels</span>
-                <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">
+            <mat-list-item class="parent color-white" (mouseenter)="showAddBtn()"
+                (mouseleave)="hideAddBtn()">
+                <span class="full-width size-22" (click)="showSubmenu = !showSubmenu">Channels</span>
+                <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" (click)="showSubmenu = !showSubmenu">
                     expand_more</mat-icon>
-                    <mat-icon *ngIf="isExpanded || isShowing" class="addChannel-btn">add_circle</mat-icon>
+                <mat-icon *ngIf="isShowingAddBtn || isShowingAddBtn" class="addChannel-btn" matTooltip="Add Channel"
+                    matTooltipClass="example-tooltip-gold">add_circle</mat-icon>
             </mat-list-item>
+
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
-                <a mat-list-item href="...">Channel 1</a>
-                <a mat-list-item href="...">Channel 2</a>
+                <a mat-list-item href="..."># Channel 1</a>
+                <a mat-list-item href="..."># Channel 2</a>
+                <a mat-list-item href="..."># Channel 3</a>
+                <div class="add-channel-container">
+                    <button mat-raised-button>
+                        <mat-icon>add_circle</mat-icon>
+                        <span>Add new Channel</span>
+                    </button>
+                </div>
+            </div>
+        </mat-nav-list>
+
+        <!-- Direct Messages Block -->
+        <mat-nav-list>
+            <mat-list-item class="parent color-white" (mouseenter)="showDMbtn()"
+                (mouseleave)="hideDMbtn()">
+                <span class="full-width size-22" (click)="showDMmenu = !showDMmenu">Direct Messages</span>
+                <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showDMmenu}" (click)="showDMmenu = !showDMmenu">
+                    expand_more</mat-icon>
+                <mat-icon *ngIf="isExpandedDM || isShowingDM" class="addChannel-btn" matTooltip="Write Direct Message"
+                    matTooltipClass="example-tooltip-gold">add_circle</mat-icon>
+            </mat-list-item>
+
+            <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
+                <a mat-list-item href="..."> Message 1</a>
+                <a mat-list-item href="..."> Message 2</a>
+                <a mat-list-item href="..."> Message 3</a>
+                <div class="add-channel-container">
+                    <button mat-raised-button>
+                        <mat-icon>add_circle</mat-icon>
+                        <span>Write Direct Message</span>
+                    </button>
+                </div>
             </div>
         </mat-nav-list>
     </mat-sidenav>

@@ -8,20 +8,35 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class AppComponent {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  isExpanded = true;
+  isExpandedAddBtn: boolean = false;
+  isExpandedDM: boolean = false;
   showSubmenu: boolean = false;
-  isShowing = false;
+  showDMmenu: boolean = false;
+  isShowingAddBtn : boolean = false;
+  isShowingDM: boolean = false;
 
 
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
+  showAddBtn() {
+    if (!this.isExpandedAddBtn) {
+      this.isShowingAddBtn = true;
     }
   }
 
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
+  hideAddBtn() {
+    if (!this.isExpandedAddBtn) {
+      this.isShowingAddBtn = false;
+    }
+  }
+
+  showDMbtn() {
+    if (!this.isExpandedDM) {
+      this.isShowingDM = true;
+    }
+  }
+
+  hideDMbtn() {
+    if (!this.isExpandedDM) {
+      this.isShowingDM = false;
     }
   }
 }
