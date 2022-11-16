@@ -11,12 +11,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ChannelContainerComponent } from './channel-container/channel-container.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    DialogAddChannelComponent,
+    ChannelContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +35,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

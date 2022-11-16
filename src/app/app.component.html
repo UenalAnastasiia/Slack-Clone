@@ -20,15 +20,16 @@
                 <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" (click)="showSubmenu = !showSubmenu">
                     expand_more</mat-icon>
                 <mat-icon *ngIf="isShowingAddBtn || isShowingAddBtn" class="addChannel-btn" matTooltip="Add Channel"
-                    matTooltipClass="example-tooltip-gold">add_circle</mat-icon>
+                    matTooltipClass="example-tooltip-gold" (click)="openDialogAddChannel()">add_circle</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
                 <a mat-list-item href="..."># Channel 1</a>
                 <a mat-list-item href="..."># Channel 2</a>
                 <a mat-list-item href="..."># Channel 3</a>
+                <a mat-list-item href="...">{{ channelName }}</a>
                 <div class="add-channel-container">
-                    <button mat-raised-button>
+                    <button mat-raised-button (click)="openDialogAddChannel()">
                         <mat-icon>add_circle</mat-icon>
                         <span>Add new Channel</span>
                     </button>
@@ -37,7 +38,7 @@
         </mat-nav-list>
 
         <!-- Direct Messages Block -->
-        <mat-nav-list>
+        <mat-nav-list class="margin-top-28">
             <mat-list-item class="parent color-white" (mouseenter)="showDMbtn()"
                 (mouseleave)="hideDMbtn()">
                 <span class="full-width size-22" (click)="showDMmenu = !showDMmenu">Direct Messages</span>
