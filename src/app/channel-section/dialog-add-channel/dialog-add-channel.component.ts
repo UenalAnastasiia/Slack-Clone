@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Channel } from 'src/models/channel.class';
-import { AppComponent } from '../app.component';
+import { AppComponent } from '../../app.component';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { collection, addDoc } from '@firebase/firestore';
 
@@ -25,8 +25,8 @@ export class DialogAddChannelComponent implements OnInit {
 
   async saveChannel() {
     const docRef = await addDoc(collection(this.firestore, "channels"), this.channel.toJSON())
-    this.channel.cid = docRef.id;
-    await setDoc(doc(this.firestore, "channels", this.channel.cid), this.channel.toJSON());
+    this.channel.id = docRef.id;
+    await setDoc(doc(this.firestore, "channels", this.channel.id), this.channel.toJSON());
     this.dialogRef.close();
   }
 }

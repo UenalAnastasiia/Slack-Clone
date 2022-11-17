@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
-import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 
