@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ua-slack-clone": {
+      "hosting": {
+        "Slack-Clone": [
+          "ua-slack-clone"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ua-slack-clone"
+  }
+}

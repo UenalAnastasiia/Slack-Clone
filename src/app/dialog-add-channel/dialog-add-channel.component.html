@@ -1,12 +1,16 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h1 mat-dialog-title>Add new Channel</h1>
 <div mat-dialog-content>
-  <p>Add a Channel Name</p>
   <mat-form-field appearance="fill">
-    <mat-label>Channel Name</mat-label>
-    <input matInput [(ngModel)]="data.channelName">
+    <mat-label> Name </mat-label>
+    <input matInput [(ngModel)]="channel.name">
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label> Description </mat-label>
+    <textarea matInput [(ngModel)]="channel.description"></textarea>
+  </mat-form-field>
+  
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.channelName" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="dialogRef.close()" cdkFocusInitial> Cancel </button>
+  <button [disabled]=" channel.name === '' || channel.description === '' " mat-button (click)="saveChannel()" cdkFocusInitial> Save </button>
 </div>

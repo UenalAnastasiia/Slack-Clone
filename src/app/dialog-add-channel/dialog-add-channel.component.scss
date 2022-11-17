@@ -1,0 +1,20 @@
+::ng-deep .cdk-overlay-pane {
+    width: 30vw;
+}
+
+.mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+textarea.mat-input-element {
+    height: 120px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: #970909cf !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+    background-color: #970909cf !important;
+   }

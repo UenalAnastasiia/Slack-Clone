@@ -1,15 +1,20 @@
-import { Component, ViewChild, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
+import { Channel } from 'src/models/channel.class';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { Firestore, collectionData } from '@angular/fire/firestore';
+import { collection } from '@firebase/firestore';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
+
   isExpandedAddBtn: boolean = false;
   isExpandedDM: boolean = false;
   showSubmenu: boolean = true;
@@ -17,10 +22,24 @@ export class AppComponent {
   isShowingAddBtn: boolean = false;
   isShowingDM: boolean = false;
 
-  channelName: string;
-  name: string;
+  channel = new Channel();
+  allChannels$: Observable<any>;
+  allChannels: any = [];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private firestore: Firestore) { }
+
+
+  /**
+   * Load Channel-Data from Firebase 
+   */
+  ngOnInit(): void {
+    const channelCollection = collection(this.firestore, 'channels');
+    this.allChannels$ = collectionData(channelCollection, { idField: "channelID" });
+
+    this.allChannels$.subscribe((data: any) => {
+      this.allChannels = data;
+    });
+  }
 
 
   showAddBtn() {
@@ -51,15 +70,7 @@ export class AppComponent {
   }
 
 
-  openDialogAddChannel(): void {
-    const dialogRef = this.dialog.open(DialogAddChannelComponent, {
-      width: '250px',
-      data: { name: this.name, channelName: this.channelName },
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Name: ', result);
-      this.channelName = '# ' + result;
-    });
+  openDialogAddChannel() {
+    this.dialog.open(DialogAddChannelComponent); 
   }
 }
