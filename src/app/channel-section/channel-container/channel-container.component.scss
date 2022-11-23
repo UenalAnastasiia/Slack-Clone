@@ -1,0 +1,27 @@
+.card-header {
+    margin: 16px;
+    padding: 8px !important;
+
+    .name-header {
+        display: flex;
+        align-items: center;
+        margin-left: 16px;
+        padding: 6px;
+        width: fit-content;
+
+        &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.04);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        h1 {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+    
+        mat-icon {
+            margin-left: 8px;
+        }
+    }
+ }

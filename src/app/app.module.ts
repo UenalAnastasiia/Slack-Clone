@@ -20,13 +20,17 @@ import { FormsModule } from '@angular/forms';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { MatCardModule } from '@angular/material/card';
+import { DialogChannelDetailsComponent } from './dialog-channel-details/dialog-channel-details.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     DialogAddChannelComponent,
-    ChannelContainerComponent
+    ChannelContainerComponent,
+    DialogChannelDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    MatCardModule,
+    MatTabsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

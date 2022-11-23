@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
+import { DialogChannelDetailsComponent } from 'src/app/dialog-channel-details/dialog-channel-details.component';
 
 @Component({
   selector: 'app-chanel-container',
@@ -22,6 +23,7 @@ export class ChannelContainerComponent implements OnInit {
     this.activeRoute.queryParams.subscribe(queryParams => {
       this.channelID = queryParams['id'];
     });
+
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
@@ -34,10 +36,12 @@ export class ChannelContainerComponent implements OnInit {
     this.channelData = snapDoc.data();
     this.channel = new Channel(this.channelData);
     this.channel.id = this.channelID;
+  }
 
 
-    console.log('Current Channel-Name: ', this.channel.name)
-    console.log('Current Channel-Description: ', this.channel.description)
+  openChannelDetails() {
+    const dialog = this.dialog.open(DialogChannelDetailsComponent);
+    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
   }
 
 }

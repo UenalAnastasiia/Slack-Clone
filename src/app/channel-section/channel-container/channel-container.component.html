@@ -1,2 +1,10 @@
-<h1>Name: {{ channel.name }}</h1>
-<p>Description: {{ channel.description }}</p>
+<!-- <h1>Name: {{ channel.name }}</h1>
+<p>Description: {{ channel.description }}</p> -->
+<div>
+    <mat-card class="card-header">
+        <div class="name-header" (click)="openChannelDetails()">
+            <h1> # {{ channel.name }}</h1>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+    </mat-card>
+</div>
