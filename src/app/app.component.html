@@ -24,7 +24,7 @@
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
-                <a *ngFor="let channel of allChannels" mat-list-item href="channel/{{ channel.id }}"># {{ channel.name }}</a>
+                <a *ngFor="let channel of allChannels" mat-list-item routerLink="channel/{{ channel.id }}"># {{ channel.name }}</a>
                 <div class="add-channel-container">
                     <button mat-raised-button (click)="openDialogAddChannel()">
                         <mat-icon>add_circle</mat-icon>

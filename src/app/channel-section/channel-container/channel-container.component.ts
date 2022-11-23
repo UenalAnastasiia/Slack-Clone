@@ -15,15 +15,16 @@ export class ChannelContainerComponent implements OnInit {
   channelData: any;
 
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
+  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.channelID = params.get('id');
+    this.activeRoute.queryParams.subscribe(queryParams => {
+      this.channelID = queryParams['id'];
     });
-
-    this.getDocRef(this.channelID);
+    this.activeRoute.params.subscribe(routeParams => {
+      this.getDocRef(routeParams['id']);
+    });
   }
 
 
