@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
-import { DialogChannelDetailsComponent } from 'src/app/dialog-channel-details/dialog-channel-details.component';
+import { DialogChannelDetailsComponent } from 'src/app/channel-section/dialog-channel-details/dialog-channel-details.component';
 
 @Component({
   selector: 'app-chanel-container',

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainComponent } from './main/main.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,14 +20,14 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { MatCardModule } from '@angular/material/card';
-import { DialogChannelDetailsComponent } from './dialog-channel-details/dialog-channel-details.component';
+import { DialogChannelDetailsComponent } from './channel-section/dialog-channel-details/dialog-channel-details.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
+import { DialogEditChannelComponent } from './channel-section/dialog-edit-channel/dialog-edit-channel.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     DialogAddChannelComponent,
     ChannelContainerComponent,
     DialogChannelDetailsComponent,
@@ -50,6 +49,7 @@ import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-ch
     FormsModule,
     MatCardModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

@@ -1,3 +1,7 @@
+.edit-container {
+    position: relative;
+}
+
 ::ng-deep .cdk-overlay-pane {
     width: 30vw;
 }
@@ -17,4 +21,15 @@ textarea.mat-input-element {
 
 ::ng-deep.mat-form-field-ripple {
     background-color: #6F2F40 !important;
-   }
+}
+
+.progress-spinner {
+    position: absolute;
+    top: 100px;
+    left: 125px;
+    z-index: 1;
+
+    ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+        stroke: #6F2F40;
+    }
+}

@@ -18,7 +18,7 @@
 .example-sidenav {
   width: 280px;
   user-select: none;
-  background: #970909cf;
+  background: #6F2F40;
 }
 
 .full-width {
@@ -59,13 +59,13 @@
 
 .tag-icon {
   margin-left: 18px;
-  color: #ffc17d;
+  color: #E08862;
 }
 
 .addChannel-btn {
   position: absolute;
   right: 18px;
-  color: #ffc17d;
+  color: #E08862;
   z-index: 1;
 
   &:hover {
@@ -75,7 +75,7 @@
 }
 
 .mat-toolbar {
-  background: #970909;
+  background: #5d2836;
   color: white;
 }
 
@@ -88,7 +88,7 @@
 .add-channel-container {
 
   button {
-    background: #ffc17d;
+    background: #E08862;
     width: 80%;
     height: 32px;
     display: flex;
