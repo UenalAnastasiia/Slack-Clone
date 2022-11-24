@@ -15,7 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ChannelContainerComponent } from './channel-section/channel-container/channel-container.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
@@ -24,6 +24,9 @@ import { DialogChannelDetailsComponent } from './channel-section/dialog-channel-
 import { MatTabsModule } from '@angular/material/tabs';
 import { DialogEditChannelComponent } from './channel-section/dialog-edit-channel/dialog-edit-channel.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxEditorModule } from "ngx-editor";
+import { CommonModule } from "@angular/common";
+import { AddThreadComponent } from './add-thread/add-thread.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DialogAddChannelComponent,
     ChannelContainerComponent,
     DialogChannelDetailsComponent,
-    DialogEditChannelComponent
+    DialogEditChannelComponent,
+    AddThreadComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    NgxEditorModule,
+    CommonModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

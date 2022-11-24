@@ -1,5 +1,6 @@
 .channel-container {
     position: relative;
+    min-height: 100vh;
 }
 
 .card-style {
@@ -30,14 +31,20 @@
     }
 }
 
-.add-thread-box {
+.position-fixed {
     position: fixed;
     bottom: 0;
-    left: 280px;
+    left: 0px;
     right: 0;
-    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.add-thread-box {
+width: 60vw;
+margin-left: 2vw;
 }
 
 .thread-container {
-    height: calc(100vh - 320px);
+    height: calc(100vh - 340px);
 }
