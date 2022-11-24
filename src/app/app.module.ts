@@ -23,6 +23,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { MatCardModule } from '@angular/material/card';
 import { DialogChannelDetailsComponent } from './dialog-channel-details/dialog-channel-details.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DialogEditChannelComponent } from './dialog-edit-channel/dialog-edit-channel.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MainComponent,
     DialogAddChannelComponent,
     ChannelContainerComponent,
-    DialogChannelDetailsComponent
+    DialogChannelDetailsComponent,
+    DialogEditChannelComponent
   ],
   imports: [
     BrowserModule,

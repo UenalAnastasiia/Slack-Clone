@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Add new Channel</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label> Name </mat-label>
+    <input matInput [(ngModel)]="channel.name">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label> Description </mat-label>
+    <textarea matInput [(ngModel)]="channel.description"></textarea>
+  </mat-form-field>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()" cdkFocusInitial> Cancel </button>
+  <button [disabled]=" channel.name === '' || channel.description === '' " mat-button (click)="saveChannel()" cdkFocusInitial> Save </button>
+</div>

@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   channel = new Channel();
   allChannels$: Observable<any>;
   allChannels: any = [];
+  channnelID: string;
 
   constructor(public dialog: MatDialog, private firestore: Firestore) { }
 
@@ -71,6 +72,7 @@ export class AppComponent implements OnInit {
 
 
   openDialogAddChannel() {
-    this.dialog.open(DialogAddChannelComponent); 
+    const dialog = this.dialog.open(DialogAddChannelComponent); 
+    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
   }
 }

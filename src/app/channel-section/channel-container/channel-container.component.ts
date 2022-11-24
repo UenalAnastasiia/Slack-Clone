@@ -11,7 +11,7 @@ import { DialogChannelDetailsComponent } from 'src/app/dialog-channel-details/di
   styleUrls: ['./channel-container.component.scss']
 })
 export class ChannelContainerComponent implements OnInit {
-  channelID: any;
+  channelID: string;
   channel: Channel = new Channel();
   channelData: any;
 
@@ -20,8 +20,8 @@ export class ChannelContainerComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.activeRoute.queryParams.subscribe(queryParams => {
-      this.channelID = queryParams['id'];
+    this.activeRoute.paramMap.subscribe(params => {
+      this.channelID = params.get('id');
     });
 
     this.activeRoute.params.subscribe(routeParams => {
@@ -42,6 +42,6 @@ export class ChannelContainerComponent implements OnInit {
   openChannelDetails() {
     const dialog = this.dialog.open(DialogChannelDetailsComponent);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    dialog.componentInstance.channel.id = this.channelID;
   }
-
 }
