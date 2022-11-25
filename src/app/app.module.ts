@@ -27,6 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxEditorModule } from "ngx-editor";
 import { CommonModule } from "@angular/common";
 import { AddThreadComponent } from './add-thread/add-thread.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { AddThreadComponent } from './add-thread/add-thread.component';
     ReactiveFormsModule,
     NgxEditorModule,
     CommonModule,
+    HttpClientModule,
+    AngularEditorModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
-import { Editor, Toolbar } from 'ngx-editor';
+import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
+import { Thread } from 'src/models/thread.class';
+import { collection, addDoc } from '@firebase/firestore';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -11,28 +13,37 @@ import { Channel } from 'src/models/channel.class';
   styleUrls: ['./add-thread.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AddThreadComponent implements OnInit, OnDestroy {
+export class AddThreadComponent implements OnInit {
   channel: Channel = new Channel();
   channelData: any;
   name: any;
 
-  editor: Editor;
-  toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3'] }],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
-  ];
+  thread = new Thread();
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['default', 'fontName'],
+      ['fontSize', 'Striketrough']
+    ]
+  };
 
 
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore) { }
 
   ngOnInit(): void {
-    this.editor = new Editor();
-
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
@@ -46,7 +57,11 @@ export class AddThreadComponent implements OnInit, OnDestroy {
     this.channel = new Channel(this.channelData);
   }
 
-  ngOnDestroy(): void {
-    this.editor.destroy();
+
+  async saveThread() {
+    console.log('Thread: ', this.thread.message)
+    // const docRef = await addDoc(collection(this.firestore, "threads"), this.channel.toJSON())
+    // this.thread.id = docRef.id;
+    // await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
   }
 }
