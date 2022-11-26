@@ -1,0 +1,56 @@
+.angular-editor-textarea {
+    width: calc(100% - 28px);
+    height: 70px;
+    padding-left: 12px;
+    padding-top: 4px;
+    border: none;
+    resize: none !important;
+    height: 50px !important;
+    overflow-y: auto;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        font-style: italic;
+    }
+
+    img {
+        height: 150px;
+        object-fit: cover;
+    }
+}
+
+.angular-editor-button {
+    color: rgba($color: #000000, $alpha: 0.5);
+
+    &:hover {
+        color: #000000;
+    }
+}
+
+#strikeThrough-texteditor,
+#link-texteditor,
+#unlink-texteditor,
+#clearFormatting-texteditor,
+#subscript-texteditor,
+#superscript-texteditor,
+#backgroundColorPicker-texteditor,
+#customClassSelector-texteditor,
+.select-heading,
+#texteditor .angular-editor-button[title="Insert Video"],
+.angular-editor-button[title="Undo"],
+.angular-editor-button[title="Redo"],
+.angular-editor-button[title="Justify Center"],
+.angular-editor-button[title="Horizontal Line"] {
+    display: none !important;
+}
+
+.editor-box {
+    display: flex;
+}

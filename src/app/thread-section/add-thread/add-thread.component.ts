@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
@@ -35,8 +35,7 @@ export class AddThreadComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['default', 'fontName'],
-      ['fontSize', 'Striketrough']
+      ['fontName', 'fontSize']
     ]
   };
 
@@ -55,13 +54,14 @@ export class AddThreadComponent implements OnInit {
     const snapDoc = await getDoc(docRef);
     this.channelData = snapDoc.data();
     this.channel = new Channel(this.channelData);
+    this.thread.channelID = this.channel.id;
   }
 
 
   async saveThread() {
-    console.log('Thread: ', this.thread.message)
-    // const docRef = await addDoc(collection(this.firestore, "threads"), this.channel.toJSON())
-    // this.thread.id = docRef.id;
-    // await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
+    const docRef = await addDoc(collection(this.firestore, "threads"), this.channel.toJSON())
+    this.thread.id = docRef.id;
+    await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
+    this.thread.message = '';
   }
 }

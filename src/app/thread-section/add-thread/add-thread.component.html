@@ -1,0 +1,7 @@
+<div class="editor-box">
+    <angular-editor id="texteditor" [config]="editorConfig" placeholder="Message on # {{ channel.name }}..."
+        [(ngModel)]="thread.message">
+    </angular-editor>
+
+    <button (click)="saveThread()">Save</button>
+</div>

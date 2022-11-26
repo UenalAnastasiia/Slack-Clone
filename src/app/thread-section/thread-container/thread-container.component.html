@@ -1,0 +1,11 @@
+<div *ngIf="noThreads" class="no-threads-box">
+    <p>This Channel is empty... Send the first Thread!</p>
+</div>
+
+<div *ngIf="!noThreads">
+    <mat-card *ngFor="let thread of allThreads" class="thread-container">
+        <p>{{ thread.message }}</p>
+        <p>Thread ID: {{ thread.id }}</p>
+        <p>Channel ID: {{ thread.channelID }}</p>
+    </mat-card>
+</div>

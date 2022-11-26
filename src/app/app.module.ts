@@ -24,11 +24,11 @@ import { DialogChannelDetailsComponent } from './channel-section/dialog-channel-
 import { MatTabsModule } from '@angular/material/tabs';
 import { DialogEditChannelComponent } from './channel-section/dialog-edit-channel/dialog-edit-channel.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgxEditorModule } from "ngx-editor";
 import { CommonModule } from "@angular/common";
-import { AddThreadComponent } from './add-thread/add-thread.component';
+import { AddThreadComponent } from './thread-section/add-thread/add-thread.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ThreadContainerComponent } from './thread-section/thread-container/thread-container.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     ChannelContainerComponent,
     DialogChannelDetailsComponent,
     DialogEditChannelComponent,
-    AddThreadComponent
+    AddThreadComponent,
+    ThreadContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatTabsModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    NgxEditorModule,
     CommonModule,
     HttpClientModule,
     AngularEditorModule,

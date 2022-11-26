@@ -1,6 +1,5 @@
 .channel-container {
     position: relative;
-    min-height: 100vh;
 }
 
 .card-style {
@@ -47,4 +46,5 @@ margin-left: 2vw;
 
 .thread-container {
     height: calc(100vh - 340px);
+    overflow-y: auto;
 }
