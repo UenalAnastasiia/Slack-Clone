@@ -79,8 +79,10 @@ export class AddThreadComponent implements OnInit {
 
 
   async saveThread() {
+    let dateTime = new Date();
     const docRef = await addDoc(collection(this.firestore, "threads"), this.channel.toJSON())
     this.thread.id = docRef.id;
+    this.thread.sendDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
     location.reload();
     this.thread.message = '';

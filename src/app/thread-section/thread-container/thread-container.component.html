@@ -4,6 +4,8 @@
 
 <div *ngIf="!noThreads">
     <mat-card *ngFor="let thread of allThreads" class="thread-container">
+        <p>User</p>
+        <p> At {{ thread.sendDateTime | date: "HH:mm:ss"}} on {{ thread.sendDateTime | date: "dd/MM/yyyy"}} </p>
         <p>{{ thread.message }}</p>
         <p>Thread ID: {{ thread.id }}</p>
         <p>Channel ID: {{ thread.channelID }}</p>
