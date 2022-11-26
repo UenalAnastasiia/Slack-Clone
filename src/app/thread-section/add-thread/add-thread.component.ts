@@ -5,6 +5,7 @@ import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
 import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -16,9 +17,10 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export class AddThreadComponent implements OnInit {
   channel: Channel = new Channel();
   channelData: any;
-  name: any;
 
   thread = new Thread();
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -40,7 +42,7 @@ export class AddThreadComponent implements OnInit {
   };
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore) { }
+  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private messageTipp: MatSnackBar) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(routeParams => {
@@ -58,10 +60,29 @@ export class AddThreadComponent implements OnInit {
   }
 
 
+  sendThread() {
+    if (this.thread.message == '') {
+      this.showMessageTipp();
+    } else {
+      this.saveThread();
+    }
+  }
+
+
+  showMessageTipp() {
+    this.messageTipp.open('Please write a message!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
+  }
+
+
   async saveThread() {
     const docRef = await addDoc(collection(this.firestore, "threads"), this.channel.toJSON())
     this.thread.id = docRef.id;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
+    location.reload();
     this.thread.message = '';
   }
 }

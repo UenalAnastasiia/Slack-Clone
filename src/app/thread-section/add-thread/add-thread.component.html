@@ -3,5 +3,7 @@
         [(ngModel)]="thread.message">
     </angular-editor>
 
-    <button (click)="saveThread()">Save</button>
+    <button mat-fab (click)="sendThread()" class="example-button-container">
+        <mat-icon>send</mat-icon>
+    </button>
 </div>

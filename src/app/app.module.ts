@@ -29,6 +29,7 @@ import { AddThreadComponent } from './thread-section/add-thread/add-thread.compo
 import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ThreadContainerComponent } from './thread-section/thread-container/thread-container.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ThreadContainerComponent } from './thread-section/thread-container/thre
     CommonModule,
     HttpClientModule,
     AngularEditorModule,
+    MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],
