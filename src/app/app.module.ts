@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ThreadContainerComponent } from './thread-section/thread-container/thread-container.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ThreadDetailsComponent } from './thread-section/thread-details/thread-details.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     DialogChannelDetailsComponent,
     DialogEditChannelComponent,
     AddThreadComponent,
-    ThreadContainerComponent
+    ThreadContainerComponent,
+    ThreadDetailsComponent
   ],
   imports: [
     BrowserModule,

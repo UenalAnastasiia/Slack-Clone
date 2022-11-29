@@ -21,6 +21,8 @@ export class ThreadContainerComponent implements OnInit {
   channel = new Channel();
   channelData: any;
 
+  openDetails: boolean = false;
+
 
   constructor(public dialog: MatDialog, private firestore: Firestore, private activeRoute: ActivatedRoute) { }
 

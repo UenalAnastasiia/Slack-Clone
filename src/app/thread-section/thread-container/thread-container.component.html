@@ -9,5 +9,10 @@
         <p>{{ thread.message }}</p>
         <p>Thread ID: {{ thread.id }}</p>
         <p>Channel ID: {{ thread.channelID }}</p>
+        <button (click)="openDetails = !openDetails">Thread</button>
     </mat-card>
 </div>
+
+<mat-card *ngIf="openDetails">
+    <app-thread-details></app-thread-details>
+</mat-card>
