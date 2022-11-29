@@ -1,5 +1,14 @@
 .channel-container {
     position: relative;
+    display: flex;
+}
+
+.left-container {
+    width: 100vw;
+}
+
+.right-container {
+    width: 70vw;
 }
 
 .card-style {

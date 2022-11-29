@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +21,9 @@ export class ThreadContainerComponent implements OnInit {
   channel = new Channel();
   channelData: any;
 
-  openDetails: boolean = false;
+
+  @Output() threadShow = new EventEmitter<boolean>();
+  showDetails: boolean = false;
 
 
   constructor(public dialog: MatDialog, private firestore: Firestore, private activeRoute: ActivatedRoute) { }
@@ -30,6 +32,7 @@ export class ThreadContainerComponent implements OnInit {
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
+
   }
 
 
@@ -64,5 +67,11 @@ export class ThreadContainerComponent implements OnInit {
       this.allThreads = data;
       data.length >= 1 ? this.noThreads = false : this.noThreads = true;
     });
+  }
+
+
+  openDetails() {
+    this.showDetails = !this.showDetails;
+    this.threadShow.emit(this.showDetails);
   }
 }

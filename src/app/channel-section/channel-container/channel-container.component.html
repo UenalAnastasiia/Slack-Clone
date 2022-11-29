@@ -1,14 +1,22 @@
 <div class="channel-container">
-    <mat-card class="card-style">
-        <div class="name-header" (click)="openChannelDetails()">
-            <h1> # {{ channel.name }}</h1>
-            <mat-icon>keyboard_arrow_down</mat-icon>
-        </div>
-    </mat-card>
+    <div class="left-container">
+        <mat-card class="card-style">
+            <div class="name-header" (click)="openChannelDetails()">
+                <h1> # {{ channel.name }}</h1>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
+        </mat-card>
 
-    <mat-card class="card-style thread-container">
-        <app-thread-container></app-thread-container>
-    </mat-card>
+        <mat-card class="card-style thread-container">
+            <app-thread-container (threadShow)="showDetails = true"></app-thread-container>
+        </mat-card>
+    </div>
+
+    <div class="right-container" *ngIf="showDetails">
+        <mat-card class="card-style">
+            <app-thread-details></app-thread-details>
+        </mat-card>
+    </div>
 
     <div class="position-fixed">
         <div class="card-style add-thread-box">
