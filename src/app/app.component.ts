@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   allChannels: any = [];
   channnelID: string;
 
+
   constructor(public dialog: MatDialog, private firestore: Firestore) { }
 
 

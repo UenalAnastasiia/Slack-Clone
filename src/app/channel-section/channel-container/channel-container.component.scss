@@ -8,7 +8,7 @@
 }
 
 .right-container {
-    width: 70vw;
+    width: 60vw;
 }
 
 .card-style {
@@ -43,17 +43,22 @@
     position: fixed;
     bottom: 0;
     left: 0px;
-    right: 0;
     display: flex;
     justify-content: center;
 }
 
 .add-thread-box {
-width: 60vw;
-margin-left: 2vw;
+    width: 42vw;
+    margin-left: 19vw;
 }
 
 .thread-container {
     height: calc(100vh - 340px);
     overflow-y: auto;
+}
+
+.border-right {
+    height: 88vh;
+    margin-top: 10px;
+    border-right: 1px solid #ede5e5;
 }

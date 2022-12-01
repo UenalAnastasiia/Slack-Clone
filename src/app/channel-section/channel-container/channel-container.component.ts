@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
@@ -14,7 +14,7 @@ export class ChannelContainerComponent implements OnInit {
   channelID: string;
   channel: Channel = new Channel();
   channelData: any;
-  showDetails: boolean = false;
+  showDetails: boolean;
 
 
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
@@ -23,6 +23,7 @@ export class ChannelContainerComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe(params => {
       this.channelID = params.get('id');
+      this.showDetails = false;
     });
 
     this.activeRoute.params.subscribe(routeParams => {

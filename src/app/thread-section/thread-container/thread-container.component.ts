@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
 
+
 @Component({
   selector: 'app-thread-container',
   templateUrl: './thread-container.component.html',
@@ -17,6 +18,7 @@ export class ThreadContainerComponent implements OnInit {
   allThreads$: Observable<any>;
   allThreads: any = [];
   noThreads: boolean = true;
+  threadID: any;
 
   channel = new Channel();
   channelData: any;
@@ -32,7 +34,6 @@ export class ThreadContainerComponent implements OnInit {
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
-
   }
 
 
@@ -70,8 +71,9 @@ export class ThreadContainerComponent implements OnInit {
   }
 
 
-  openDetails() {
+  openDetails(id: string) {
     this.showDetails = !this.showDetails;
     this.threadShow.emit(this.showDetails);
+    localStorage.setItem('ThreadID', JSON.stringify(id));
   }
 }

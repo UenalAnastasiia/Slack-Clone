@@ -12,6 +12,8 @@
         </mat-card>
     </div>
 
+    <div class="border-right" *ngIf="showDetails"></div>
+
     <div class="right-container" *ngIf="showDetails">
         <mat-card class="card-style">
             <app-thread-details></app-thread-details>

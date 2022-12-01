@@ -6,6 +6,7 @@ import { ThreadContainerComponent } from './thread-section/thread-container/thre
 const routes: Routes = [
   { path: 'channel', component: ChannelContainerComponent },
   { path: 'channel/:id', component: ChannelContainerComponent },
+  // { path: 'channel/:id/:threadId', component: ThreadDetailsComponent }
 ];
 
 @NgModule({
