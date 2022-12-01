@@ -31,6 +31,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ThreadContainerComponent } from './thread-section/thread-container/thread-container.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ThreadDetailsComponent } from './thread-section/thread-details/thread-details.component';
+import { AddThreadCommentComponent } from './thread-section/add-thread-comment/add-thread-comment.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ThreadDetailsComponent } from './thread-section/thread-details/thread-d
     DialogEditChannelComponent,
     AddThreadComponent,
     ThreadContainerComponent,
-    ThreadDetailsComponent
+    ThreadDetailsComponent,
+    AddThreadCommentComponent
   ],
   imports: [
     BrowserModule,

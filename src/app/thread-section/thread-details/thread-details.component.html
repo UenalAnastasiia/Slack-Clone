@@ -10,3 +10,9 @@
     </div>
     <p>{{ thread.message }}</p>
 </div>
+
+<div *ngFor="let comment of allComments">
+    <p>{{ thread.commentMessage}}</p>
+</div>
+
+<app-add-thread-comment></app-add-thread-comment>

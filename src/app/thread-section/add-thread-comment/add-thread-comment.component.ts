@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
@@ -7,16 +7,16 @@ import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
-
 @Component({
-  selector: 'app-add-thread',
-  templateUrl: './add-thread.component.html',
-  styleUrls: ['./add-thread.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-add-thread-comment',
+  templateUrl: './add-thread-comment.component.html',
+  styleUrls: ['./add-thread-comment.component.scss']
 })
-export class AddThreadComponent implements OnInit {
+export class AddThreadCommentComponent implements OnInit {
   channel: Channel = new Channel();
   channelData: any;
+
+  detailsID: any;
 
   thread = new Thread();
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -37,7 +37,7 @@ export class AddThreadComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['fontName', 'fontSize']
+      ['fontName', 'fontSize', 'justifyLeft', 'justifyRight', 'justifyFull', 'indent', 'outdent']
     ]
   };
 
@@ -45,6 +45,7 @@ export class AddThreadComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private messageTipp: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
@@ -63,16 +64,16 @@ export class AddThreadComponent implements OnInit {
   onKeypressEvent(event: any) {
     if (event.keyCode == 13) {
       event.preventDefault();
-      this.sendThread();
+      this.sendComment();
     }
   }
 
 
-  sendThread() {
-    if (this.thread.message == '') {
+  sendComment() {
+    if (this.thread.commentMessage == '') {
       this.showMessageTipp();
     } else {
-      this.saveThread();
+      this.saveComment();
     }
   }
 
@@ -86,12 +87,16 @@ export class AddThreadComponent implements OnInit {
   }
 
 
-  async saveThread() {
+  async saveComment() {
     let dateTime = new Date();
-    const docRef = await addDoc(collection(this.firestore, "threads"), this.thread.toJSON())
-    this.thread.id = docRef.id;
-    this.thread.sendDateTime = dateTime.toISOString();
-    await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
-    this.thread.message = '';
+    const collRef = collection(this.firestore, "threads", this.detailsID, "threadComment");
+    const dataRef = await addDoc(collRef, {
+      threadComment: this.thread.commentMessage
+    });
+    this.thread.commentID = dataRef.id;
+    this.thread.commentDateTime = dateTime.toISOString();
+    await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
+    console.log('Comment: ', this.thread.commentMessage)
+    this.thread.commentMessage = '';
   }
 }
