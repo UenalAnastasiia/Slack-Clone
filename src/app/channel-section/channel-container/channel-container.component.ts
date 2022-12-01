@@ -14,8 +14,9 @@ export class ChannelContainerComponent implements OnInit {
   channelID: string;
   channel: Channel = new Channel();
   channelData: any;
+  
   @Output() threadShow = new EventEmitter<boolean>();
-  showDetails: boolean = false;
+  showDetails: boolean;
 
 
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
@@ -46,11 +47,6 @@ export class ChannelContainerComponent implements OnInit {
     const dialog = this.dialog.open(DialogChannelDetailsComponent);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channel.id = this.channelID;
-  }
-
-
-  testShowHide(showDetails: any) {
-    this.showDetails = showDetails;
   }
 
 

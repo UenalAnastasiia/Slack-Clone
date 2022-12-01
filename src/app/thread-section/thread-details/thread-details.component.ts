@@ -1,11 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Firestore, doc, getDoc, collectionData } from '@angular/fire/firestore';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Channel } from 'src/models/channel.class';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Thread } from 'src/models/thread.class';
 
 @Component({
   selector: 'app-thread-details',
@@ -22,12 +20,11 @@ export class ThreadDetailsComponent implements OnInit {
   detailsID: string;
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
+  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
-      this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
       this.getThread();
     });
   }
@@ -42,9 +39,10 @@ export class ThreadDetailsComponent implements OnInit {
 
 
   async getThread() {
+    this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
     const queryCollection = query(collection(this.firestore, "threads"), where("id", "==", this.detailsID));
-
     const querySnapshot = await getDocs(queryCollection);
+    
     querySnapshot.forEach(() => {
       this.currentThread$ = collectionData(queryCollection, { idField: "threadID" });
       this.subscribeData();

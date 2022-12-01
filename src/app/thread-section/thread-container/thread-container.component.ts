@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { collection, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
 import { Observable } from 'rxjs';
@@ -25,10 +24,10 @@ export class ThreadContainerComponent implements OnInit {
 
 
   @Output() threadShow = new EventEmitter<boolean>();
-  showDetails: boolean = false;
+  showDetails: boolean;
 
 
-  constructor(public dialog: MatDialog, private firestore: Firestore, private activeRoute: ActivatedRoute) { }
+  constructor(private firestore: Firestore, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe(routeParams => {
