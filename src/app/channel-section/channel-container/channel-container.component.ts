@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
@@ -14,7 +14,8 @@ export class ChannelContainerComponent implements OnInit {
   channelID: string;
   channel: Channel = new Channel();
   channelData: any;
-  showDetails: boolean;
+  @Output() threadShow = new EventEmitter<boolean>();
+  showDetails: boolean = false;
 
 
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
@@ -45,5 +46,16 @@ export class ChannelContainerComponent implements OnInit {
     const dialog = this.dialog.open(DialogChannelDetailsComponent);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     dialog.componentInstance.channel.id = this.channelID;
+  }
+
+
+  testShowHide(showDetails: any) {
+    this.showDetails = showDetails;
+  }
+
+
+  closeDetails() {
+    this.showDetails = !this.showDetails;
+    this.threadShow.emit(this.showDetails);
   }
 }

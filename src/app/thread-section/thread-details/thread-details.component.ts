@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Firestore, doc, getDoc, collectionData } from '@angular/fire/firestore';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Channel } from 'src/models/channel.class';
@@ -20,6 +20,7 @@ export class ThreadDetailsComponent implements OnInit {
   currentThread$: Observable<any>;
   currentThread: any = [];
   detailsID: string;
+
 
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
 

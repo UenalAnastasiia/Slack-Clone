@@ -60,6 +60,14 @@ export class AddThreadComponent implements OnInit {
   }
 
 
+  onKeypressEvent(event: any) {
+    if (event.keyCode == 13) {
+      event.preventDefault();
+      this.sendThread();
+    }
+  }
+
+
   sendThread() {
     if (this.thread.message == '') {
       this.showMessageTipp();
@@ -84,7 +92,6 @@ export class AddThreadComponent implements OnInit {
     this.thread.id = docRef.id;
     this.thread.sendDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
-    location.reload();
     this.thread.message = '';
   }
 }

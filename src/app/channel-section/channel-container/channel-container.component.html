@@ -8,7 +8,7 @@
         </mat-card>
 
         <mat-card class="card-style thread-container">
-            <app-thread-container (threadShow)="showDetails = true"></app-thread-container>
+            <app-thread-container (threadShow)="testShowHide($event)"></app-thread-container>
         </mat-card>
     </div>
 
@@ -16,6 +16,9 @@
 
     <div class="right-container" *ngIf="showDetails">
         <mat-card class="card-style">
+            <button mat-icon-button class="close-btn" (click)="closeDetails()">
+                <mat-icon>close</mat-icon>
+            </button>
             <app-thread-details></app-thread-details>
         </mat-card>
     </div>

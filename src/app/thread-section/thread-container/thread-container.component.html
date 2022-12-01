@@ -5,7 +5,7 @@
 <div *ngIf="!noThreads">
     <mat-card *ngFor="let thread of allThreads" class="thread-container">
         <p>User</p>
-        <p> {{ thread.sendDateTime | date: "dd/MM/yyyy"}}, {{ thread.sendDateTime | date: "HH:mm:ss"}} </p>
+        <p> {{ thread.sendDateTime | date: "dd/MM/yyyy"}} at {{ thread.sendDateTime | date: "HH:mm:ss"}} </p>
         <p>{{ thread.message }}</p>
         <p>Thread ID: {{ thread.id }}</p>
         <p>Channel ID: {{ thread.channelID }}</p>

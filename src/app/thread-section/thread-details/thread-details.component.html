@@ -4,7 +4,9 @@
 </div>
 
 <mat-card *ngFor="let thread of currentThread" class="thread-container">
-    <p>User</p>
-    <p> {{ thread.sendDateTime | date: "dd/MM/yyyy"}}, {{ thread.sendDateTime | date: "HH:mm:ss"}} </p>
+    <div>
+        <p>User</p>
+        <p> {{ thread.sendDateTime | date: "dd/MM/yyyy"}} at {{ thread.sendDateTime | date: "HH:mm:ss"}} </p>
+    </div>
     <p>{{ thread.message }}</p>
 </mat-card>
