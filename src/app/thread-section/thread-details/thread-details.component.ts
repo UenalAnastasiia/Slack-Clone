@@ -15,8 +15,8 @@ export class ThreadDetailsComponent implements OnInit {
   channelID: string;
   channel: Channel = new Channel();
   channelData: any;
-  thread = new Thread();
 
+  thread = new Thread();
   currentThread$: Observable<any>;
   currentThread: any = [];
   detailsID: string;
@@ -32,7 +32,7 @@ export class ThreadDetailsComponent implements OnInit {
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
       this.getThread();
-      this.getComments();
+      this.getThreadComments();
     });
   }
 
@@ -48,7 +48,7 @@ export class ThreadDetailsComponent implements OnInit {
   async getThread() {
     const queryCollection = query(collection(this.firestore, "threads"), where("id", "==", this.detailsID));
     const querySnapshot = await getDocs(queryCollection);
-    
+
     querySnapshot.forEach(() => {
       this.currentThread$ = collectionData(queryCollection, { idField: "threadID" });
       this.subscribeData();
@@ -63,21 +63,12 @@ export class ThreadDetailsComponent implements OnInit {
   }
 
 
-  async getComments() {
+  async getThreadComments() {
     const commentCollection = collection(this.firestore, "threads", this.detailsID, "threadComment");
     this.allComments$ = collectionData(commentCollection);
 
     this.allComments$.subscribe((data: any) => {
       this.allComments = data;
     });
-
-    // const queryCollection = collection(this.firestore, "threads", this.detailsID, "threadComment");
-    // const querySnapshot = await getDocs(queryCollection);
-    // querySnapshot.forEach(() => {
-    //   this.allComments$ = collectionData(queryCollection);
-    //   this.allComments$.subscribe((data: any) => {
-    //     this.allComments = data;
-    //   });
-    // });
   }
 }

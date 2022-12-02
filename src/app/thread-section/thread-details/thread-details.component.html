@@ -11,8 +11,12 @@
     <p>{{ thread.message }}</p>
 </div>
 
-<div *ngFor="let comment of allComments">
-    <p>{{ thread.commentMessage}}</p>
+<div class="comment-box" *ngFor="let thread of allComments" class="thread-container margin-left-28">
+    <div class="details-user-data">
+        <p>User</p>
+        <p> {{ thread.commentDateTime | date: "dd.MM.yyyy"}} at {{ thread.commentDateTime | date: "HH:mm"}} </p>
+    </div>
+    <p>{{ thread.commentMessage }}</p>
 </div>
 
 <app-add-thread-comment></app-add-thread-comment>
