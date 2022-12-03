@@ -10,6 +10,7 @@
         <p>Thread ID: {{ thread.id }}</p>
         <p>Channel ID: {{ thread.channelID }}</p>
         
-        <button class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">Thread</button>
+        <button *ngIf="!countBtn" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">Thread</button>
+        <button *ngIf="countBtn" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)"> {{ commentsLength }} Comments </button>
     </mat-card>
 </div>

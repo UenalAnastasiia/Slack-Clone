@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { collection, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, query, where, getDocs, getCountFromServer, collectionGroup } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
@@ -18,10 +18,11 @@ export class ThreadContainerComponent implements OnInit {
   allThreads: any = [];
   noThreads: boolean = true;
   threadID: any;
+  commentsLength: number;
+  countBtn: boolean = true;
 
   channel = new Channel();
   channelData: any;
-
 
   @Output() threadShow = new EventEmitter<boolean>();
   showDetails: boolean;

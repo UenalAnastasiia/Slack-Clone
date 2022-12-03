@@ -8,8 +8,11 @@
 }
 
 .right-container {
-    width: 60vw;
+    min-width: 35vw;
+    max-width: 35vw;
+    height: calc(100vh - 68px);
     background-color: white;
+    border-left: 1px solid #ede5e5;
 }
 
 .card-style {
@@ -56,12 +59,6 @@
 .thread-container {
     height: calc(100vh - 340px);
     overflow-y: auto;
-}
-
-.border-right {
-    height: 88vh;
-    margin-top: 10px;
-    border-right: 1px solid #ede5e5;
 }
 
 .close-btn {

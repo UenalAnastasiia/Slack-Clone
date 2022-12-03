@@ -94,9 +94,9 @@ export class AddThreadCommentComponent implements OnInit {
       threadComment: this.thread.commentMessage
     });
     this.thread.commentID = dataRef.id;
+    this.thread.commentThreadID = this.detailsID;
     this.thread.commentDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
-    console.log('Comment: ', this.thread.commentMessage)
     this.thread.commentMessage = '';
   }
 }

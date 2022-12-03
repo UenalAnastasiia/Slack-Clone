@@ -6,6 +6,8 @@ export class Thread {
     commentID: any;
     commentDateTime: any;
     commentMessage: any;
+    commentThreadID: any;
+    commentLength: number;
 
     constructor(obj?: any) {
         this.message = obj ? obj.message : '';
@@ -15,6 +17,8 @@ export class Thread {
         this.commentID = obj ? obj.commentID : '';
         this.commentDateTime = obj ? obj.commentDateTime : '';
         this.commentMessage = obj ? obj.commentMessage : '';
+        this.commentThreadID = obj ? obj.commentThreadID : '';
+        this.commentLength = obj ? obj.commentLength : '';
     }
 
     public toJSON() {
@@ -25,7 +29,9 @@ export class Thread {
             sendDateTime: this.sendDateTime,
             commentID: this.commentID,
             commentDateTime: this.commentDateTime,
-            commentMessage: this.commentMessage
+            commentMessage: this.commentMessage,
+            commentThreadID: this.commentThreadID,
+            commentLength: this.commentLength
         }
     }
 }
