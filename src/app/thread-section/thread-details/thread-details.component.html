@@ -3,7 +3,7 @@
     <h2># {{ channel.name }}</h2>
 </div>
 
-<div *ngFor="let thread of currentThread" class="thread-container pd-32">
+<div *ngFor="let thread of currentThread" class="thread-container pd-24">
     <div class="details-user-data">
         <p>User</p>
         <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>

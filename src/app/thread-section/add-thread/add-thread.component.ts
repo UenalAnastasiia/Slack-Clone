@@ -37,7 +37,7 @@ export class AddThreadComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['fontName', 'fontSize']
+      ['fontName', 'fontSize', 'justifyLeft', 'justifyRight', 'justifyFull', 'indent', 'outdent']
     ]
   };
 

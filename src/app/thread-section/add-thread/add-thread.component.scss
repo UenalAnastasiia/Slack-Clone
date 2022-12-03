@@ -1,8 +1,10 @@
 .angular-editor-textarea {
-    width: calc(100% - 28px);
+    width: 331px;
     height: 70px;
-    padding-left: 12px;
-    padding-top: 4px;
+    padding-left: 12px !important;
+    padding-right: 0;
+    padding-top: 4px !important;
+    padding-bottom: 0;
     border: none;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -41,6 +43,7 @@
     border-top-right-radius: 10px;
     margin-bottom: -5px;
     border-bottom: none !important;
+    width: 350px;
 }
 
 #strikeThrough-texteditor,
@@ -66,8 +69,6 @@
 }
 
 angular-editor {
-    width: 100%;
-
     img {
         display: none;
     }
@@ -90,4 +91,8 @@ angular-editor {
     min-width: 180px !important;
     color: white;
     background-color: #6F2F40 !important;
+}
+
+::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+    width: 480px !important;
 }

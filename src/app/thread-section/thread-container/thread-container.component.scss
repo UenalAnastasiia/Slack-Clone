@@ -11,3 +11,18 @@
     background: #5d2836;
     color: white;
 }
+
+.user-data {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+
+    p {
+        &:last-child {
+            margin-left: 12px;
+            margin-top: 2px;
+            font-size: 10px;
+            color: #949494;
+        }
+    }
+}

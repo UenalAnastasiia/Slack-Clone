@@ -5,6 +5,7 @@ import { Channel } from 'src/models/channel.class';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Thread } from 'src/models/thread.class';
+import { ShareService } from 'src/app/share.service';
 
 @Component({
   selector: 'app-thread-details',
