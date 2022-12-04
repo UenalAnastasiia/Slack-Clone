@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChannelContainerComponent } from './channel-section/channel-container/channel-container.component';
-import { ThreadContainerComponent } from './thread-section/thread-container/thread-container.component';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+
 
 const routes: Routes = [
-  { path: 'channel', component: ChannelContainerComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/channel' },
+  { path: 'channel', component: ChannelContainerComponent, ...canActivate(() => redirectUnauthorizedTo(['/login']))
+  },
   { path: 'channel/:id', component: ChannelContainerComponent },
-  // { path: 'channel/:id/:threadId', component: ThreadDetailsComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent }
+
 ];
 
 @NgModule({

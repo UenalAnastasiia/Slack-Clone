@@ -6,6 +6,8 @@ import { Channel } from 'src/models/channel.class';
 import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
   channnelID: string;
 
 
-  constructor(public dialog: MatDialog, private firestore: Firestore) { }
+  constructor(public dialog: MatDialog, private firestore: Firestore, private authService: AuthService, private router: Router) { }
 
 
   /**
@@ -42,6 +44,15 @@ export class AppComponent implements OnInit {
     this.allChannels$.subscribe((data: any) => {
       this.allChannels = data;
     });
+  }
+
+
+  onClick() {
+    this.authService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+      .catch(error => console.log(error));
   }
 
 

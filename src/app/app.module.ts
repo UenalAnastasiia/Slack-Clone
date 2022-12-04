@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 import { MatCardModule } from '@angular/material/card';
 import { DialogChannelDetailsComponent } from './channel-section/dialog-channel-details/dialog-channel-details.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,6 +33,9 @@ import { ThreadContainerComponent } from './thread-section/thread-container/thre
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ThreadDetailsComponent } from './thread-section/thread-details/thread-details.component';
 import { AddThreadCommentComponent } from './thread-section/add-thread-comment/add-thread-comment.component';
+import { AuthService } from './auth.service';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,9 @@ import { AddThreadCommentComponent } from './thread-section/add-thread-comment/a
     AddThreadComponent,
     ThreadContainerComponent,
     ThreadDetailsComponent,
-    AddThreadCommentComponent
+    AddThreadCommentComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -68,9 +74,10 @@ import { AddThreadCommentComponent } from './thread-section/add-thread-comment/a
     AngularEditorModule,
     MatSnackBarModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
