@@ -4,7 +4,7 @@
         <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Username" required autocomplete="off">
+                    <input type="text" matInput placeholder="Username" required autocomplete="off" formControlName="userName">
                 </mat-form-field>
             </p>
 

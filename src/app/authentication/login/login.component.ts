@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   error: string;
 
 
-  constructor(private service: AuthService, private router: Router) {
+  constructor(public service: AuthService, private router: Router) {
     this.formLogin = new FormGroup({
       email: new FormControl(),
       password: new FormControl()
@@ -27,8 +27,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.service.login(this.formLogin.value)
-      .then(response => {
-        console.log(response);
+      .then(() => {
+        this.service.loginObj.email = this.formLogin.get('email').value;
+        this.service.checkUserInStorage();
         window.location.href = '/channel';
       })
       .catch(error => this.error = error);
@@ -37,8 +38,7 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle() {
     this.service.loginWithGoogle()
-      .then(response => {
-        console.log(response);
+      .then(() => {
         window.location.href = '/channel';
       })
       .catch(error => this.error = error);
@@ -55,5 +55,4 @@ export class LoginComponent implements OnInit {
         this.error = error;
       });
   }
-
 }
