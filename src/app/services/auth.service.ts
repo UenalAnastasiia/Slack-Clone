@@ -56,7 +56,7 @@ export class AuthService {
 
   checkUserInStorage() {
     const currentUser = this.signupUsers.filter(m => this.loginObj.email == m.email);
-      localStorage.setItem('loggedUser', JSON.stringify(currentUser[0].userName));
+    localStorage.setItem('loggedUser', JSON.stringify(currentUser[0].userName));
   }
 
 

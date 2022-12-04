@@ -12,6 +12,7 @@ import { getAuth, signInAnonymously } from "firebase/auth";
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   error: string;
+  currentChannelID: string;
 
 
   constructor(public service: AuthService, private router: Router) {
@@ -22,7 +23,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentChannelID = JSON.parse(localStorage.getItem('ChannelID'));
+  }
 
 
   onSubmit() {
@@ -30,7 +33,7 @@ export class LoginComponent implements OnInit {
       .then(() => {
         this.service.loginObj.email = this.formLogin.get('email').value;
         this.service.checkUserInStorage();
-        window.location.href = '/channel';
+        window.location.href = `/channel/${this.currentChannelID}`;
       })
       .catch(error => this.error = error);
   }
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit {
   signInWithGoogle() {
     this.service.loginWithGoogle()
       .then(() => {
-        window.location.href = '/channel';
+        window.location.href = `/channel/${this.currentChannelID}`;
       })
       .catch(error => this.error = error);
   }
@@ -49,7 +52,7 @@ export class LoginComponent implements OnInit {
     const auth = getAuth();
     signInAnonymously(auth)
       .then(() => {
-        window.location.href = '/channel';
+        window.location.href = `/channel/${this.currentChannelID}`;
       })
       .catch((error) => {
         this.error = error;

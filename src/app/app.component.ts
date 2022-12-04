@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
   auth: boolean = true;
   
 
-
   constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService) { }
 
 
@@ -88,6 +87,8 @@ export class AppComponent implements OnInit {
   logOut() {
     this.authService.logout()
       .then(() => {
+        localStorage.removeItem('loggedUser');
+        localStorage.removeItem('ThreadID');
         window.location.href = '/login';
       })
       .catch(error => console.log(error));

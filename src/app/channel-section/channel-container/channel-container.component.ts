@@ -40,6 +40,7 @@ export class ChannelContainerComponent implements OnInit {
     this.channelData = snapDoc.data();
     this.channel = new Channel(this.channelData);
     this.channel.id = this.channelID;
+    localStorage.setItem('ChannelID', JSON.stringify(this.channel.id));
   }
 
 

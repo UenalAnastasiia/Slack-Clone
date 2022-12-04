@@ -6,6 +6,7 @@ import { Thread } from 'src/models/thread.class';
 import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -42,9 +43,15 @@ export class AddThreadComponent implements OnInit {
   };
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private messageTipp: MatSnackBar) { }
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private firestore: Firestore,
+    private messageTipp: MatSnackBar,
+    private service: AuthService) { }
+
 
   ngOnInit(): void {
+    this.service.getLoggedUser();
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
@@ -91,6 +98,7 @@ export class AddThreadComponent implements OnInit {
     const docRef = await addDoc(collection(this.firestore, "threads"), this.thread.toJSON())
     this.thread.id = docRef.id;
     this.thread.sendDateTime = dateTime.toISOString();
+    this.thread.currentUser = this.service.loggedUser;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
     this.thread.message = '';
   }

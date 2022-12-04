@@ -6,6 +6,7 @@ import { Thread } from 'src/models/thread.class';
 import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-thread-comment',
@@ -42,10 +43,16 @@ export class AddThreadCommentComponent implements OnInit {
   };
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private messageTipp: MatSnackBar) { }
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private firestore: Firestore,
+    private messageTipp: MatSnackBar,
+    private service: AuthService) { }
 
+    
   ngOnInit(): void {
     this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
+    this.service.getLoggedUser();
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });
@@ -93,7 +100,13 @@ export class AddThreadCommentComponent implements OnInit {
     const dataRef = await addDoc(collRef, {
       threadComment: this.thread.commentMessage
     });
+    this.setDocToDB(dateTime, dataRef);
+  }
+
+
+  async setDocToDB(dateTime: Date, dataRef: any) {
     this.thread.commentID = dataRef.id;
+    this.thread.currentUser = this.service.loggedUser;
     this.thread.commentThreadID = this.detailsID;
     this.thread.commentDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
