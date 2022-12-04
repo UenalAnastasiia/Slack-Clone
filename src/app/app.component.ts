@@ -7,7 +7,7 @@ import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   allChannels$: Observable<any>;
   allChannels: any = [];
   channnelID: string;
+  auth: boolean = true;
 
 
   constructor(public dialog: MatDialog, private firestore: Firestore, private authService: AuthService, private router: Router) { }
@@ -38,21 +39,13 @@ export class AppComponent implements OnInit {
    * Load Channel-Data from Firebase 
    */
   ngOnInit(): void {
+    this.checkURL();
     const channelCollection = collection(this.firestore, 'channels');
     this.allChannels$ = collectionData(channelCollection, { idField: "channelID" });
 
     this.allChannels$.subscribe((data: any) => {
       this.allChannels = data;
     });
-  }
-
-
-  onClick() {
-    this.authService.logout()
-      .then(() => {
-        this.router.navigate(['/login']);
-      })
-      .catch(error => console.log(error));
   }
 
 
@@ -85,7 +78,23 @@ export class AppComponent implements OnInit {
 
 
   openDialogAddChannel() {
-    const dialog = this.dialog.open(DialogAddChannelComponent); 
+    const dialog = this.dialog.open(DialogAddChannelComponent);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+  }
+
+
+  logOut() {
+    this.authService.logout()
+      .then(() => {
+        window.location.href = '/login';
+      })
+      .catch(error => console.log(error));
+  }
+
+
+  checkURL() {
+    if (window.location.href.includes('channel') || window.location.href.includes('register')) {
+      this.auth = false;
+    } 
   }
 }

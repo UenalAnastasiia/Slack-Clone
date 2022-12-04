@@ -4,19 +4,21 @@
         <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Username">
+                    <input type="text" matInput placeholder="Username" required autocomplete="off">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="E-Mail" formControlName="email">
+                    <input type="text" matInput placeholder="E-Mail" formControlName="email" required autocomplete="off">
+                    <mat-hint>xxx@gmail.com</mat-hint>
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="password" matInput placeholder="Password" formControlName="password">
+                    <input type="password" matInput placeholder="Password" formControlName="password" required autocomplete="off">
+                    <mat-hint>min. 8 symbols</mat-hint>
                 </mat-form-field>
             </p>
 
@@ -25,7 +27,7 @@
             </p>
 
             <div class="align-center">
-                <button type="submit" mat-raised-button color="warn">Sign up</button>
+                <button [disabled]="!this.formReg.controls['email'].value || !this.formReg.controls['password'].value" type="submit" mat-raised-button color="warn">Sign up</button>
             </div>
         </form>
 

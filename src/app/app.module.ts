@@ -33,9 +33,9 @@ import { ThreadContainerComponent } from './thread-section/thread-container/thre
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ThreadDetailsComponent } from './thread-section/thread-details/thread-details.component';
 import { AddThreadCommentComponent } from './thread-section/add-thread-comment/add-thread-comment.component';
-import { AuthService } from './auth.service';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { RegisterComponent } from './authentication/register/register.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 @NgModule({
   declarations: [

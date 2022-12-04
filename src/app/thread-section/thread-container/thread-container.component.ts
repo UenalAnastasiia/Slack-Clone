@@ -3,7 +3,7 @@ import { collectionData, Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { collection, doc, getDoc, query, where, getDocs, collectionGroup } from 'firebase/firestore';
 import { Observable } from 'rxjs';
-import { ShareService } from 'src/app/share.service';
+import { ShareService } from 'src/app/services/share.service';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
 

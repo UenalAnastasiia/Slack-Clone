@@ -1,17 +1,17 @@
 <mat-toolbar>
     <mat-toolbar-row>
-        <button mat-icon-button class="example-icon">
+        <button *ngIf="!auth" mat-icon-button class="example-icon">
             <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
         </button>
         <mat-icon class="tag-icon">tag</mat-icon>
         <span>Slack-Clone</span>
         <span class="example-spacer"></span>
-        <button (click)="onClick()" class="btn btn-outline-danger mt-5">Logout</button>
+        <button *ngIf="!auth" (click)="logOut()" class="btn btn-outline-danger mt-5" mat-button>Logout</button>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container" autosize>
-    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="false">
+    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="false" *ngIf="!auth">
 
     <!-- Channels Block -->
         <mat-nav-list>

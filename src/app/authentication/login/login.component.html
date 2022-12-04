@@ -4,13 +4,13 @@
         <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="E-Mail" formControlName="email">
+                    <input type="text" matInput placeholder="E-Mail" formControlName="email" required autocomplete="off">
                 </mat-form-field>
             </p>
 
             <p>
                 <mat-form-field>
-                    <input type="password" matInput placeholder="Password" formControlName="password">
+                    <input type="password" matInput placeholder="Password" formControlName="password" required autocomplete="off">
                 </mat-form-field>
             </p>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -17,20 +17,17 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(),
       password: new FormControl()
     })
-   }
-
-  ngOnInit(): void {
   }
+
+
+  ngOnInit(): void { }
 
 
   onSubmit() {
     this.service.register(this.formReg.value)
-      .then(response => {
-        console.log(response);
+      .then(() => {
         this.router.navigate(['/login']);
       })
       .catch(error => this.error = error)
   }
-
-
 }

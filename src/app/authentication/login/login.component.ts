@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { getAuth, signInAnonymously } from "firebase/auth";
 
 @Component({
@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   error: string;
 
+
   constructor(private service: AuthService, private router: Router) {
     this.formLogin = new FormGroup({
       email: new FormControl(),
@@ -20,25 +21,25 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
+
+  ngOnInit(): void {}
 
 
   onSubmit() {
     this.service.login(this.formLogin.value)
       .then(response => {
         console.log(response);
-        this.router.navigate(['/channel']);
+        window.location.href = '/channel';
       })
       .catch(error => this.error = error);
   }
-  
+
 
   signInWithGoogle() {
     this.service.loginWithGoogle()
       .then(response => {
         console.log(response);
-        this.router.navigate(['/channel']);
+        window.location.href = '/channel';
       })
       .catch(error => this.error = error);
   }
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
     const auth = getAuth();
     signInAnonymously(auth)
       .then(() => {
-        this.router.navigate(['/channel']);
+        window.location.href = '/channel';
       })
       .catch((error) => {
         this.error = error;

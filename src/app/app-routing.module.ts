@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChannelContainerComponent } from './channel-section/channel-container/channel-container.component';
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
+import { LoginComponent } from './authentication/login/login.component';
 
 
 const routes: Routes = [

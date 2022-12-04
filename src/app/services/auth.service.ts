@@ -12,14 +12,17 @@ export class AuthService {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
+
   login({ email, password }: any) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
+
 
   loginWithGoogle() {
     return signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
+  
   logout() {
     return signOut(this.auth);
   }
