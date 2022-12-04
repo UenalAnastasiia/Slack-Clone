@@ -4,12 +4,6 @@
         <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
             <p>
                 <mat-form-field>
-                    <input type="text" matInput placeholder="Username">
-                </mat-form-field>
-            </p>
-
-            <p>
-                <mat-form-field>
                     <input type="text" matInput placeholder="E-Mail" formControlName="email">
                 </mat-form-field>
             </p>
@@ -24,23 +18,30 @@
                 {{ error }}
             </p>
 
-            <div class="button">
-                <button type="submit" mat-button>Login</button>
+            <div class="align-center">
+                <button type="submit" mat-raised-button color="warn">Sign in</button>
             </div>
         </form>
 
-        <button mat-button (click)="signInWithGoogle()">
-            <img src="../../../assets/img/google.png" alt="" height="24px" width="24px">
-            <label class="form-label">Sign In with Google</label>
-        </button>
-
-        <p routerLink="/register">
-            <label class="form-label">Need Account? 
-                <button mat-button routerLink="/register" class="text-danger">Register</button>
-            </label>
+        <p class="align-center or-text">
+            <span>OR</span>
         </p>
+
+        <div class="login-options-btn">
+            <button mat-button (click)="signInWithGoogle()">
+                <img src="../../../assets/img/google.png">
+                <label class="form-label">Login with Google</label>
+            </button>
+
+            <button mat-button (click)="guestLogin()">
+                <mat-icon class="icon-guest">psychology_alt</mat-icon> Login as Guest
+            </button>
+        </div>
     </mat-card-content>
-    <button mat-button (click)="guestLogin()">
-        Login as Guest
-    </button>
+
+    <p class="or-text align-center sign-up-btn">
+        <label class="form-label"> Don't have an account?
+            <button mat-button routerLink="/register" class="text-danger">Sign up</button>
+        </label>
+    </p>
 </mat-card>

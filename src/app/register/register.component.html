@@ -4,6 +4,12 @@
         <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
             <p>
                 <mat-form-field>
+                    <input type="text" matInput placeholder="Username">
+                </mat-form-field>
+            </p>
+
+            <p>
+                <mat-form-field>
                     <input type="text" matInput placeholder="E-Mail" formControlName="email">
                 </mat-form-field>
             </p>
@@ -18,14 +24,14 @@
                 {{ error }}
             </p>
 
-            <div class="button">
-                <button type="submit" mat-button>Register</button>
+            <div class="align-center">
+                <button type="submit" mat-raised-button color="warn">Sign up</button>
             </div>
         </form>
 
-        <p routerLink="/register">
-            <label class="form-label">Have an account?
-                <button mat-button routerLink="/login" class="text-danger">Login</button>
+        <p class="text align-center sign-in-btn">
+            <label class="form-label"> Have an account?
+                <button mat-button routerLink="/login" class="text-danger">Sign in</button>
             </label>
         </p>
     </mat-card-content>
