@@ -12,7 +12,7 @@ import { getAuth, signInAnonymously } from "firebase/auth";
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   error: string;
-  currentChannelID: string;
+  currentChannelID: any;
 
 
   constructor(public service: AuthService, private router: Router) {
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.currentChannelID = JSON.parse(localStorage.getItem('ChannelID'));
+    this.currentChannelID = JSON.parse(localStorage.getItem('ChannelID')) || '2Ecs6JiwGiJbOzwMYY8F';
   }
 
 

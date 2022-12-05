@@ -16,7 +16,7 @@
 <div *ngIf="showComments" class="comment-box">
     <div *ngFor="let thread of allComments" class="thread-container margin-left-28">
         <div class="details-user-data">
-            <p>{{ thread.currentUser || 'Guest'}} </p>
+            <p>{{ thread.commentUser || 'Guest'}} </p>
             <p> {{ thread.commentDateTime | date: "dd.MM.yyyy"}} at {{ thread.commentDateTime | date: "HH:mm"}} </p>
         </div>
         <span>{{ thread.commentMessage }}</span>

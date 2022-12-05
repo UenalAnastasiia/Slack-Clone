@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, setDoc, collectionData, updateDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
 import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-add-thread-comment',
@@ -18,6 +20,10 @@ export class AddThreadCommentComponent implements OnInit {
   channelData: any;
 
   detailsID: any;
+  allComments$: Observable<any>;
+  allComments: any = [];
+  commentsLength: number;
+  commentData: any;
 
   thread = new Thread();
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -49,7 +55,7 @@ export class AddThreadCommentComponent implements OnInit {
     private messageTipp: MatSnackBar,
     private service: AuthService) { }
 
-    
+
   ngOnInit(): void {
     this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
     this.service.getLoggedUser();
@@ -101,15 +107,36 @@ export class AddThreadCommentComponent implements OnInit {
       threadComment: this.thread.commentMessage
     });
     this.setDocToDB(dateTime, dataRef);
+    this.getCommentsLength();
   }
 
 
   async setDocToDB(dateTime: Date, dataRef: any) {
     this.thread.commentID = dataRef.id;
-    this.thread.currentUser = this.service.loggedUser;
+    this.thread.commentUser = this.service.loggedUser;
     this.thread.commentThreadID = this.detailsID;
     this.thread.commentDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
     this.thread.commentMessage = '';
+  }
+
+
+  async getCommentsLength() {
+    const commentCollection = collection(this.firestore, "threads", this.detailsID, "threadComment");
+    this.allComments$ = collectionData(commentCollection);
+
+    this.allComments$.subscribe(async (data: any) => {
+      this.allComments = data;
+      this.updateLengthData(data);
+    });
+  }
+
+
+  async updateLengthData(data: any) {
+    this.thread.commentLength = data.length;
+    await updateDoc(doc(this.firestore, "threads", this.detailsID), {
+      commentLength: this.thread.commentLength,
+      commentLengthText: true
+    });
   }
 }

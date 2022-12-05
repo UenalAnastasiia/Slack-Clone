@@ -1,5 +1,6 @@
 <div class="editor-box">
-    <angular-editor id="texteditor" [config]="editorConfig" placeholder="Answer on Thread from User..." [(ngModel)]="thread.commentMessage" (keypress)="onKeypressEvent($event)">
+    <angular-editor id="texteditor" [config]="editorConfig" placeholder="Answer on Thread from User..."
+        [(ngModel)]="thread.commentMessage" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <button mat-fab (click)="sendComment()" class="example-button-container">
