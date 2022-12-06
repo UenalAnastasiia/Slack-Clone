@@ -36,6 +36,7 @@ import { AddThreadCommentComponent } from './thread-section/add-thread-comment/a
 import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { LoginComponent } from './authentication/login/login.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    provideStorage(() => getStorage())
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

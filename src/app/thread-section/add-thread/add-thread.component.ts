@@ -7,6 +7,7 @@ import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
+import { UploadService } from 'src/app/upload.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AddThreadComponent implements OnInit {
   channel: Channel = new Channel();
   channelData: any;
-
+  file: File;
   thread = new Thread();
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -34,20 +35,20 @@ export class AddThreadComponent implements OnInit {
     translate: 'yes',
     enableToolbar: true,
     showToolbar: true,
-    uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
       ['fontName', 'fontSize', 'justifyLeft', 'justifyRight', 'justifyFull', 'indent', 'outdent']
     ]
   };
-
+ 
 
   constructor(
     private activeRoute: ActivatedRoute,
     private firestore: Firestore,
     private messageTipp: MatSnackBar,
-    private service: AuthService) { }
+    private service: AuthService,
+    public uploadService: UploadService) { }
 
 
   ngOnInit(): void {
@@ -80,6 +81,7 @@ export class AddThreadComponent implements OnInit {
       this.showMessageTipp();
     } else {
       this.saveThread();
+      this.uploadFileToDB();
     }
   }
 
@@ -100,6 +102,18 @@ export class AddThreadComponent implements OnInit {
     this.thread.sendDateTime = dateTime.toISOString();
     this.thread.currentUser = this.service.loggedUser;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
+    location.reload();
     this.thread.message = '';
+  }
+
+
+  onFilechange(event: any) {
+    this.file = event.target.files[0]
+  }
+
+
+  uploadFileToDB() {
+      console.log(this.file);
+      this.uploadService.uploadfile(this.file);
   }
 }

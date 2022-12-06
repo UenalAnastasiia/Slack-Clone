@@ -1,8 +1,14 @@
 <div class="editor-box">
-    <angular-editor id="texteditor" [config]="editorConfig" placeholder="Message on # {{ channel.name }}..." [(ngModel)]="thread.message" (keypress)="onKeypressEvent($event)">
+    <angular-editor id="texteditor" [config]="editorConfig" placeholder="Message on # {{ channel.name }}..."
+        [(ngModel)]="thread.message" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <button mat-fab (click)="sendThread()" class="example-button-container">
         <mat-icon>send</mat-icon>
     </button>
+
+    <form>
+        <input type="file" name="files" (change)="onFilechange($event)">
+        <!-- <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button> -->
+        </form>
 </div>
