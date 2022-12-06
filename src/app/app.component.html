@@ -6,7 +6,7 @@
         <mat-icon class="tag-icon">tag</mat-icon>
         <span>Slack-Clone</span>
         <span class="example-spacer"></span>
-        <span> {{ authService.loggedUser }}</span>
+        <span *ngIf="!auth"> {{ authService.loggedUser }}</span>
         <button *ngIf="!auth" (click)="logOut()" class="btn btn-outline-danger mt-5" mat-button>Logout</button>
     </mat-toolbar-row>
 </mat-toolbar>
