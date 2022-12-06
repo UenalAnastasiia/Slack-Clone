@@ -17,7 +17,7 @@ export class ThreadContainerComponent implements OnInit {
   thread = new Thread();
   allThreads$: Observable<any>;
   allThreads: any = [];
-  noThreads: boolean = true;
+  noThreads: boolean = false;
   threadID: any;
 
   channel = new Channel();
@@ -30,6 +30,10 @@ export class ThreadContainerComponent implements OnInit {
   constructor(private firestore: Firestore, private activeRoute: ActivatedRoute, public service: ShareService) { }
 
   ngOnInit(): void {
+    this.activeRoute.paramMap.subscribe(params => {
+      this.threadID = params.get('id');
+    });
+
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);
     });

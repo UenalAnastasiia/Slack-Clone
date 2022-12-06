@@ -1,8 +1,8 @@
-<div *ngIf="noThreads" class="no-threads-box">
+<div *ngIf="noThreads == true" class="no-threads-box">
     <p>This Channel is empty... Send the first Thread!</p>
 </div>
 
-<div *ngIf="!noThreads">
+<div *ngIf="noThreads == false">
     <mat-card *ngFor="let thread of allThreads" class="thread-container">
         <div class="user-data">
             <p> {{ thread.currentUser || 'Guest'}} </p>
