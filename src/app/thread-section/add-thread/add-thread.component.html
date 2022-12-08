@@ -3,12 +3,14 @@
         [(ngModel)]="thread.message" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
-    <button mat-fab (click)="sendThread()" class="example-button-container">
-        <mat-icon>send</mat-icon>
-    </button>
+    <div class="btn-box">
+        <input class="ng-hide" id="input-file-id" multiple type="file" (change)="onFilechange($event)"/>
+        <label for="input-file-id" class="md-button md-raised md-primary">
+            <mat-icon class="upload-btn">upload_file</mat-icon>
+        </label>
 
-    <form>
-        <input type="file" name="files" (change)="onFilechange($event)">
-        <!-- <button type="submit" (click)="onSubmit()" class="btn btn-primary">Submit</button> -->
-        </form>
+        <button mat-fab (click)="sendThread()" class="example-button-container">
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
 </div>

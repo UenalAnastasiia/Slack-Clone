@@ -8,6 +8,7 @@ import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fir
 export class UploadService {
   fileDoc: string[];
 
+  
   constructor(private storage: Storage) {
     this.fileDoc = [];
     this.getFile();

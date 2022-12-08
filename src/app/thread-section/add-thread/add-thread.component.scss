@@ -97,3 +97,25 @@ angular-editor {
 ::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
     width: 480px !important;
 }
+
+.ng-hide {
+    margin-left: -130px;
+}
+
+.upload-btn {
+    color: #6F2F40 !important;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
+    margin-bottom: 12px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-box {
+    display: flex;
+    flex-direction: column;
+}

@@ -113,7 +113,6 @@ export class AddThreadComponent implements OnInit {
 
 
   uploadFileToDB() {
-      console.log(this.file);
       this.uploadService.uploadfile(this.file);
   }
 }
