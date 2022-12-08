@@ -10,6 +10,7 @@ export class Thread {
     commentThreadID: any;
     commentLength: any;
     commentUser: any;
+    uploadFile: any;
     
 
     constructor(obj?: any) {
@@ -24,6 +25,7 @@ export class Thread {
         this.commentThreadID = obj ? obj.commentThreadID : '';
         this.commentLength = obj ? obj.commentLength : '';
         this.commentUser = obj ? obj.commentUser : '';
+        this.uploadFile = obj ? obj.uploadFile : '';
     }
 
     public toJSON() {
@@ -38,7 +40,8 @@ export class Thread {
             commentMessage: this.commentMessage,
             commentThreadID: this.commentThreadID,
             commentLength: this.commentLength,
-            commentUser: this.commentUser
+            commentUser: this.commentUser,
+            uploadFile: this.uploadFile
         }
     }
 }

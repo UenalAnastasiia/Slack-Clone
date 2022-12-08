@@ -9,8 +9,11 @@
             <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
         </div>
         <p>{{ thread.message }}</p>
-        <p>Thread ID: {{ thread.id }}</p>
-        <p>Channel ID: {{ thread.channelID }}</p>
+        <a href="{{ thread.uploadFile }}" target="_blank">
+            <img class="uploadImg" src="{{ thread.uploadFile }}">
+        </a>
+        <!-- <p>Thread ID: {{ thread.id }}</p>
+        <p>Channel ID: {{ thread.channelID }}</p> -->
 
         <button *ngIf="thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)"> 
             {{ thread.commentLength }} Comment(s) 

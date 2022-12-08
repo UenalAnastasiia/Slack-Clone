@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { collection, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { ShareService } from 'src/app/services/share.service';
+import { UploadService } from 'src/app/upload.service';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
 
@@ -27,7 +28,7 @@ export class ThreadContainerComponent implements OnInit {
   showDetails: boolean;
 
 
-  constructor(private firestore: Firestore, private activeRoute: ActivatedRoute, public service: ShareService) { }
+  constructor(private firestore: Firestore, private activeRoute: ActivatedRoute, public service: ShareService,  public uploadService: UploadService) { }
 
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe(params => {

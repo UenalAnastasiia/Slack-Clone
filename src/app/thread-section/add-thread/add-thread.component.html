@@ -4,7 +4,8 @@
     </angular-editor>
 
     <div class="btn-box">
-        <input class="ng-hide" id="input-file-id" multiple type="file" (change)="onFilechange($event)"/>
+        <input [(ngModel)]="thread.uploadFile" class="ng-hide" id="input-file-id" multiple type="file" (change)="onFilechange($event)"/>
+        <!-- <mat-icon (click)="uploadService.cancelUpload(file)">close</mat-icon> -->
         <label for="input-file-id" class="md-button md-raised md-primary">
             <mat-icon class="upload-btn">upload_file</mat-icon>
         </label>
