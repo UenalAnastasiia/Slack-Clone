@@ -8,7 +8,7 @@
         <span class="example-spacer"></span>
 
         <button mat-button *ngIf="!auth" [matMenuTriggerFor]="userOptions">
-            <mat-icon>account_box</mat-icon>
+            <img class="userImg-small" src="{{ authService.userImg }}" alt="">
             <span> {{ authService.userName }} </span>
         </button>
         <mat-menu #userOptions="matMenu">

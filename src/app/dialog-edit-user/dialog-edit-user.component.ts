@@ -48,6 +48,7 @@ export class DialogEditUserComponent implements OnInit {
               photoURL: downloadURL
             }).then(() => {
               location.reload();
+              // Versuch: alle Threads aufrufen, die den Usernamen benhalten und dort die userImg abändern
             }).catch((error) => {
               error = error
             });

@@ -5,7 +5,7 @@
 <div *ngIf="noThreads == false">
     <mat-card *ngFor="let thread of allThreads" class="thread-container">
         <div class="user-img">
-            <img src="{{ authService.userImg }}" alt="">
+            <img src="{{ thread.userImg }}" alt="">
         </div>
         <div>
             <div class="user-data">

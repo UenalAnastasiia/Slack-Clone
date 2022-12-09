@@ -8,6 +8,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 @Component({
@@ -110,6 +111,7 @@ export class AddThreadComponent implements OnInit {
     this.thread.currentUser = this.service.userName;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
     this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
+    this.saveUserImgToDB();
     this.thread.message = '';
     this.cleanInputFile();
   }
@@ -135,5 +137,17 @@ export class AddThreadComponent implements OnInit {
           });
         });
     }
+  }
+
+
+  saveUserImgToDB() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        let userImg = user.photoURL;
+        await updateDoc(doc(this.firestore, "threads", this.thread.id),
+          { userImg: userImg });
+      }
+    });
   }
 }
