@@ -1,6 +1,7 @@
 .thread-container {
     margin: 6px;
     height: max-content;
+    display: flex;
 }
 
 .no-threads-box {
@@ -18,7 +19,7 @@
 .user-data {
     display: flex;
     align-items: center;
-    margin-top: 0px;
+    margin-top: 4px;
 
     p {
         &:last-child {
@@ -34,4 +35,14 @@
     height: 120px;
     margin-bottom: 40px;  
     object-fit: cover;
+}
+
+.user-img {
+    margin-right: 8px; 
+
+    img {
+        height: 50px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
 }

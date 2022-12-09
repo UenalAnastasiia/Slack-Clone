@@ -4,23 +4,28 @@
 
 <div *ngIf="noThreads == false">
     <mat-card *ngFor="let thread of allThreads" class="thread-container">
-        <div class="user-data">
-            <p> {{ thread.currentUser || 'Guest'}} </p>
-            <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
+        <div class="user-img">
+            <img src="{{ authService.userImg }}" alt="">
         </div>
-        <p>{{ thread.message }}</p>
-        <a href="{{ thread.uploadFile }}" target="_blank">
-            <img class="uploadImg" src="{{ thread.uploadFile }}">
-        </a>
+        <div>
+            <div class="user-data">
+                <p> {{ thread.currentUser || 'Guest'}} </p>
+                <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
+            </div>
+            <p>{{ thread.message }}</p>
+            <a href="{{ thread.uploadFile }}" target="_blank">
+                <img class="uploadImg" src="{{ thread.uploadFile }}">
+            </a>
+        </div>
         <!-- <p>Thread ID: {{ thread.id }}</p>
         <p>Channel ID: {{ thread.channelID }}</p> -->
 
-        <button *ngIf="thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)"> 
-            {{ thread.commentLength }} Comment(s) 
+        <button *ngIf="thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">
+            {{ thread.commentLength }} Comment(s)
         </button>
 
-        <button *ngIf="!thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)"> 
-            Thread  
+        <button *ngIf="!thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">
+            Thread
         </button>
     </mat-card>
 </div>

@@ -1,0 +1,34 @@
+<div class="edit-card">
+    <mat-icon class="close-btn" (click)="dialogRef.close()">close</mat-icon>
+
+    <form [formGroup]="formEdit">
+        <div class="edit-profil">
+            <h1><b>Profil</b></h1>
+        </div>
+        <div class="edit-img-box">
+            <input accept="image/*" class="input-margin" id="inputFile" multiple type="file"
+                (change)="onFilechange($event)" />
+            <img class="user-img" src="{{ authService.userImg }}">
+            <mat-icon (click)="editImg()">edit_note</mat-icon>
+        </div>
+
+        <div class="user-info">
+            <div class="edit-user-info">
+                <mat-icon (click)="editName()">edit_note</mat-icon>
+
+                <mat-form-field class="form-name">
+                    <input type="text" matInput [(ngModel)]="authService.userName" formControlName="name" required
+                        autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div class="contact-info">
+                <h2>Contact</h2>
+                <div class="d-flex">
+                    <span>E-Mail:</span>
+                    <span> {{ authService.userEmail }} </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

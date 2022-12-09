@@ -37,6 +37,8 @@ import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { MatMenuModule } from '@angular/material/menu';
+import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     ThreadDetailsComponent,
     AddThreadCommentComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    DialogEditUserComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     HttpClientModule,
     AngularEditorModule,
     MatSnackBarModule,
+    MatMenuModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

@@ -38,7 +38,8 @@ export class RegisterComponent implements OnInit {
   async updateUser() {
     const auth = getAuth();
     await updateProfile(auth.currentUser, {
-      displayName: this.formReg.get('name').value
+      displayName: this.formReg.get('name').value,
+      photoURL: 'assets/img/profile.png'
     }).then(() => {
       this.router.navigate(['/login']);
     }).catch((error) => {

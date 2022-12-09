@@ -7,6 +7,7 @@ import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/
 import { Firestore, collectionData } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 import { AuthService } from './services/auth.service';
+import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 
 
 @Component({
@@ -30,7 +31,6 @@ export class AppComponent implements OnInit {
   channnelID: string;
 
   auth: boolean = true;
-  loggedUser: any;
 
 
   constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService) {
@@ -84,6 +84,11 @@ export class AppComponent implements OnInit {
   openDialogAddChannel() {
     const dialog = this.dialog.open(DialogAddChannelComponent);
     dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+  }
+
+
+  openDialogEditUser() {
+    this.dialog.open(DialogEditUserComponent);
   }
 
 

@@ -7,7 +7,9 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  loggedUser: any;
+  userName: any;
+  userImg: any;
+  userEmail: any;
 
   constructor(private auth: Auth) {
   }
@@ -36,7 +38,9 @@ export class AuthService {
     const authUser = getAuth();
     onAuthStateChanged(authUser, (user) => {
       if (user) {
-        this.loggedUser = user.displayName;
+        this.userName = user.displayName;
+        this.userImg = user.photoURL;
+        this.userEmail = user.email;
       }
     });
   }

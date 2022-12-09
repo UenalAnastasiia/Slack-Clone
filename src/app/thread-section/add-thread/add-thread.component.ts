@@ -107,7 +107,7 @@ export class AddThreadComponent implements OnInit {
     const docRef = await addDoc(collection(this.firestore, "threads"), this.thread.toJSON())
     this.thread.id = docRef.id;
     this.thread.sendDateTime = dateTime.toISOString();
-    this.thread.currentUser = this.service.loggedUser;
+    this.thread.currentUser = this.service.userName;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
     this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
     this.thread.message = '';

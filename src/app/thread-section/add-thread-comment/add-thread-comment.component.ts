@@ -113,7 +113,7 @@ export class AddThreadCommentComponent implements OnInit {
 
   async setDocToDB(dateTime: Date, dataRef: any) {
     this.thread.commentID = dataRef.id;
-    this.thread.commentUser = this.service.loggedUser;
+    this.thread.commentUser = this.service.userName;
     this.thread.commentThreadID = this.detailsID;
     this.thread.commentDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
