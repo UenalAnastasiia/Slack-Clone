@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { getAuth, updateProfile } from "firebase/auth";
 
 @Component({
   selector: 'app-register',
@@ -16,23 +17,33 @@ export class RegisterComponent implements OnInit {
     this.formReg = new FormGroup({
       email: new FormControl(),
       password: new FormControl(),
-      userName: new FormControl()
+      name: new FormControl()
     });
   }
 
 
   ngOnInit(): void {
-   }
+  }
 
 
   onSubmit() {
     this.service.register(this.formReg.value)
       .then(() => {
-        this.service.signupObj.email = this.formReg.get('email').value;
-        this.service.signupObj.userName = this.formReg.get('userName').value;
-        this.service.loadSignToStorage();
-        this.router.navigate(['/login']);
+        this.updateUser();
       })
       .catch(error => this.error = error)
+  }
+
+
+  async updateUser() {
+    const auth = getAuth();
+    await updateProfile(auth.currentUser, {
+      displayName: this.formReg.get('name').value
+    }).then(() => {
+      console.log('Display: ', auth.currentUser)
+      this.router.navigate(['/login']);
+    }).catch((error) => {
+      this.error = error
+    });
   }
 }

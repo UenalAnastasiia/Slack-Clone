@@ -1,27 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  signupUsers: any[] = [];
-  signupObj: any = {
-    userName: '',
-    email: ''
-  };
-
-  loginObj: any = {
-    email: ''
-  };
-
-  loggedUser: string;
+  loggedUser: any;
 
   constructor(private auth: Auth) {
-    const localData = localStorage.getItem('signUpUsers');
-    if (localData != null) {
-      this.signupUsers = JSON.parse(localData);
-    }
   }
 
   register({ email, password }: any) {
@@ -44,26 +32,12 @@ export class AuthService {
   }
 
 
-  loadSignToStorage() {
-    this.signupUsers.push(this.signupObj);
-    localStorage.setItem('signUpUsers', JSON.stringify(this.signupUsers));
-    this.signupObj = {
-      userName: '',
-      email: ''
-    };
-  }
-
-
-  checkUserInStorage() {
-    const currentUser = this.signupUsers.filter(m => this.loginObj.email == m.email);
-    localStorage.setItem('loggedUser', JSON.stringify(currentUser[0].userName));
-  }
-
-
   getLoggedUser() {
-    const localData = localStorage.getItem('loggedUser');
-    if (localData != null) {
-      this.loggedUser = JSON.parse(localData);
-    }
+    const authUser = getAuth();
+    onAuthStateChanged(authUser, (user) => {
+      if (user) {
+        this.loggedUser = user.displayName;
+      }
+    });
   }
 }

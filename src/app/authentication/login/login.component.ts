@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.service.login(this.formLogin.value)
       .then(() => {
-        this.service.loginObj.email = this.formLogin.get('email').value;
-        this.service.checkUserInStorage();
         window.location.href = `/channel/${this.currentChannelID}`;
       })
       .catch(error => this.error = error);
@@ -42,6 +40,7 @@ export class LoginComponent implements OnInit {
   signInWithGoogle() {
     this.service.loginWithGoogle()
       .then(() => {
+        this.service.getLoggedUser();
         window.location.href = `/channel/${this.currentChannelID}`;
       })
       .catch(error => this.error = error);

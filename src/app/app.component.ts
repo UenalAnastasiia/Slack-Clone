@@ -28,10 +28,14 @@ export class AppComponent implements OnInit {
   allChannels$: Observable<any>;
   allChannels: any = [];
   channnelID: string;
-  auth: boolean = true;
-  
 
-  constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService) { }
+  auth: boolean = true;
+  loggedUser: any;
+
+
+  constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService) {
+    this.authService.getLoggedUser();
+  }
 
 
   /**
@@ -39,8 +43,7 @@ export class AppComponent implements OnInit {
    */
   ngOnInit(): void {
     this.checkURL();
-    this.authService.getLoggedUser();
-    
+
     const channelCollection = collection(this.firestore, 'channels');
     this.allChannels$ = collectionData(channelCollection, { idField: "channelID" });
 
@@ -87,7 +90,6 @@ export class AppComponent implements OnInit {
   logOut() {
     this.authService.logout()
       .then(() => {
-        localStorage.removeItem('loggedUser');
         localStorage.removeItem('ThreadID');
         window.location.href = '/login';
       })
@@ -98,6 +100,6 @@ export class AppComponent implements OnInit {
   checkURL() {
     if (window.location.href.includes('channel') || window.location.href.includes('register')) {
       this.auth = false;
-    } 
+    }
   }
 }
