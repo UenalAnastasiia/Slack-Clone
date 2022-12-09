@@ -109,7 +109,7 @@ export class AddThreadComponent implements OnInit {
     this.thread.sendDateTime = dateTime.toISOString();
     this.thread.currentUser = this.service.loggedUser;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
-    this.getFile === true ? this.uploadFileToDB() : this.getFile = false;
+    this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
     this.thread.message = '';
     this.cleanInputFile();
   }

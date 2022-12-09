@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
     await updateProfile(auth.currentUser, {
       displayName: this.formReg.get('name').value
     }).then(() => {
-      console.log('Display: ', auth.currentUser)
       this.router.navigate(['/login']);
     }).catch((error) => {
       this.error = error
