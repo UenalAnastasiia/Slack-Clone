@@ -7,7 +7,6 @@ import { collection, addDoc } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
-import { UploadService } from 'src/app/upload.service';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
@@ -20,10 +19,12 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 export class AddThreadComponent implements OnInit {
   channel: Channel = new Channel();
   channelData: any;
-  public file: any = {};
   thread = new Thread();
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  public file: any = {};
+  getFile: boolean = false;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -48,8 +49,7 @@ export class AddThreadComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private firestore: Firestore,
     private messageTipp: MatSnackBar,
-    private service: AuthService,
-    public uploadService: UploadService) { }
+    private service: AuthService) { }
 
 
   ngOnInit(): void {
@@ -77,6 +77,12 @@ export class AddThreadComponent implements OnInit {
   }
 
 
+  onFilechange(event: any) {
+    this.file = event.target.files[0];
+    this.getFile = true;
+  }
+
+
   sendThread() {
     if (this.thread.message == '') {
       this.showMessageTipp();
@@ -96,20 +102,14 @@ export class AddThreadComponent implements OnInit {
 
 
   async saveThread() {
-    console.log('File thread: ', this.uploadService.fileURL)
     let dateTime = new Date();
     const docRef = await addDoc(collection(this.firestore, "threads"), this.thread.toJSON())
     this.thread.id = docRef.id;
     this.thread.sendDateTime = dateTime.toISOString();
     this.thread.currentUser = this.service.loggedUser;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
-    this.uploadFileToDB();
+    this.getFile === true ? this.uploadFileToDB() : this.getFile = false;
     this.thread.message = '';
-  }
-
-
-  onFilechange(event: any) {
-    this.file = event.target.files[0];
   }
 
 
