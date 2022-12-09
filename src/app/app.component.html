@@ -21,7 +21,7 @@
                 <span class="full-width size-22" (click)="showSubmenu = !showSubmenu">Channels</span>
                 <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" (click)="showSubmenu = !showSubmenu">
                     expand_more</mat-icon>
-                <mat-icon *ngIf="isShowingAddBtn || isShowingAddBtn" class="addChannel-btn" matTooltip="Add Channel"
+                <mat-icon *ngIf="isShowingAddBtn || isShowingAddBtn" class="addChannel-btn"
                     matTooltipClass="example-tooltip-gold" (click)="openDialogAddChannel()">add_circle</mat-icon>
             </mat-list-item>
 
@@ -43,7 +43,7 @@
                 <span class="full-width size-22" (click)="showDMmenu = !showDMmenu">Direct Messages</span>
                 <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showDMmenu}" (click)="showDMmenu = !showDMmenu">
                     expand_more</mat-icon>
-                <mat-icon *ngIf="isExpandedDM || isShowingDM" class="addChannel-btn" matTooltip="Write Direct Message"
+                <mat-icon *ngIf="isExpandedDM || isShowingDM" class="addChannel-btn"
                     matTooltipClass="example-tooltip-gold">add_circle</mat-icon>
             </mat-list-item>
 

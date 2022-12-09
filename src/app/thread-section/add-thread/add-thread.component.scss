@@ -80,6 +80,7 @@ angular-editor {
     width: 32px;
     height: 32px;
     margin-left: 10px;
+    margin-bottom: -6px;
 
     mat-icon {
         margin-top: -24px;
@@ -98,7 +99,7 @@ angular-editor {
     width: 480px !important;
 }
 
-.ng-hide {
+.input-margin {
     margin-left: -130px;
 }
 
@@ -108,7 +109,7 @@ angular-editor {
     width: 32px;
     height: 32px;
     margin-left: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 
     &:hover {
         cursor: pointer;
@@ -118,4 +119,10 @@ angular-editor {
 .btn-box {
     display: flex;
     flex-direction: column;
+
+    mat-icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }

@@ -4,8 +4,11 @@
     </angular-editor>
 
     <div class="btn-box">
-        <input [(ngModel)]="thread.uploadFile" class="ng-hide" id="inputFile" multiple type="file" (change)="onFilechange($event)"/>
-        <!-- <mat-icon (click)="reset()">close</mat-icon> -->
+        <div class="d-flex hide" [class.visible]="hideFile">
+            <input [(ngModel)]="thread.uploadFile" accept="image/*" class="input-margin" id="inputFile" multiple type="file"
+                (change)="onFilechange($event)" />
+            <mat-icon (click)="cleanInputFile()">close</mat-icon>
+        </div>
         <label for="inputFile" class="md-button md-raised md-primary">
             <mat-icon class="upload-btn">upload_file</mat-icon>
         </label>

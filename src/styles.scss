@@ -37,6 +37,18 @@ body {
   display: none;
 }
 
+.d-flex {
+  display: flex;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible !important;
+}
+
 .align-center {
   text-align: center;
 }

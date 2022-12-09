@@ -25,6 +25,7 @@ export class AddThreadComponent implements OnInit {
 
   public file: any = {};
   getFile: boolean = false;
+  hideFile: boolean = false;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -79,7 +80,7 @@ export class AddThreadComponent implements OnInit {
 
   onFilechange(event: any) {
     this.file = event.target.files[0];
-    this.getFile = true;
+    this.hideFile = true;
   }
 
 
@@ -110,6 +111,13 @@ export class AddThreadComponent implements OnInit {
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
     this.getFile === true ? this.uploadFileToDB() : this.getFile = false;
     this.thread.message = '';
+    this.cleanInputFile();
+  }
+
+
+  cleanInputFile() {
+    this.thread.uploadFile = '';
+    this.getFile = false;
   }
 
 
