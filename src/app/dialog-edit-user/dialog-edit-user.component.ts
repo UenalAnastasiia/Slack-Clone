@@ -26,7 +26,6 @@ export class DialogEditUserComponent implements OnInit {
   loadProgress: boolean = false;
   showInput: boolean = false;
   saveImgIcon: boolean = false;
-  showEditName: boolean = false;
 
 
   constructor(public authService: AuthService, public dialogRef: MatDialogRef<DialogEditUserComponent>, private firestore: Firestore) {
@@ -43,7 +42,7 @@ export class DialogEditUserComponent implements OnInit {
   }
 
 
-  getImgUpload() {
+  openImgUpload() {
     this.showInput = true;
   }
 
@@ -106,29 +105,12 @@ export class DialogEditUserComponent implements OnInit {
         await updateDoc(doc(this.firestore, "threads", element),
           { userImg: downloadURL });
       }
-    });
 
-    setTimeout(() => {
-      this.loadProgress = false;
-      this.showInput = false;
+      setTimeout(() => {
+        this.loadProgress = false;
+        this.showInput = false;
         location.reload();
-    }, 2000);
-  }
-
-
-  getEditName() {
-    this.showEditName = true;
-  }
-
-
-  async editUserName() {
-    const auth = getAuth();
-    await updateProfile(auth.currentUser, {
-      displayName: this.editForm.get('name').value
-    }).then(() => {
-      console.log('New Name: ', auth.currentUser.displayName)
-    }).catch((error) => {
-      error = error
+      }, 1500);
     });
   }
 }

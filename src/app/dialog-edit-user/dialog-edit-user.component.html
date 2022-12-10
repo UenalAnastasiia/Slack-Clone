@@ -6,7 +6,7 @@
             <h1><b>Profil</b></h1>
         </div>
         <div class="edit-img-box">
-            <mat-icon class="edit-icon" (click)="getImgUpload()">edit_note</mat-icon>
+            <mat-icon class="edit-icon" (click)="openImgUpload()">edit_note</mat-icon>
             <img class="user-img" src="{{ authService.userImg }}">
             <div *ngIf="showInput">
                 <input accept="image/*" class="input-margin" id="inputFile" multiple type="file"
@@ -15,28 +15,14 @@
             </div>
         </div>
 
-        <div class="user-info">
+        <div class="user-info margin-top-28">
             <div class="edit-user-info">
-                <div *ngIf="!showEditName">
-                    <mat-icon class="edit-icon" (click)="getEditName()">edit_note</mat-icon>
-                    <span>Name: {{ authService.userName }}</span>
-                </div>
-
-                <div *ngIf="showEditName">
-                    <mat-form-field class="form-name">
-                        <input type="text" matInput [(ngModel)]="authService.userName" formControlName="name" required
-                            autocomplete="off">
-                    </mat-form-field>
-                    <mat-icon class="done-file-btn" (click)="editUserName()">done_outline</mat-icon>
-                </div>
+                <h3> <b> Name: </b> {{ authService.userName }}</h3>
             </div>
 
             <div class="contact-info">
                 <h2>Contact</h2>
-                <div class="d-flex">
-                    <span>E-Mail:</span>
-                    <span> {{ authService.userEmail }} </span>
-                </div>
+                <span>E-Mail: {{ authService.userEmail }}</span>
             </div>
         </div>
     </form>

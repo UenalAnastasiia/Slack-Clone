@@ -21,7 +21,7 @@
     border-radius: 10px;
 }
 
-.user-info, .contact-info {
+.user-info {
     display: flex;
     flex-direction: column;
     margin-top: 16px;
@@ -29,6 +29,11 @@
     h2 {
         margin-bottom: 4px;
     }
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
 }
 
 .edit-profil {
@@ -92,4 +97,8 @@
 
 .done-file-btn {
     margin-bottom: -6px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

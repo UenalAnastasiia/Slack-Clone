@@ -7,7 +7,7 @@
         <span>Slack-Clone</span>
         <span class="example-spacer"></span>
 
-        <button class="loogedUser-btn" mat-button *ngIf="!auth" [matMenuTriggerFor]="userOptions">
+        <button class="loggedUser-btn" mat-button *ngIf="!auth" [matMenuTriggerFor]="userOptions">
             <img class="userImg-small" src="{{ authService.userImg }}">
             <span> {{ authService.userName }} </span>
         </button>
