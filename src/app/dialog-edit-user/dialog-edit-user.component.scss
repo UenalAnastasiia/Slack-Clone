@@ -1,7 +1,9 @@
 .edit-card {
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: relative;
+    min-width: 300px;
 
     .close-btn {
         position: absolute;
@@ -14,6 +16,8 @@
 
 .user-img {
     height: 200px;
+    width: 200px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -33,7 +37,7 @@
     align-items: center;
 }
 
-mat-icon {
+.edit-icon {
     font-size: 28px;
     height: 28px;
     width: 28px;
@@ -60,4 +64,32 @@ mat-icon {
     input {
         margin-top: 12px;
     }
+}
+
+.progress-spinner {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ffffffcc;
+    z-index: 1;
+
+    ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+        stroke: #6F2F40;
+    }
+}
+
+.input-margin {
+    margin-left: -32px;
+    margin-top: 12px;
+}
+
+.done-file-btn {
+    margin-bottom: -6px;
 }

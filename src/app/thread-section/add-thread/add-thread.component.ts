@@ -25,7 +25,6 @@ export class AddThreadComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   public file: any = {};
-  getFile: boolean = false;
   hideFile: boolean = false;
 
   editorConfig: AngularEditorConfig = {
@@ -119,7 +118,7 @@ export class AddThreadComponent implements OnInit {
 
   cleanInputFile() {
     this.thread.uploadFile = '';
-    this.getFile = false;
+    this.hideFile = false;
   }
 
 

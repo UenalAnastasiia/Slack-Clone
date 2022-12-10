@@ -4,6 +4,11 @@ import { AuthService } from '../services/auth.service';
 import { getAuth, updateProfile } from "firebase/auth";
 import { FormControl, FormGroup } from '@angular/forms';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { Thread } from 'src/models/thread.class';
+import { Observable } from 'rxjs';
+import { collectionData, Firestore } from '@angular/fire/firestore';
+import { collection, doc, query, where, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -11,30 +16,51 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
   styleUrls: ['./dialog-edit-user.component.scss']
 })
 export class DialogEditUserComponent implements OnInit {
-  formEdit: FormGroup;
+  editForm: FormGroup;
   public file: any = {};
 
+  thread = new Thread();
+  allThreads$: Observable<any>;
+  allThreads: any = [];
+  dataID: any;
+  loadProgress: boolean = false;
+  showInput: boolean = false;
+  saveImgIcon: boolean = false;
+  showEditName: boolean = false;
 
-  constructor(public authService: AuthService, public dialogRef: MatDialogRef<DialogEditUserComponent>) {
+
+  constructor(public authService: AuthService, public dialogRef: MatDialogRef<DialogEditUserComponent>, private firestore: Firestore) {
     this.authService.getLoggedUser();
 
-    this.formEdit = new FormGroup({
+    this.editForm = new FormGroup({
       img: new FormControl(),
       email: new FormControl(),
       name: new FormControl()
     });
-   }
+  }
 
   ngOnInit(): void {
   }
 
 
-  onFilechange(event: any) {
-    this.file = event.target.files[0];
+  getImgUpload() {
+    this.showInput = true;
   }
 
 
-  async editImg() {
+  onFilechange(event: any) {
+    this.file = event.target.files[0];
+    this.saveImgIcon = true;
+  }
+
+
+  cleanInputFile() {
+    this.thread.uploadFile = '';
+  }
+
+
+  async editUserImg() {
+    this.loadProgress = true;
     const storage = getStorage();
     const storageRef = ref(storage, this.file.name);
     if (this.file) {
@@ -47,8 +73,7 @@ export class DialogEditUserComponent implements OnInit {
             await updateProfile(auth.currentUser, {
               photoURL: downloadURL
             }).then(() => {
-              location.reload();
-              // Versuch: alle Threads aufrufen, die den Usernamen benhalten und dort die userImg abändern
+              this.getUserImgThread(auth.currentUser, downloadURL);
             }).catch((error) => {
               error = error
             });
@@ -58,10 +83,48 @@ export class DialogEditUserComponent implements OnInit {
   }
 
 
-  async editName() {
+  async getUserImgThread(currentUser: any, downloadURL: any) {
+    const queryCollection = query(collection(this.firestore, "threads"), where("currentUser", "==", currentUser.displayName));
+    const querySnapshot = await getDocs(queryCollection);
+    querySnapshot.forEach(() => {
+      this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
+      this.updateUserImgThread(downloadURL);
+    });
+  }
+
+
+  updateUserImgThread(downloadURL: any) {
+    this.allThreads$.subscribe(async (data: any) => {
+      this.allThreads = data;
+      this.dataID = data.map(data => data.id);
+
+      for (let index = 0; index < this.dataID.length; index++) {
+        const element = this.dataID[index];
+        const batch = writeBatch(this.firestore);
+        const sfRef = doc(this.firestore, "threads", element);
+        batch.update(sfRef, { "userImg": downloadURL });
+        await updateDoc(doc(this.firestore, "threads", element),
+          { userImg: downloadURL });
+      }
+    });
+
+    setTimeout(() => {
+      this.loadProgress = false;
+      this.showInput = false;
+        location.reload();
+    }, 2000);
+  }
+
+
+  getEditName() {
+    this.showEditName = true;
+  }
+
+
+  async editUserName() {
     const auth = getAuth();
     await updateProfile(auth.currentUser, {
-      displayName: this.formEdit.get('name').value
+      displayName: this.editForm.get('name').value
     }).then(() => {
       console.log('New Name: ', auth.currentUser.displayName)
     }).catch((error) => {

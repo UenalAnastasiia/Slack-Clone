@@ -12,7 +12,7 @@ import { Channel } from 'src/models/channel.class';
 export class DialogEditChannelComponent implements OnInit {
   channel: Channel;
   channelID: string;
-  loadProgress: boolean = false
+  loadProgress: boolean = false;
 
 
   constructor(public dialogRef: MatDialogRef<DialogEditChannelComponent>, private firestore: Firestore, private activeRoute: ActivatedRoute) { }
