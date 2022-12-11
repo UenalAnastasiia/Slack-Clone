@@ -4,22 +4,41 @@
 </div>
 
 <div *ngFor="let thread of currentThread" class="thread-container pd-24">
-    <div class="details-user-data">
-        <p>{{ thread.currentUser || 'Guest'}} </p>
-        <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
+    <div class="d-flex">
+        <div class="user-img">
+            <img src="{{ thread.userImg }}" alt="">
+        </div>
+
+        <div>
+            <div class="details-user-data">
+                <p>{{ thread.currentUser || 'Guest'}} </p>
+                <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
+            </div>
+            <span class="message-box">{{ thread.message }}</span>
+        </div>
     </div>
-    <span class="message-box">{{ thread.message }}</span>
     <button class="comments-length-btn" (click)="showComments = !showComments" mat-button>
         {{ commentsLength }} {{ btnText }}
     </button>
 </div>
 <div *ngIf="showComments" class="comment-box">
-    <div *ngFor="let thread of allComments" class="thread-container margin-left-28">
-        <div class="details-user-data">
-            <p>{{ thread.commentUser || 'Guest'}} </p>
-            <p> {{ thread.commentDateTime | date: "dd.MM.yyyy"}} at {{ thread.commentDateTime | date: "HH:mm"}} </p>
+    <div *ngFor="let thread of allComments" class="thread-container margin-left-28 d-flex">
+        <div class="user-img">
+            <img src="{{ thread.userImgComment }}" alt="">
         </div>
-        <span>{{ thread.commentMessage }}</span>
+
+        <div>
+            <div class="details-user-data">
+                <p>{{ thread.commentUser || 'Guest'}} </p>
+                <p> {{ thread.commentDateTime | date: "dd.MM.yyyy"}} at {{ thread.commentDateTime | date: "HH:mm"}} </p>
+            </div>
+            <div class="comment-message-img">
+                <span>{{ thread.commentMessage }}</span>
+                <a href="{{ thread.uploadFileComment }}" target="_blank">
+                    <img class="uploadImg" src="{{ thread.uploadFileComment }}">
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 

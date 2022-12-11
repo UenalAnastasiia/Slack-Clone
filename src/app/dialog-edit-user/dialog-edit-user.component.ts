@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { Thread } from 'src/models/thread.class';
 import { Observable } from 'rxjs';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { collection, doc, query, where, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import { collection, doc, query, where, getDocs, updateDoc, writeBatch, setDoc } from 'firebase/firestore';
 
 
 @Component({
@@ -21,8 +21,12 @@ export class DialogEditUserComponent implements OnInit {
 
   thread = new Thread();
   allThreads$: Observable<any>;
+  allComments$: Observable<any>;
   allThreads: any = [];
   dataID: any;
+  commentDataID: any;
+  localThreadID: any;
+  commentDataName: any;
   loadProgress: boolean = false;
   showInput: boolean = false;
   saveImgIcon: boolean = false;
@@ -39,6 +43,7 @@ export class DialogEditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.localThreadID = JSON.parse(localStorage.getItem('ThreadID'));
   }
 
 
@@ -73,6 +78,7 @@ export class DialogEditUserComponent implements OnInit {
               photoURL: downloadURL
             }).then(() => {
               this.getUserImgThread(auth.currentUser, downloadURL);
+              this.getUserImgComment(auth.currentUser, downloadURL);
             }).catch((error) => {
               error = error
             });
@@ -110,7 +116,31 @@ export class DialogEditUserComponent implements OnInit {
         this.loadProgress = false;
         this.showInput = false;
         location.reload();
-      }, 1500);
+      }, 2000);
+    });
+  }
+
+
+  async getUserImgComment(currentUser: any, downloadURL: any) {
+    const queryCollection = query(collection(this.firestore, "threads", this.localThreadID, "threadComment"), where("commentUser", "==", currentUser.displayName));
+    const querySnapshot = await getDocs(queryCollection);
+    querySnapshot.forEach(() => {
+      this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
+      this.updateUserImgComment(downloadURL);
+    });
+  }
+
+
+  updateUserImgComment(downloadURL: any) {
+    this.allThreads$.subscribe(async (data: any) => {
+      this.allThreads = data;
+      this.commentDataID = data.map(data => data.commentID);
+
+      for (let index = 0; index < this.commentDataID.length; index++) {
+        const element = this.commentDataID[index];
+        await updateDoc(doc(this.firestore, "threads", this.localThreadID, "threadComment", element),
+          { userImgComment: downloadURL });
+      }
     });
   }
 }

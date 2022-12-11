@@ -8,7 +8,8 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
-import { ShareService } from 'src/app/services/share.service';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 @Component({
   selector: 'app-add-thread-comment',
@@ -24,6 +25,9 @@ export class AddThreadCommentComponent implements OnInit {
   allComments: any = [];
   commentsLength: number;
   commentData: any;
+
+  public file: any = {};
+  hideFile: boolean = false;
 
   thread = new Thread();
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
@@ -82,6 +86,18 @@ export class AddThreadCommentComponent implements OnInit {
   }
 
 
+  onFilechange(event: any) {
+    this.file = event.target.files[0];
+    this.hideFile = true;
+  }
+
+
+  cleanInputFile() {
+    this.thread.uploadFile = '';
+    this.hideFile = false;
+  }
+
+
   sendComment() {
     if (this.thread.commentMessage == '') {
       this.showMessageTipp();
@@ -118,6 +134,9 @@ export class AddThreadCommentComponent implements OnInit {
     this.thread.commentDateTime = dateTime.toISOString();
     await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
     this.thread.commentMessage = '';
+    this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
+    this.saveUserImgToDB();
+    this.cleanInputFile();
   }
 
 
@@ -137,6 +156,35 @@ export class AddThreadCommentComponent implements OnInit {
     await updateDoc(doc(this.firestore, "threads", this.detailsID), {
       commentLength: this.thread.commentLength,
       commentLengthText: true
+    });
+  }
+
+
+  uploadFileToDB() {
+    const storage = getStorage();
+    const storageRef = ref(storage, this.file.name);
+    if (this.file) {
+      const uploadTask = uploadBytesResumable(storageRef, this.file);
+      uploadTask.on('state_changed', (snapshot) => { const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; },
+        (error) => { console.log(error) },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID),
+              { uploadFileComment: downloadURL });
+          });
+        });
+    }
+  }
+
+
+  saveUserImgToDB() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        let userImg = user.photoURL;
+        await updateDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID),
+          { userImgComment: userImg });
+      }
     });
   }
 }

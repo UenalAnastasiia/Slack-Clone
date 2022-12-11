@@ -24,7 +24,7 @@ export class DialogAddChannelComponent implements OnInit {
 
 
   async saveChannel() {
-    const docRef = await addDoc(collection(this.firestore, "channels"), this.channel.toJSON())
+    const docRef = await addDoc(collection(this.firestore, "channels"), this.channel.toJSON());
     this.channel.id = docRef.id;
     await setDoc(doc(this.firestore, "channels", this.channel.id), this.channel.toJSON());
     this.dialogRef.close();
