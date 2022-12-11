@@ -78,7 +78,7 @@ export class DialogEditUserComponent implements OnInit {
               photoURL: downloadURL
             }).then(() => {
               this.getUserImgThread(auth.currentUser, downloadURL);
-              this.getUserImgComment(auth.currentUser, downloadURL);
+              // this.getUserImgComment(auth.currentUser, downloadURL);
             }).catch((error) => {
               error = error
             });

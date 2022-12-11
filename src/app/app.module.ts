@@ -53,7 +53,7 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
     AddThreadCommentComponent,
     RegisterComponent,
     LoginComponent,
-    DialogEditUserComponent
+    DialogEditUserComponent,
   ],
   imports: [
     BrowserModule,
