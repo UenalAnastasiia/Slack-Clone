@@ -39,6 +39,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
+import { DragDirective } from './dragDrop.directive';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
     RegisterComponent,
     LoginComponent,
     DialogEditUserComponent,
+    DragDirective
   ],
   imports: [
     BrowserModule,

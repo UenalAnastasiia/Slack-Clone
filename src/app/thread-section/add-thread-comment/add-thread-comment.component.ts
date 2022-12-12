@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ThreadComment } from 'src/models/threadcomment.class';
+import { FileHandle } from 'src/app/dragDrop.directive';
 
 @Component({
   selector: 'app-add-thread-comment',
@@ -29,6 +30,9 @@ export class AddThreadCommentComponent implements OnInit {
   commentData: any;
 
   public file: any = {};
+  files: FileHandle[] = [];
+  dropzoneHovered: boolean;
+  hideInputChoose: boolean  = false;
   hideFile: boolean = false;
 
   thread = new Thread();
@@ -94,9 +98,19 @@ export class AddThreadCommentComponent implements OnInit {
   }
 
 
-  cleanInputFile() {
-    this.threadComment.uploadFileComment = '';
+  filesDropped(files: FileHandle[]): void {
+    this.files = files;
+    this.file = files[0].file;
+    this.hideFile = true;
+    this.hideInputChoose= true;
+  }
+
+
+  cleanInputFile(file: any) {
+    this.thread.uploadFile = '';
     this.hideFile = false;
+    let index = this.files.indexOf(file);
+    this.files.splice(index, 1);
   }
 
 
@@ -111,6 +125,15 @@ export class AddThreadCommentComponent implements OnInit {
 
   showMessageTipp() {
     this.messageTipp.open('Please write a message!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
+  }
+
+
+  showUploadTipp() {
+    this.messageTipp.open('Choose a file or load with drag and drop', '', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 1000
@@ -135,7 +158,7 @@ export class AddThreadCommentComponent implements OnInit {
     this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
     this.saveUserImgToDB();
     this.getCommentsLength();
-    this.cleanInputFile();
+    this.cleanInputFile(this.file);
   }
 
 

@@ -2,6 +2,11 @@
     margin: 6px;
     height: max-content;
     display: flex;
+
+    &:hover {
+        cursor: pointer;
+        background: rgba($color: #000000, $alpha: 0.03);
+    }
 }
 
 .no-threads-box {

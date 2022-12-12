@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="noThreads == false">
-    <mat-card *ngFor="let thread of allThreads" class="thread-container">
+    <mat-card *ngFor="let thread of allThreads" class="thread-container" (click)="openDetails(thread.id)">
         <div class="user-img">
             <img src="{{ thread.userImg }}" alt="">
         </div>

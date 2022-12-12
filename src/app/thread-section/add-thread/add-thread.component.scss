@@ -66,6 +66,7 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+    background: #FAFAFA !important;
 }
 
 angular-editor {
@@ -159,6 +160,6 @@ input[type=file] {
     z-index: 1;
 }
 
-// #text {
-//     padding-bottom: 60px;
-// }
+.drag-active {
+    background: rgba($color: #000000, $alpha: 0.02) !important;
+}

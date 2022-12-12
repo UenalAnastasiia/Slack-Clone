@@ -156,3 +156,7 @@ input[type=file] {
     left: 48px;
     z-index: 1;
 }
+
+.drag-active {
+    background: rgba($color: #000000, $alpha: 0.02) !important;
+}

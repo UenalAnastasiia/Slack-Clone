@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { AuthService } from 'src/app/services/auth.service';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { FileHandle } from 'src/app/dragDrop.directive';
 
 
 @Component({
@@ -21,10 +22,13 @@ export class AddThreadComponent implements OnInit {
   channel: Channel = new Channel();
   channelData: any;
   thread = new Thread();
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   public file: any = {};
+  files: FileHandle[] = [];
+  dropzoneHovered: boolean;
+  hideInputChoose: boolean  = false;
   hideFile: boolean = false;
 
   editorConfig: AngularEditorConfig = {
@@ -84,6 +88,14 @@ export class AddThreadComponent implements OnInit {
   }
 
 
+  filesDropped(files: FileHandle[]): void {
+    this.files = files;
+    this.file = files[0].file;
+    this.hideFile = true;
+    this.hideInputChoose= true;
+  }
+
+
   sendThread() {
     if (this.thread.message == '') {
       this.showMessageTipp();
@@ -102,6 +114,15 @@ export class AddThreadComponent implements OnInit {
   }
 
 
+  showUploadTipp() {
+    this.messageTipp.open('Choose a file or load with drag and drop', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
+  }
+
+
   async saveThread() {
     let dateTime = new Date();
     const docRef = await addDoc(collection(this.firestore, "threads"), this.thread.toJSON())
@@ -112,13 +133,15 @@ export class AddThreadComponent implements OnInit {
     this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
     this.saveUserImgToDB();
     this.thread.message = '';
-    this.cleanInputFile();
+    this.cleanInputFile(this.file);
   }
 
 
-  cleanInputFile() {
+  cleanInputFile(file: any) {
     this.thread.uploadFile = '';
     this.hideFile = false;
+    let index = this.files.indexOf(file);
+    this.files.splice(index, 1);
   }
 
 

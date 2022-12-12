@@ -1,24 +1,28 @@
-<div class="editor-box">
+<div class="editor-box" appDrag (files)="filesDropped($event)" (dragenter)="dropzoneHovered = true"
+    (dragleave)="dropzoneHovered = false" [class.drag-active]="dropzoneHovered">
     <angular-editor id="texteditor" [config]="editorConfig" placeholder="Message on # {{ channel.name }}..."
         [(ngModel)]="thread.message" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <div class="btn-box">
-        <div class="upload-icon">
+        <div class="upload-icon" (mouseenter)="showUploadTipp()">
             <label for="inputFile" class="md-button md-raised md-primary">
                 <mat-icon class="upload-btn">upload_file</mat-icon>
             </label>
         </div>
+
         <div class="upload-name hide" [class.visible]="hideFile">
-            <input [(ngModel)]="thread.uploadFile" accept="image/*" id="inputFile" multiple type="file"
-                (change)="onFilechange($event)" />
-            <mat-icon (click)="cleanInputFile()">close</mat-icon>
+            <input *ngIf="!hideInputChoose" [(ngModel)]="thread.uploadFile" accept="image/*" id="inputFile" multiple
+                type="file" (change)="onFilechange($event)" />
+
+            <div *ngFor="let file of files">
+                <span> {{ file.file.name }}</span>
+            </div>
+            <mat-icon (click)="cleanInputFile(file)">close</mat-icon>
         </div>
 
-        <!-- <button mat-fab (click)="sendThread()" class="example-button-container">
-            <mat-icon>send</mat-icon>
-        </button> -->
     </div>
+    
     <button mat-fab (click)="sendThread()" class="example-button-container send-btn">
         <mat-icon>send</mat-icon>
     </button>
