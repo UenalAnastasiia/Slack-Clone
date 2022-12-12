@@ -1,16 +1,13 @@
 #texteditor .angular-editor-textarea {
     width: 461px;
-    height: 70px;
-    padding-left: 12px !important;
-    padding-right: 0;
-    padding-top: 4px !important;
-    padding-bottom: 0;
     border: none;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     resize: none !important;
     height: 50px !important;
     overflow-y: auto;
+    padding-bottom: 60px !important;
+    position: relative;
 
     &:hover {
         cursor: pointer;
@@ -67,9 +64,10 @@
 .editor-box {
     display: flex;
     align-items: center;
-    position: absolute;
-    bottom: 10px;
-    margin-left: -12px;
+    position: fixed;
+    bottom: 14px;
+    right: 34px;
+    overflow-y: hidden;
 }
 
 angular-editor {
@@ -100,4 +98,61 @@ angular-editor {
 
 ::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
     width: 461px !important;
+}
+
+.upload-btn {
+    color: #6F2F40 !important;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    background: white;
+    border-radius: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-box {
+    display: flex;
+    // height: 36px;
+    // margin-top: 12px;
+    // flex-direction: column;
+
+    mat-icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.send-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 8px;
+}
+
+.upload-icon {
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    z-index: 1;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    // visibility: hidden;
+    display: none;
+}
+
+input[type=file] {
+    width: 130px;
+}
+
+.upload-name {
+    display: flex;
+    position: absolute;
+    bottom: 8px;
+    left: 48px;
+    z-index: 1;
 }

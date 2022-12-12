@@ -1,48 +1,54 @@
-<div class="header">
-    <h1>Thread</h1>
-    <h2># {{ channel.name }}</h2>
-</div>
-
-<div *ngFor="let thread of currentThread" class="thread-container pd-24">
-    <div class="d-flex">
-        <div class="user-img">
-            <img src="{{ thread.userImg }}" alt="">
-        </div>
-
-        <div>
-            <div class="details-user-data">
-                <p>{{ thread.currentUser || 'Guest'}} </p>
-                <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
-            </div>
-            <span class="message-box">{{ thread.message }}</span>
-        </div>
+<div class="details-box">
+    <div class="header">
+        <h1>Thread</h1>
+        <h2># {{ channel.name }}</h2>
     </div>
 
-    <button class="comments-length-btn" (click)="showComments = !showComments" mat-button>
-        {{ commentsLength }} {{ btnText }}
-    </button>
-</div>
-
-
-<div *ngIf="showComments" class="comment-box">
-    <div *ngFor="let threadComment of allComments" class="thread-container margin-left-28 d-flex">
-        <div class="user-img">
-            <img src="{{ threadComment.userImgComment }}" alt="">
-        </div>
-
-        <div>
-            <div class="details-user-data">
-                <p>{{ threadComment.commentUser || 'Guest'}} </p>
-                <p> {{ threadComment.dateTime | date: "dd.MM.yyyy"}} at {{ threadComment.dateTime | date: "HH:mm"}} </p>
+    <div *ngFor="let thread of currentThread" class="thread-container pd-24">
+        <div class="d-flex">
+            <div class="user-img">
+                <img src="{{ thread.userImg }}" alt="">
             </div>
-            <div class="comment-message-img">
-                <span>{{ threadComment.message }}</span>
-                <a href="{{ threadComment.uploadFileComment }}" target="_blank">
-                    <img class="uploadImg" src="{{ threadComment.uploadFileComment }}">
+
+            <div>
+                <div class="details-user-data">
+                    <p>{{ thread.currentUser || 'Guest'}} </p>
+                    <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
+                </div>
+                <span class="message-box">{{ thread.message }}</span>
+                <a href="{{ thread.uploadFile }}" target="_blank">
+                    <img class="uploadImg" src="{{ thread.uploadFile }}">
                 </a>
             </div>
         </div>
-    </div>
-</div>
 
-<app-add-thread-comment></app-add-thread-comment>
+        <button class="comments-length-btn" (click)="showComments = !showComments" mat-button>
+            {{ commentsLength || 0 }} {{ btnText }}
+        </button>
+    </div>
+
+
+    <div *ngIf="showComments" class="comment-box">
+        <div *ngFor="let threadComment of allComments" class="thread-container margin-left-28 d-flex">
+            <div class="user-img">
+                <img src="{{ threadComment.userImgComment }}" alt="">
+            </div>
+
+            <div>
+                <div class="details-user-data">
+                    <p>{{ threadComment.commentUser || 'Guest'}} </p>
+                    <p> {{ threadComment.dateTime | date: "dd.MM.yyyy"}} at {{ threadComment.dateTime | date: "HH:mm"}}
+                    </p>
+                </div>
+                <div class="comment-message-img">
+                    <span>{{ threadComment.message }}</span>
+                    <a href="{{ threadComment.uploadFileComment }}" target="_blank">
+                        <img class="uploadImg" src="{{ threadComment.uploadFileComment }}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-add-thread-comment></app-add-thread-comment>
+</div>

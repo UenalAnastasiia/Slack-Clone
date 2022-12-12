@@ -5,6 +5,8 @@ export class Thread {
     sendDateTime: any;
     currentUser: any;
     uploadFile: any;
+    commentLength: any;
+    commentLengthText: any;
 
     constructor(obj?: any) {
         this.message = obj ? obj.message : '';
@@ -13,7 +15,8 @@ export class Thread {
         this.sendDateTime = obj ? obj.sendDateTime : '';
         this.currentUser = obj ? obj.currentUser : '';
         this.uploadFile = obj ? obj.uploadFile : '';
-
+        this.commentLength = obj ? obj.commentLength : '';
+        this.commentLengthText = obj ? obj.commentLengthText : '';
     }
 
     public toJSON() {
@@ -23,7 +26,9 @@ export class Thread {
             channelID: this.channelID,
             sendDateTime: this.sendDateTime,
             currentUser: this.currentUser,
-            uploadFile: this.uploadFile
+            uploadFile: this.uploadFile,
+            commentLength: this.commentLength,
+            commentLengthText: this.commentLengthText
         }
     }
 }

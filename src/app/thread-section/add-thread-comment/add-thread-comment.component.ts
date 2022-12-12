@@ -152,10 +152,16 @@ export class AddThreadCommentComponent implements OnInit {
 
   updateLengthData() {
     this.allComments$.subscribe(async (data: any) => {
-      this.threadComment.commentLength = data.length;
+      this.allComments = data;
+      this.commentsLength = data.length;
 
-      await updateDoc(doc(this.firestore, "threadComment", this.threadComment.commentID), {
-        commentLength: this.threadComment.commentLength,
+      // await updateDoc(doc(this.firestore, "threadComment", this.threadComment.commentID), {
+      //   commentLength: this.threadComment.commentLength,
+      //   commentLengthText: true
+      // });
+
+      await updateDoc(doc(this.firestore, "threads", this.detailsID), {
+        commentLength: this.commentsLength,
         commentLengthText: true
       });
     });

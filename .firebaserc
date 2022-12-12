@@ -6,9 +6,16 @@
           "ua-slack-clone"
         ]
       }
+    },
+    "ua-slack-2": {
+      "hosting": {
+        "Slack-Clone": [
+          "ua-slack-2"
+        ]
+      }
     }
   },
   "projects": {
-    "default": "ua-slack-clone"
+    "default": "ua-slack-2"
   }
 }

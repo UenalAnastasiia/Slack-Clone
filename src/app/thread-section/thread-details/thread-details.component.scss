@@ -18,7 +18,7 @@
 .thread-container {
     border-bottom: 1px solid #ede5e5; 
     margin-bottom: 8px;
-    padding-bottom: 12px;
+    padding-bottom: 8px;
 }
 
 .details-user-data {
@@ -57,11 +57,12 @@
 }
 
 .comment-box {
-    max-height: 330px;
+    height: 310px;
     overflow-y: auto;
     margin-left: 28px;
-    max-width: 30vw;
-    width: 30vw;
+    margin-bottom: 12px;
+    max-width: 33vw;
+    width: 33vw;
 
     span {
         overflow-wrap: break-word;
@@ -69,8 +70,9 @@
 }
 
 .uploadImg {
-    height: 120px;
-    margin-bottom: 40px;  
+    height: 60px;
+    margin-bottom: 10px; 
+    margin-top: 10px; 
     object-fit: cover;
 }
 

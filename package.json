@@ -24,7 +24,7 @@
     "@kolkov/angular-editor": "^3.0.0-beta.0",
     "@ngx-translate/core": "^14.0.0",
     "angular-font-awesome": "^3.1.2",
-    "firebase": "^9.14.0",
+    "firebase": "^9.15.0",
     "firestore": "^1.1.6",
     "material-design": "^0.0.1",
     "rxjs": "~7.5.0",
