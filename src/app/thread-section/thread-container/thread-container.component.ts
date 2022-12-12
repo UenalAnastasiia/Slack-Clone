@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ShareService } from 'src/app/services/share.service';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
+import { ThreadComment } from 'src/models/threadcomment.class';
 
 
 @Component({
@@ -23,6 +24,8 @@ export class ThreadContainerComponent implements OnInit {
 
   channel = new Channel();
   channelData: any;
+
+  threadComment: ThreadComment = new ThreadComment();
 
   @Output() threadShow = new EventEmitter<boolean>();
   showDetails: boolean;

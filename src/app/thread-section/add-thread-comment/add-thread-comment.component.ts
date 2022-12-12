@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc, setDoc, collectionData, updateDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
-import { collection, addDoc } from '@firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { ThreadComment } from 'src/models/threadcomment.class';
 
 @Component({
   selector: 'app-add-thread-comment',
@@ -23,6 +24,7 @@ export class AddThreadCommentComponent implements OnInit {
   detailsID: any;
   allComments$: Observable<any>;
   allComments: any = [];
+  threadComment: ThreadComment = new ThreadComment();
   commentsLength: number;
   commentData: any;
 
@@ -93,13 +95,13 @@ export class AddThreadCommentComponent implements OnInit {
 
 
   cleanInputFile() {
-    this.thread.uploadFile = '';
+    this.threadComment.uploadFileComment = '';
     this.hideFile = false;
   }
 
 
   sendComment() {
-    if (this.thread.commentMessage == '') {
+    if (this.threadComment.message == '') {
       this.showMessageTipp();
     } else {
       this.saveComment();
@@ -118,44 +120,44 @@ export class AddThreadCommentComponent implements OnInit {
 
   async saveComment() {
     let dateTime = new Date();
-    const collRef = collection(this.firestore, "threads", this.detailsID, "threadComment");
-    const dataRef = await addDoc(collRef, {
-      threadComment: this.thread.commentMessage
-    });
-    this.setDocToDB(dateTime, dataRef);
-    this.getCommentsLength();
+    const docRef = await addDoc(collection(this.firestore, "threadComment"), this.threadComment.toJSON())
+    this.setDocToDB(dateTime, docRef);
   }
 
 
   async setDocToDB(dateTime: Date, dataRef: any) {
-    this.thread.commentID = dataRef.id;
-    this.thread.commentUser = this.service.userName;
-    this.thread.commentThreadID = this.detailsID;
-    this.thread.commentDateTime = dateTime.toISOString();
-    await setDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID), this.thread.toJSON());
-    this.thread.commentMessage = '';
+    this.threadComment.commentID = dataRef.id;
+    this.threadComment.commentUser = this.service.userName;
+    this.threadComment.threadID = this.detailsID;
+    this.threadComment.dateTime = dateTime.toISOString();
+    await setDoc(doc(this.firestore, "threadComment", this.threadComment.commentID), this.threadComment.toJSON());
+    this.threadComment.message = '';
     this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
     this.saveUserImgToDB();
+    this.getCommentsLength();
     this.cleanInputFile();
   }
 
 
   async getCommentsLength() {
-    const commentCollection = collection(this.firestore, "threads", this.detailsID, "threadComment");
-    this.allComments$ = collectionData(commentCollection);
+    const queryCollection = query(collection(this.firestore, "threadComment"), where("threadID", "==", this.detailsID));
+    const querySnapshot = await getDocs(queryCollection);
 
-    this.allComments$.subscribe(async (data: any) => {
-      this.allComments = data;
-      this.updateLengthData(data);
+    querySnapshot.forEach(() => {
+      this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
+      this.updateLengthData();
     });
   }
 
 
-  async updateLengthData(data: any) {
-    this.thread.commentLength = data.length;
-    await updateDoc(doc(this.firestore, "threads", this.detailsID), {
-      commentLength: this.thread.commentLength,
-      commentLengthText: true
+  updateLengthData() {
+    this.allComments$.subscribe(async (data: any) => {
+      this.threadComment.commentLength = data.length;
+
+      await updateDoc(doc(this.firestore, "threadComment", this.threadComment.commentID), {
+        commentLength: this.threadComment.commentLength,
+        commentLengthText: true
+      });
     });
   }
 
@@ -169,7 +171,7 @@ export class AddThreadCommentComponent implements OnInit {
         (error) => { console.log(error) },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID),
+            await updateDoc(doc(this.firestore, "threadComment", this.threadComment.commentID),
               { uploadFileComment: downloadURL });
           });
         });
@@ -182,7 +184,7 @@ export class AddThreadCommentComponent implements OnInit {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         let userImg = user.photoURL;
-        await updateDoc(doc(this.firestore, "threads", this.detailsID, "threadComment", this.thread.commentID),
+        await updateDoc(doc(this.firestore, "threadComment", this.threadComment.commentID),
           { userImgComment: userImg });
       }
     });

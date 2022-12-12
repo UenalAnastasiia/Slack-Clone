@@ -5,6 +5,7 @@ import { Channel } from 'src/models/channel.class';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Thread } from 'src/models/thread.class';
+import { ThreadComment } from 'src/models/threadcomment.class';
 
 @Component({
   selector: 'app-thread-details',
@@ -21,6 +22,7 @@ export class ThreadDetailsComponent implements OnInit {
   currentThread: any = [];
   detailsID: string;
 
+  threadComment: ThreadComment = new ThreadComment();
   allComments$: Observable<any>;
   allComments: any = [];
 
@@ -69,13 +71,26 @@ export class ThreadDetailsComponent implements OnInit {
 
 
   async getThreadComments() {
-    const commentCollection = collection(this.firestore, "threads", this.detailsID, "threadComment");
-    this.allComments$ = collectionData(commentCollection);
+    const queryCollection = query(collection(this.firestore, "threadComment"), where("threadID", "==", this.detailsID));
+    const querySnapshot = await getDocs(queryCollection);
 
-    this.allComments$.subscribe((data: any) => {
-      this.allComments = data;
-      this.commentsLength = data.length;
-      this.btnText = this.commentsLength == 1 ? 'Comment': 'Comments';
+    querySnapshot.forEach(() => {
+      this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
+      // this.subscribeCommentData();
+      this.allComments$.subscribe((data: any) => {
+        this.allComments = data;
+        this.commentsLength = data.length;
+        this.btnText = this.commentsLength == 1 ? 'Comment': 'Comments';
+      });
     });
   }
+
+
+  // subscribeCommentData() {
+  //   this.allComments$.subscribe((data: any) => {
+  //     this.allComments = data;
+  //     this.commentsLength = data.length;
+  //     this.btnText = this.commentsLength == 1 ? 'Comment': 'Comments';
+  //   });
+  // }
 }

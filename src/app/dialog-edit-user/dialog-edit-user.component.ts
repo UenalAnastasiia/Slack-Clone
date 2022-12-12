@@ -8,6 +8,7 @@ import { Thread } from 'src/models/thread.class';
 import { Observable } from 'rxjs';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { collection, doc, query, where, getDocs, updateDoc, writeBatch, setDoc } from 'firebase/firestore';
+import { ThreadComment } from 'src/models/threadcomment.class';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class DialogEditUserComponent implements OnInit {
   allComments$: Observable<any>;
   allThreads: any = [];
   dataID: any;
+  threadComment: ThreadComment = new ThreadComment();
   commentDataID: any;
   localThreadID: any;
   commentDataName: any;
@@ -78,7 +80,7 @@ export class DialogEditUserComponent implements OnInit {
               photoURL: downloadURL
             }).then(() => {
               this.getUserImgThread(auth.currentUser, downloadURL);
-              // this.getUserImgComment(auth.currentUser, downloadURL);
+              this.getUserImgComment(auth.currentUser, downloadURL);
             }).catch((error) => {
               error = error
             });
@@ -111,22 +113,16 @@ export class DialogEditUserComponent implements OnInit {
         await updateDoc(doc(this.firestore, "threads", element),
           { userImg: downloadURL });
       }
-
-      setTimeout(() => {
-        this.loadProgress = false;
-        this.showInput = false;
-        location.reload();
-      }, 2000);
     });
   }
 
 
   async getUserImgComment(currentUser: any, downloadURL: any) {
-    const queryCollection = query(collection(this.firestore, "threads", this.localThreadID, "threadComment"), where("commentUser", "==", currentUser.displayName));
+    const queryCollection = query(collection(this.firestore, "threadComment"), where("commentUser", "==", currentUser.displayName));
     const querySnapshot = await getDocs(queryCollection);
     querySnapshot.forEach(() => {
       this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
-      this.updateUserImgComment(downloadURL);
+      this.updateUserImgThread(downloadURL);
     });
   }
 
@@ -138,9 +134,18 @@ export class DialogEditUserComponent implements OnInit {
 
       for (let index = 0; index < this.commentDataID.length; index++) {
         const element = this.commentDataID[index];
-        await updateDoc(doc(this.firestore, "threads", this.localThreadID, "threadComment", element),
+        const batch = writeBatch(this.firestore);
+        const sfRef = doc(this.firestore, "threadComment", element);
+        batch.update(sfRef, { "userImgComment": downloadURL });
+        await updateDoc(doc(this.firestore, "threadComment", element),
           { userImgComment: downloadURL });
       }
     });
+
+    setTimeout(() => {
+      this.loadProgress = false;
+      this.showInput = false;
+      location.reload();
+    }, 2000);
   }
 }

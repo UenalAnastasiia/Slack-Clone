@@ -17,25 +17,28 @@
             <span class="message-box">{{ thread.message }}</span>
         </div>
     </div>
+
     <button class="comments-length-btn" (click)="showComments = !showComments" mat-button>
         {{ commentsLength }} {{ btnText }}
     </button>
 </div>
+
+
 <div *ngIf="showComments" class="comment-box">
-    <div *ngFor="let thread of allComments" class="thread-container margin-left-28 d-flex">
+    <div *ngFor="let threadComment of allComments" class="thread-container margin-left-28 d-flex">
         <div class="user-img">
-            <img src="{{ thread.userImgComment }}" alt="">
+            <img src="{{ threadComment.userImgComment }}" alt="">
         </div>
 
         <div>
             <div class="details-user-data">
-                <p>{{ thread.commentUser || 'Guest'}} </p>
-                <p> {{ thread.commentDateTime | date: "dd.MM.yyyy"}} at {{ thread.commentDateTime | date: "HH:mm"}} </p>
+                <p>{{ threadComment.commentUser || 'Guest'}} </p>
+                <p> {{ threadComment.dateTime | date: "dd.MM.yyyy"}} at {{ threadComment.dateTime | date: "HH:mm"}} </p>
             </div>
             <div class="comment-message-img">
-                <span>{{ thread.commentMessage }}</span>
-                <a href="{{ thread.uploadFileComment }}" target="_blank">
-                    <img class="uploadImg" src="{{ thread.uploadFileComment }}">
+                <span>{{ threadComment.message }}</span>
+                <a href="{{ threadComment.uploadFileComment }}" target="_blank">
+                    <img class="uploadImg" src="{{ threadComment.uploadFileComment }}">
                 </a>
             </div>
         </div>

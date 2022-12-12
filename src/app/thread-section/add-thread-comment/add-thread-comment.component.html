@@ -1,11 +1,11 @@
 <div class="editor-box">
     <angular-editor id="texteditor" [config]="editorConfig" placeholder="Answer on Thread from User..."
-        [(ngModel)]="thread.commentMessage" (keypress)="onKeypressEvent($event)">
+        [(ngModel)]="threadComment.message" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <div class="btn-box">
         <div class="d-flex hide" [class.visible]="hideFile">
-            <input [(ngModel)]="thread.uploadFile" accept="image/*" class="input-margin" id="inputFile" multiple
+            <input [(ngModel)]="threadComment.uploadFileComment" accept="image/*" class="input-margin" id="inputFile" multiple
                 type="file" (change)="onFilechange($event)" />
             <mat-icon (click)="cleanInputFile()">close</mat-icon>
         </div>

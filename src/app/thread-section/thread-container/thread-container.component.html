@@ -20,11 +20,11 @@
         <!-- <p>Thread ID: {{ thread.id }}</p>
         <p>Channel ID: {{ thread.channelID }}</p> -->
 
-        <button *ngIf="thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">
-            {{ thread.commentLength }} Comment(s)
+        <button *ngIf="threadComment.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">
+            {{ threadComment.commentLength }} Comment(s)
         </button>
 
-        <button *ngIf="!thread.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">
+        <button *ngIf="!threadComment.commentLengthText" class="thread-btn" mat-raised-button (click)="openDetails(thread.id)">
             Thread
         </button>
     </mat-card>
