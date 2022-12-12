@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '../services/auth.service';
 import { getAuth, updateProfile } from "firebase/auth";
@@ -17,6 +17,8 @@ import { ThreadComment } from 'src/models/threadcomment.class';
   styleUrls: ['./dialog-edit-user.component.scss']
 })
 export class DialogEditUserComponent implements OnInit {
+  @ViewChild("inputFile", {static: false}) InputFile: ElementRef;
+
   editForm: FormGroup;
   public file: any = {};
 
@@ -33,6 +35,8 @@ export class DialogEditUserComponent implements OnInit {
   loadProgress: boolean = false;
   showInput: boolean = false;
   saveImgIcon: boolean = false;
+  imageSrc: any;
+  previewImg: boolean = false;
 
 
   constructor(public authService: AuthService, public dialogRef: MatDialogRef<DialogEditUserComponent>, private firestore: Firestore) {
@@ -50,19 +54,26 @@ export class DialogEditUserComponent implements OnInit {
   }
 
 
-  openImgUpload() {
-    this.showInput = true;
-  }
-
-
   onFilechange(event: any) {
     this.file = event.target.files[0];
     this.saveImgIcon = true;
+
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      this.previewImg = true;
+      this.imageSrc = this.authService.userImg;
+
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+
+      reader.readAsDataURL(file);
+  }
   }
 
 
   cleanInputFile() {
-    this.thread.uploadFile = '';
+    this.InputFile.nativeElement.value = "";
+    this.saveImgIcon = false;
   }
 
 

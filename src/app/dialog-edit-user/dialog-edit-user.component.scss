@@ -90,9 +90,14 @@
     }
 }
 
+.input-box {
+    display: flex;
+    align-items: center;
+}
+
 .input-margin {
-    margin-left: -32px;
-    margin-top: 12px;
+    margin-left: 0;
+    cursor: pointer;
 }
 
 .done-file-btn {
@@ -101,4 +106,14 @@
     &:hover {
         cursor: pointer;
     }
+}
+
+.upload-btn {
+    cursor: auto;
+}
+
+.x-btn {
+    margin-bottom: -2px;
+    margin-left: 8px;
+    font-size: 28px;
 }
