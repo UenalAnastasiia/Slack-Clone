@@ -18,7 +18,7 @@
     color: white;
     position: absolute;
     bottom: 12px;
-    left: 60px;
+    left: 72px;
 }
 
 .user-data {
@@ -51,4 +51,14 @@
         object-fit: cover;
         border-radius: 100%;
     }
+}
+
+.thread-menu {
+    position: absolute;
+    right:4px;
+    top: 4px;
+}
+
+.delete-icon {
+    margin-right: 0;
 }

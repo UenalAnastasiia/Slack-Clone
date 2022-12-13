@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { collection, doc, getDoc, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { collection, doc, getDoc, query, where, getDocs, orderBy, deleteDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ShareService } from 'src/app/services/share.service';
@@ -30,8 +32,11 @@ export class ThreadContainerComponent implements OnInit {
   @Output() threadShow = new EventEmitter<boolean>();
   showDetails: boolean;
 
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(private firestore: Firestore, private activeRoute: ActivatedRoute, public service: ShareService, public authService: AuthService) { }
+
+  constructor(private firestore: Firestore, private activeRoute: ActivatedRoute, public service: ShareService, public authService: AuthService, private messageTipp: MatSnackBar) { }
 
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe(params => {
@@ -82,5 +87,36 @@ export class ThreadContainerComponent implements OnInit {
     this.showDetails = !this.showDetails;
     this.threadShow.emit(this.showDetails);
     localStorage.setItem('ThreadID', JSON.stringify(id));
+  }
+
+
+  async deleteThread(id: string, name: string) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user.displayName == name) {
+      await deleteDoc(doc(this.firestore, "threads", id));
+      this.showSnackMessage();
+    } else {
+      this.showUserTipp();
+    }
+  }
+
+
+  showSnackMessage() {
+    this.messageTipp.open('Thread deleted!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
+  }
+
+
+  showUserTipp() {
+    this.messageTipp.open('You can not delete this Thread!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
   }
 }

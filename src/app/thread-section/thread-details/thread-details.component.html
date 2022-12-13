@@ -30,6 +30,10 @@
 
     <div *ngIf="showComments" class="comment-box">
         <div *ngFor="let threadComment of allComments" class="thread-container margin-left-28 d-flex">
+            <div class="delete-btn" mat-menu-item (click)="deleteThread(threadComment.commentID, threadComment.commentUser)">
+                <mat-icon>delete</mat-icon>
+            </div>
+
             <div class="user-img">
                 <img src="{{ threadComment.userImgComment }}" alt="">
             </div>
