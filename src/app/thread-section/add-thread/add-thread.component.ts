@@ -93,6 +93,7 @@ export class AddThreadComponent implements OnInit {
     this.file = files[0].file;
     this.hideFile = true;
     this.hideInputChoose= true;
+    this.dropzoneHovered = true;
   }
 
 
@@ -140,6 +141,7 @@ export class AddThreadComponent implements OnInit {
   cleanInputFile(file: any) {
     this.thread.uploadFile = '';
     this.hideFile = false;
+    this.dropzoneHovered = false;
     let index = this.files.indexOf(file);
     this.files.splice(index, 1);
   }

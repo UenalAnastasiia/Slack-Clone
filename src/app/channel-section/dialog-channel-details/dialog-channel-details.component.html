@@ -4,7 +4,7 @@
     <div class="details-header">
         <h1> <b> # {{ channel.name }} </b> </h1>
 
-        <mat-icon (click)="openDialogEdit()" title="Edit Info">edit_note</mat-icon>
+        <!-- <mat-icon title="Edit Info">edit_note</mat-icon> -->
     </div>
 
     <mat-card>
@@ -14,11 +14,16 @@
             </mat-tab>
             <mat-tab label="Settings">
                 <p>
-                    <b>Posting authorizations:</b> <br> <br>
-                    <mat-icon>check</mat-icon> Everyone can post <br> <br>
-                    <mat-icon>check</mat-icon> Everyone can reply to messages <br> <br>
-                    <mat-icon>check</mat-icon> Everyone except guests can use @all mentions
-                </p>
+                    <b>Posting authorizations:</b> <br> 
+                    <mat-icon>check</mat-icon> Everyone can post <br>
+                    <mat-icon>check</mat-icon> Everyone can reply to threads <br> <br>
+                    <mat-icon>draw</mat-icon> Channel created by: <b> @{{ channel.creator }} </b>
+                </p>   
+
+                <div class="delete-btn">
+                    <button  mat-raised-button (click)="openDialogEdit()">Edit Channel</button>
+                    <button color="warn" mat-raised-button (click)="deleteChannel()">Delete Channel</button>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </mat-card>
