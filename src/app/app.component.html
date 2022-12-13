@@ -23,7 +23,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container" autosize>
-    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="false" *ngIf="!auth">
+    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" *ngIf="!auth">
 
         <!-- Channels Block -->
         <mat-nav-list>
@@ -37,7 +37,7 @@
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
-                <a *ngFor="let channel of allChannels" mat-list-item routerLink="channel/{{ channel.channelID }}"># {{
+                <a *ngFor="let channel of allChannels | name" mat-list-item routerLink="channel/{{ channel.channelID }}"># {{
                     channel.name }}</a>
                 <div class="add-channel-container">
                     <button mat-raised-button (click)="openDialogAddChannel()">

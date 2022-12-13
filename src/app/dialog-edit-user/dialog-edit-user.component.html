@@ -11,7 +11,7 @@
             <img *ngIf="previewImg" class="user-img" [src]="imageSrc" />
 
             <div class="input-box" *ngIf="showInput">
-                <mat-icon class="upload-btn">upload_file</mat-icon>
+                <mat-icon class="upload-btn">photo_camera</mat-icon>
                 <input accept="image/*" class="input-margin" #inputFile multiple type="file"
                     (change)="onFilechange($event)" />
                 <mat-icon class="done-file-btn" *ngIf="saveImgIcon" (click)="editUserImg()">done_outline</mat-icon>

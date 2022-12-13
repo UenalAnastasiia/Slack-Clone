@@ -40,6 +40,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { DragDirective } from './dragDrop.directive';
+import { NamePipe } from './name.pipe';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { DragDirective } from './dragDrop.directive';
     RegisterComponent,
     LoginComponent,
     DialogEditUserComponent,
-    DragDirective
+    DragDirective,
+    NamePipe
   ],
   imports: [
     BrowserModule,
