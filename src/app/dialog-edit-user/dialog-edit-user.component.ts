@@ -98,7 +98,7 @@ export class DialogEditUserComponent implements OnInit {
                 this.loadProgress = false;
                 this.showInput = false;
                 location.reload();
-              }, 2000);
+              }, 3000);
             }).catch((error) => {
               console.log(error)
               error = error

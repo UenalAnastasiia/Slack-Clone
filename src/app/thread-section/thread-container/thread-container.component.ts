@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { collection, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ShareService } from 'src/app/services/share.service';
@@ -59,7 +59,7 @@ export class ThreadContainerComponent implements OnInit {
    */
   async loadThreadsFromDB() {
     this.noThreads = true;
-    const queryCollection = query(collection(this.firestore, "threads"), where("channelID", "==", this.channel.id));
+    const queryCollection = query(collection(this.firestore, "threads"), where("channelID", "==", this.channel.id), orderBy("sendDateTime", "desc"));
 
     const querySnapshot = await getDocs(queryCollection);
     querySnapshot.forEach(() => {

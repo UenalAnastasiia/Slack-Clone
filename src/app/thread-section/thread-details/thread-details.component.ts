@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, doc, getDoc, collectionData } from '@angular/fire/firestore';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { Channel } from 'src/models/channel.class';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -71,7 +71,7 @@ export class ThreadDetailsComponent implements OnInit {
 
 
   async getThreadComments() {
-    const queryCollection = query(collection(this.firestore, "threadComment"), where("threadID", "==", this.detailsID));
+    const queryCollection = query(collection(this.firestore, "threadComment"), where("threadID", "==", this.detailsID), orderBy("dateTime"));
     const querySnapshot = await getDocs(queryCollection);
 
     querySnapshot.forEach(() => {
