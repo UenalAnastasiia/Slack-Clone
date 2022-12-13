@@ -28,7 +28,7 @@ export class AddThreadComponent implements OnInit {
   public file: any = {};
   files: FileHandle[] = [];
   dropzoneHovered: boolean;
-  hideInputChoose: boolean  = false;
+  hideInputChoose: boolean = false;
   hideFile: boolean = false;
 
   editorConfig: AngularEditorConfig = {
@@ -92,7 +92,7 @@ export class AddThreadComponent implements OnInit {
     this.files = files;
     this.file = files[0].file;
     this.hideFile = true;
-    this.hideInputChoose= true;
+    this.hideInputChoose = true;
     this.dropzoneHovered = true;
   }
 
@@ -131,47 +131,52 @@ export class AddThreadComponent implements OnInit {
     this.thread.sendDateTime = dateTime.toISOString();
     this.thread.currentUser = this.service.userName;
     await setDoc(doc(this.firestore, "threads", this.thread.id), this.thread.toJSON());
+    await updateDoc(doc(this.firestore, "channels", this.thread.channelID),
+      { 
+        noThreads: false
+       });
+
     this.hideFile === true ? this.uploadFileToDB() : this.hideFile = false;
-    this.saveUserImgToDB();
-    this.thread.message = '';
-    this.cleanInputFile(this.file);
+this.saveUserImgToDB();
+this.thread.message = '';
+this.cleanInputFile(this.file);
   }
 
 
-  cleanInputFile(file: any) {
-    this.thread.uploadFile = '';
-    this.hideFile = false;
-    this.dropzoneHovered = false;
-    let index = this.files.indexOf(file);
-    this.files.splice(index, 1);
-  }
+cleanInputFile(file: any) {
+  this.thread.uploadFile = '';
+  this.hideFile = false;
+  this.dropzoneHovered = false;
+  let index = this.files.indexOf(file);
+  this.files.splice(index, 1);
+}
 
 
-  uploadFileToDB() {
-    const storage = getStorage();
-    const storageRef = ref(storage, this.file.name);
-    if (this.file) {
-      const uploadTask = uploadBytesResumable(storageRef, this.file);
-      uploadTask.on('state_changed', (snapshot) => { const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; },
-        (error) => { console.log(error) },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateDoc(doc(this.firestore, "threads", this.thread.id),
-              { uploadFile: downloadURL });
-          });
+uploadFileToDB() {
+  const storage = getStorage();
+  const storageRef = ref(storage, this.file.name);
+  if (this.file) {
+    const uploadTask = uploadBytesResumable(storageRef, this.file);
+    uploadTask.on('state_changed', (snapshot) => { const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; },
+      (error) => { console.log(error) },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await updateDoc(doc(this.firestore, "threads", this.thread.id),
+            { uploadFile: downloadURL });
         });
+      });
+  }
+}
+
+
+saveUserImgToDB() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      let userImg = user.photoURL;
+      await updateDoc(doc(this.firestore, "threads", this.thread.id),
+        { userImg: userImg });
     }
-  }
-
-
-  saveUserImgToDB() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        let userImg = user.photoURL;
-        await updateDoc(doc(this.firestore, "threads", this.thread.id),
-          { userImg: userImg });
-      }
-    });
-  }
+  });
+}
 }

@@ -30,7 +30,8 @@ export class DialogAddChannelComponent implements OnInit {
 
     const docRef = await addDoc(collection(this.firestore, "channels"), this.channel.toJSON());
     this.channel.id = docRef.id;
-    this.channel.creator = user.displayName; 
+    this.channel.creator = user.displayName;
+    this.channel.noThreads = false; 
     await setDoc(doc(this.firestore, "channels", this.channel.id), this.channel.toJSON());
     this.dialogRef.close();
   }

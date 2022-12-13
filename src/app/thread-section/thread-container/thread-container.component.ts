@@ -21,7 +21,7 @@ export class ThreadContainerComponent implements OnInit {
   thread = new Thread();
   allThreads$: Observable<any>;
   allThreads: any = [];
-  noThreads: boolean = false;
+  noThreads: boolean;
   threadID: any;
 
   channel = new Channel();
