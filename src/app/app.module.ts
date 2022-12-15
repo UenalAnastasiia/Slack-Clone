@@ -41,6 +41,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { DragDirective } from './dragDrop.directive';
 import { NamePipe } from './name.pipe';
+import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { NamePipe } from './name.pipe';
     LoginComponent,
     DialogEditUserComponent,
     DragDirective,
-    NamePipe
+    NamePipe,
+    DialogCreateChatComponent
   ],
   imports: [
     BrowserModule,

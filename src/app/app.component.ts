@@ -134,4 +134,10 @@ export class AppComponent implements OnInit {
       duration: 1000
     });
   }
+
+
+  getUsers() {
+    const auth = getAuth();
+    console.log(auth)
+  }
 }

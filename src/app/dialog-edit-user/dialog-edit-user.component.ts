@@ -101,6 +101,7 @@ export class DialogEditUserComponent implements OnInit {
   updateUser(currentUser: any, downloadURL: any) {
     this.updateUserImgThread(currentUser, downloadURL);
     this.updateUserImgComment(currentUser, downloadURL);
+    this.updateUserDB(currentUser, downloadURL);
 
     setTimeout(() => {
       this.loadProgress = false;
@@ -140,6 +141,20 @@ export class DialogEditUserComponent implements OnInit {
         await updateDoc(doc(this.firestore, "threadComment", element),
           { userImgComment: downloadURL });
       }
+    });
+  }
+
+
+  async updateUserDB(currentUser: any, downloadURL: any) {
+    const queryCollection = query(collection(this.firestore, "users"), where("displayName", "==", currentUser.displayName));
+    this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
+
+    this.allThreads$.subscribe(async (data: any) => {
+      this.allThreads = data;
+      let userID = data[0].uid;
+
+      await updateDoc(doc(this.firestore, "users", userID),
+      { photoURL: downloadURL });
     });
   }
 }

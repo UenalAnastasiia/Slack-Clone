@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
     this.service.register(this.formReg.value)
       .then(() => {
         this.updateUser();
-        this.createUserInDB();
       })
       .catch(error => this.error = error)
   }
@@ -46,6 +45,7 @@ export class RegisterComponent implements OnInit {
       displayName: this.formReg.get('name').value,
       photoURL: 'assets/img/profile.png'
     }).then(() => {
+      this.createUserInDB();
       this.router.navigate(['/login']);
     }).catch((error) => {
       this.error = error
@@ -57,8 +57,10 @@ export class RegisterComponent implements OnInit {
     const docRef = await addDoc(collection(this.firestore, "users"), this.user.toJSON());
     const auth = getAuth();
     this.user.uid = docRef.id;
-    this.user.displayName = auth.currentUser.displayName;
-    this.user.photoURL = auth.currentUser.photoURL;
+    console.log(auth.currentUser)
+    this.user.displayName = this.formReg.get('name').value;
+    this.user.photoURL = 'assets/img/profile.png';
+    this.user.email = this.formReg.get('email').value;
     await setDoc(doc(this.firestore, "users", this.user.uid), this.user.toJSON());
   }
 }
