@@ -1,1 +1,17 @@
-<p>dialog-create-chat works!</p>
+<h1 mat-dialog-title>Create Chat</h1>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Choose User</mat-label>
+        <mat-select [(ngModel)]="chat.secondUser">
+            <mat-option *ngFor="let user of allusers" [value]="user.displayName">
+                {{user.displayName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close()" cdkFocusInitial> Cancel </button>
+    <button mat-button cdkFocusInitial (click)="create()"> Create </button>
+</div>

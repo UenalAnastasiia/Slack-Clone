@@ -4,6 +4,7 @@ import { ChannelContainerComponent } from './channel-section/channel-container/c
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { ChatComponent } from './direct-messages-section/chat/chat.component';
 
 
 const routes: Routes = [
@@ -12,8 +13,8 @@ const routes: Routes = [
   },
   { path: 'channel/:id', component: ChannelContainerComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent }
-
+  { path: 'login', component: LoginComponent },
+  { path: 'chat/:id', component:  ChatComponent}
 ];
 
 @NgModule({

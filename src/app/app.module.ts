@@ -42,6 +42,8 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
 import { DragDirective } from './dragDrop.directive';
 import { NamePipe } from './name.pipe';
 import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ChatComponent } from './direct-messages-section/chat/chat.component';
 
 
 @NgModule({
@@ -60,7 +62,8 @@ import { DialogCreateChatComponent } from './direct-messages-section/dialog-crea
     DialogEditUserComponent,
     DragDirective,
     NamePipe,
-    DialogCreateChatComponent
+    DialogCreateChatComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +88,7 @@ import { DialogCreateChatComponent } from './direct-messages-section/dialog-crea
     AngularEditorModule,
     MatSnackBarModule,
     MatMenuModule,
+    MatSelectModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

@@ -37,7 +37,8 @@
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
-                <a *ngFor="let channel of allChannels | name" mat-list-item routerLink="channel/{{ channel.channelID }}"># {{
+                <a *ngFor="let channel of allChannels | name" mat-list-item
+                    routerLink="channel/{{ channel.channelID }}"># {{
                     channel.name }}</a>
                 <div class="add-channel-container">
                     <button mat-raised-button (click)="openDialogAddChannel()">
@@ -56,13 +57,18 @@
                     (click)="showDMmenu = !showDMmenu">
                     expand_more</mat-icon>
                 <mat-icon *ngIf="isExpandedDM || isShowingDM" class="addChannel-btn"
-                    matTooltipClass="example-tooltip-gold">add_circle</mat-icon>
+                    matTooltipClass="example-tooltip-gold" (click)="openDialogCreateChat()">add_circle</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
-                <a mat-list-item href="..."> Message 1</a>
+                <!-- <div *ngFor="let chat of allChats | keyvalue">
+                    <a mat-list-item routerLink="chat/{{ chat.id }}"> 
+                        {{ chat.secondUser }}</a>
+                </div> -->
+                <a *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}"> {{
+                    chat.secondUser }}</a>
                 <div class="add-channel-container">
-                    <button mat-raised-button>
+                    <button mat-raised-button (click)="openDialogCreateChat()">
                         <mat-icon>add_circle</mat-icon>
                         <span>Write Direct Message</span>
                     </button>

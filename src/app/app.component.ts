@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collectionData } from '@angular/fire/firestore';
-import { collection } from '@firebase/firestore';
+import { collection, where } from '@firebase/firestore';
 import { AuthService } from './services/auth.service';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { getAuth } from 'firebase/auth';
+import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
+import { query } from '@angular/animations';
 
 
 @Component({
@@ -32,6 +34,9 @@ export class AppComponent implements OnInit {
   allChannels: any = [];
   channnelID: string;
 
+  allChats$: Observable<any>;
+  allChats = [];
+
   auth: boolean = true;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -42,17 +47,47 @@ export class AppComponent implements OnInit {
   }
 
 
+  ngOnInit(): void {
+    this.checkURL();
+    this.loadChannelMenu();
+  }
+
+
+  checkURL() {
+    if (window.location.href.includes('channel') || window.location.href.includes('register') || window.location.href.includes('chat')) {
+      this.auth = false;
+      this.loadUserChats();
+    }
+  }
+
+
   /**
    * Load Channel-Data from Firebase 
    */
-  ngOnInit(): void {
-    this.checkURL();
-
+  loadChannelMenu() {
     const channelCollection = collection(this.firestore, 'channels');
     this.allChannels$ = collectionData(channelCollection, { idField: "channelID" });
 
     this.allChannels$.subscribe((data: any) => {
       this.allChannels = data;
+    });
+  }
+
+
+  loadUserChats() {
+    const chatCollection = collection(this.firestore, 'chats');
+    this.allChats$ = collectionData(chatCollection, {});
+
+    this.allChats$.subscribe((data: any) => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].firstUser == user.displayName) {
+          let userChats = data[i];
+          this.allChats.push(userChats);
+        }
+      }
     });
   }
 
@@ -98,6 +133,18 @@ export class AppComponent implements OnInit {
   }
 
 
+  openDialogCreateChat() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user.displayName !== null) {
+      this.dialog.open(DialogCreateChatComponent);
+    } else {
+      this.showMessage();
+    }
+  }
+
+
   openDialogEditUser() {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -120,24 +167,11 @@ export class AppComponent implements OnInit {
   }
 
 
-  checkURL() {
-    if (window.location.href.includes('channel') || window.location.href.includes('register')) {
-      this.auth = false;
-    }
-  }
-
-
   showMessage() {
     this.messageTipp.open('Not available for Guest!', '', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: 1000
     });
-  }
-
-
-  getUsers() {
-    const auth = getAuth();
-    console.log(auth)
   }
 }
