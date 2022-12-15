@@ -11,7 +11,7 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { getAuth } from 'firebase/auth';
 import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
-import { query } from '@angular/animations';
+import { Chat } from 'src/models/chat.class';
 
 
 @Component({
@@ -33,9 +33,11 @@ export class AppComponent implements OnInit {
   allChannels$: Observable<any>;
   allChannels: any = [];
   channnelID: string;
+  chat: Chat;
 
   allChats$: Observable<any>;
   allChats = [];
+  chatName: any;
 
   auth: boolean = true;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
@@ -83,12 +85,22 @@ export class AppComponent implements OnInit {
       const user = auth.currentUser;
 
       for (let i = 0; i < data.length; i++) {
-        if (data[i].firstUser == user.displayName) {
+        if (data[i].firstUser == user.displayName || data[i].secondUser == user.displayName ) {
           let userChats = data[i];
           this.allChats.push(userChats);
+          // this.checkChatName(user.displayName);
         }
       }
     });
+  }
+
+
+  checkChatName(userName: string) {
+    if (this.chat.firstUser == userName) {
+      this.chatName = this.chat.secondUser;
+    } else {
+      this.chatName = this.chat.firstUser;
+    }
   }
 
 

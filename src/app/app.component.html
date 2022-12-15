@@ -61,12 +61,10 @@
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
-                <!-- <div *ngFor="let chat of allChats | keyvalue">
-                    <a mat-list-item routerLink="chat/{{ chat.id }}"> 
-                        {{ chat.secondUser }}</a>
-                </div> -->
-                <a *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}"> {{
-                    chat.secondUser }}</a>
+                <a *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}"> 
+                    <span *ngIf="chat.firstUser == authService.userName">{{ chat.secondUser }}</span> 
+                    <span *ngIf="chat.secondUser == authService.userName">{{ chat.firstUser }}</span> 
+                </a>
                 <div class="add-channel-container">
                     <button mat-raised-button (click)="openDialogCreateChat()">
                         <mat-icon>add_circle</mat-icon>
