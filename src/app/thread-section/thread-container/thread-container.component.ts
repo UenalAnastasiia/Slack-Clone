@@ -63,19 +63,8 @@ export class ThreadContainerComponent implements OnInit {
    * If Channel-ID = Thread-Channel-ID => Load Data from DB
    */
   async loadThreadsFromDB() {
-    this.noThreads = true;
     const queryCollection = query(collection(this.firestore, "threads"), where("channelID", "==", this.channel.id), orderBy("sendDateTime", "desc"));
-
-    const querySnapshot = await getDocs(queryCollection);
-    querySnapshot.forEach(() => {
-      this.noThreads = false;
-      this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
-      this.subscribeData();
-    });
-  }
-
-
-  subscribeData() {
+    this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
     this.allThreads$.subscribe((data: any) => {
       this.allThreads = data;
       data.length >= 1 ? this.noThreads = false : this.noThreads = true;

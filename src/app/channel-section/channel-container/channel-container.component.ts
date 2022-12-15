@@ -6,7 +6,7 @@ import { Channel } from 'src/models/channel.class';
 import { DialogChannelDetailsComponent } from 'src/app/channel-section/dialog-channel-details/dialog-channel-details.component';
 
 @Component({
-  selector: 'app-chanel-container',
+  selector: 'app-channel-container',
   templateUrl: './channel-container.component.html',
   styleUrls: ['./channel-container.component.scss']
 })

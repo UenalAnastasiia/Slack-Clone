@@ -38,7 +38,6 @@ export class ThreadDetailsComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-
   constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private messageTipp: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -79,15 +78,11 @@ export class ThreadDetailsComponent implements OnInit {
 
   async getThreadComments() {
     const queryCollection = query(collection(this.firestore, "threadComment"), where("threadID", "==", this.detailsID), orderBy("dateTime"));
-    const querySnapshot = await getDocs(queryCollection);
-
-    querySnapshot.forEach(() => {
-      this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
-      this.allComments$.subscribe((data: any) => {
-        this.allComments = data;
-        this.commentsLength = data.length;
-        this.btnText = this.commentsLength == 1 ? 'Comment' : 'Comments';
-      });
+    this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
+    this.allComments$.subscribe((data: any) => {
+      this.allComments = data;
+      this.commentsLength = data.length;
+      this.btnText = this.commentsLength == 1 ? 'Comment' : 'Comments';
     });
   }
 
@@ -132,5 +127,4 @@ export class ThreadDetailsComponent implements OnInit {
       duration: 1000
     });
   }
-
 }

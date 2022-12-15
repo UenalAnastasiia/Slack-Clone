@@ -8,8 +8,8 @@
         <span class="example-spacer"></span>
 
         <button class="loggedUser-btn" mat-button *ngIf="!auth" [matMenuTriggerFor]="userOptions">
-            <img class="userImg-small" src="{{ authService.userImg }}">
-            <span> {{ authService.userName }} </span>
+            <img class="userImg-small" src="{{ authService.userImg || 'assets/img/profile.png' }}">
+            <span> {{ authService.userName || 'Guest' }} </span>
         </button>
         <mat-menu #userOptions="matMenu">
             <button mat-menu-item (click)="openDialogEditUser()">

@@ -17,7 +17,7 @@ import { ThreadComment } from 'src/models/threadcomment.class';
   styleUrls: ['./dialog-edit-user.component.scss']
 })
 export class DialogEditUserComponent implements OnInit {
-  @ViewChild("inputFile", {static: false}) InputFile: ElementRef;
+  @ViewChild("inputFile", { static: false }) InputFile: ElementRef;
 
   editForm: FormGroup;
   public file: any = {};
@@ -67,7 +67,7 @@ export class DialogEditUserComponent implements OnInit {
       reader.onload = e => this.imageSrc = reader.result;
 
       reader.readAsDataURL(file);
-  }
+    }
   }
 
 
@@ -84,51 +84,42 @@ export class DialogEditUserComponent implements OnInit {
     if (this.file) {
       const uploadTask = uploadBytesResumable(storageRef, this.file);
       uploadTask.on('state_changed', (snapshot) => { const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; },
-        (error) => { console.log(error) },
-        () => {
+        (error) => { console.log(error) }, () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             const auth = getAuth();
             await updateProfile(auth.currentUser, {
               photoURL: downloadURL
             }).then(() => {
-              this.getUserImgThread(auth.currentUser, downloadURL);
-              this.getUserImgComment(auth.currentUser, downloadURL);
-
-              setTimeout(() => {
-                this.loadProgress = false;
-                this.showInput = false;
-                location.reload();
-              }, 3000);
-            }).catch((error) => {
-              console.log(error)
-              error = error
-            });
+              this.updateUser(auth.currentUser, downloadURL);
+            }).catch((error) => { console.log(error) });
           });
         });
     }
   }
 
 
-  async getUserImgThread(currentUser: any, downloadURL: any) {
-    const queryCollection = query(collection(this.firestore, "threads"), where("currentUser", "==", currentUser.displayName));
-    const querySnapshot = await getDocs(queryCollection);
-    querySnapshot.forEach(() => {
-      this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
-      this.updateUserImgThread(downloadURL);
-    });
+  updateUser(currentUser: any, downloadURL: any) {
+    this.updateUserImgThread(currentUser, downloadURL);
+    this.updateUserImgComment(currentUser, downloadURL);
+
+    setTimeout(() => {
+      this.loadProgress = false;
+      this.showInput = false;
+      location.reload();
+    }, 3000);
   }
 
 
-  updateUserImgThread(downloadURL: any) {
+  async updateUserImgThread(currentUser: any, downloadURL: any) {
+    const queryCollection = query(collection(this.firestore, "threads"), where("currentUser", "==", currentUser.displayName));
+    this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
+
     this.allComments$.subscribe(async (data: any) => {
       this.allComments = data;
       this.dataID = data.map(data => data.id);
 
       for (let index = 0; index < this.dataID.length; index++) {
         const element = this.dataID[index];
-        // const batch = writeBatch(this.firestore);
-        // const sfRef = doc(this.firestore, "threads", element);
-        // batch.update(sfRef, { "userImg": downloadURL });
         await updateDoc(doc(this.firestore, "threads", element),
           { userImg: downloadURL });
       }
@@ -136,17 +127,10 @@ export class DialogEditUserComponent implements OnInit {
   }
 
 
-  async getUserImgComment(currentUser: any, downloadURL: any) {
+  async updateUserImgComment(currentUser: any, downloadURL: any) {
     const queryCollection = query(collection(this.firestore, "threadComment"), where("commentUser", "==", currentUser.displayName));
-    const querySnapshot = await getDocs(queryCollection);
-    querySnapshot.forEach(() => {
-      this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
-      this.updateUserImgComment(downloadURL);
-    });
-  }
+    this.allThreads$ = collectionData(queryCollection, { idField: "threadID" });
 
-
-  updateUserImgComment(downloadURL: any) {
     this.allThreads$.subscribe(async (data: any) => {
       this.allThreads = data;
       this.commentDataID = data.map(data => data.commentID);
