@@ -7,7 +7,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { Thread } from 'src/models/thread.class';
 import { Observable } from 'rxjs';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { collection, doc, query, where, getDocs, updateDoc, writeBatch } from 'firebase/firestore';
+import { collection, doc, query, where, updateDoc } from 'firebase/firestore';
 import { ThreadComment } from 'src/models/threadcomment.class';
 
 

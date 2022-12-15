@@ -8,6 +8,8 @@ import { Firestore, collectionData } from '@angular/fire/firestore';
 import { collection } from '@firebase/firestore';
 import { AuthService } from './services/auth.service';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { getAuth } from 'firebase/auth';
 
 
 @Component({
@@ -31,9 +33,11 @@ export class AppComponent implements OnInit {
   channnelID: string;
 
   auth: boolean = true;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService) {
+  constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService, private messageTipp: MatSnackBar) {
     this.authService.getLoggedUser();
   }
 
@@ -82,13 +86,27 @@ export class AppComponent implements OnInit {
 
 
   openDialogAddChannel() {
-    const dialog = this.dialog.open(DialogAddChannelComponent);
-    dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user.displayName !== null) {
+      const dialog = this.dialog.open(DialogAddChannelComponent);
+      dialog.componentInstance.channel = new Channel(this.channel.toJSON());
+    } else {
+      this.showMessage();
+    }
   }
 
 
   openDialogEditUser() {
-    this.dialog.open(DialogEditUserComponent);
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user.displayName !== null) {
+      this.dialog.open(DialogEditUserComponent);
+    } else {
+      this.showMessage();
+    }
   }
 
 
@@ -106,5 +124,14 @@ export class AppComponent implements OnInit {
     if (window.location.href.includes('channel') || window.location.href.includes('register')) {
       this.auth = false;
     }
+  }
+
+
+  showMessage() {
+    this.messageTipp.open('Not available for Guest!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
   }
 }

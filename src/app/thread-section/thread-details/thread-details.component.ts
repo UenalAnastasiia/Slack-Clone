@@ -60,16 +60,7 @@ export class ThreadDetailsComponent implements OnInit {
 
   async getThread() {
     const queryCollection = query(collection(this.firestore, "threads"), where("id", "==", this.detailsID));
-    const querySnapshot = await getDocs(queryCollection);
-
-    querySnapshot.forEach(() => {
-      this.currentThread$ = collectionData(queryCollection, { idField: "threadID" });
-      this.subscribeData();
-    });
-  }
-
-
-  subscribeData() {
+    this.currentThread$ = collectionData(queryCollection, { idField: "threadID" });
     this.currentThread$.subscribe((data: any) => {
       this.currentThread = data;
     });

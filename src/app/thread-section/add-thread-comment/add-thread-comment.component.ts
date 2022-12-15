@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Firestore, doc, getDoc, setDoc, collectionData, updateDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
 import { Thread } from 'src/models/thread.class';
-import { collection, addDoc, query, where, getDocs } from '@firebase/firestore';
+import { collection, addDoc, query, where } from '@firebase/firestore';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
@@ -166,16 +166,8 @@ export class AddThreadCommentComponent implements OnInit {
 
   async getCommentsLength() {
     const queryCollection = query(collection(this.firestore, "threadComment"), where("threadID", "==", this.detailsID));
-    const querySnapshot = await getDocs(queryCollection);
+    this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
 
-    querySnapshot.forEach(() => {
-      this.allComments$ = collectionData(queryCollection, { idField: "threadID" });
-      this.updateLengthData();
-    });
-  }
-
-
-  updateLengthData() {
     this.allComments$.subscribe(async (data: any) => {
       this.allComments = data;
       this.commentsLength = data.length;
