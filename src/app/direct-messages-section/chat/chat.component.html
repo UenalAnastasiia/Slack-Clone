@@ -1,3 +1,20 @@
-<h1>First User: {{ chat.firstUser }}</h1>
+<div class="channel-container">
+    <div class="left-container">
+        <mat-card class="card-style">
+            <div class="name-header">
+                <h1 *ngIf="chat.firstUser == authService.userName">Chat with {{ chat.secondUser }}</h1> 
+                <h1 *ngIf="chat.secondUser == authService.userName">Chat with {{ chat.firstUser }}</h1> 
+            </div>
+        </mat-card>
 
-<h1>Second User: {{ chat.secondUser }}</h1>
+        <mat-card class="card-style thread-container">
+            Messages
+        </mat-card>
+    </div>
+
+    <div class="position-fixed">
+        <div class="card-style add-thread-box">
+            <app-add-chat-message></app-add-chat-message>
+        </div>
+    </div>
+</div>

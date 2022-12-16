@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { doc, getDoc } from 'firebase/firestore';
+import { AuthService } from 'src/app/services/auth.service';
 import { Chat } from 'src/models/chat.class';
 
 @Component({
@@ -15,7 +16,7 @@ export class ChatComponent implements OnInit {
   chatData: any;
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore) { }
+  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe(params => {

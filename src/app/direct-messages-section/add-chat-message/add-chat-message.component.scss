@@ -1,0 +1,333 @@
+// .angular-editor-textarea {
+//     width: 461px;
+//     border: none;
+//     border-bottom-left-radius: 10px;
+//     border-bottom-right-radius: 10px;
+//     resize: none !important;
+//     height: 50px !important;
+//     overflow-y: auto;
+//     padding-bottom: 60px !important;
+//     position: relative;
+
+//     &:focus {
+//         outline: none;
+//     }
+
+//     &::placeholder {
+//         font-style: italic;
+//     }
+
+//     img {
+//         height: 150px;
+//         object-fit: cover;
+//     }
+// }
+
+// .angular-editor-button {
+//     color: rgba($color: #000000, $alpha: 0.5);
+
+//     &:hover {
+//         color: #000000;
+//     }
+// }
+
+// .angular-editor-toolbar {
+//     border-top-left-radius: 10px;
+//     border-top-right-radius: 10px;
+//     margin-bottom: -5px;
+//     border-bottom: none !important;
+//     width: 480px;
+// }
+
+// #strikeThrough-texteditor,
+// #link-texteditor,
+// #unlink-texteditor,
+// #clearFormatting-texteditor,
+// #subscript-texteditor,
+// #superscript-texteditor,
+// #backgroundColorPicker-texteditor,
+// #customClassSelector-texteditor,
+// .select-heading,
+// #texteditor .angular-editor-button[title="Insert Video"],
+// #texteditor .angular-editor-button[title="Insert Image"],
+// .angular-editor-button[title="Undo"],
+// .angular-editor-button[title="Redo"],
+// .angular-editor-button[title="Justify Center"],
+// .angular-editor-button[title="Horizontal Line"] {
+//     display: none !important;
+// }
+
+// .editor-box {
+//     display: flex;
+//     align-items: center;
+//     flex-direction: column;
+//     position: relative;
+//     background: #FAFAFA !important;
+//     position: fixed;
+//     bottom: 0;
+//     margin-left: 5vw;
+// }
+
+// angular-editor {
+//     img {
+//         display: none;
+//     }
+// }
+
+// .example-button-container {
+//     background-color: #6F2F40 !important;
+//     width: 32px;
+//     height: 32px;
+//     margin-left: 10px;
+//     margin-bottom: -6px;
+
+//     mat-icon {
+//         margin-top: -24px;
+//         font-size: 20px;
+//         color: white;
+//     }
+// }
+
+// .mat-snack-bar-container {
+//     min-width: 180px !important;
+//     color: white;
+//     background-color: #6F2F40 !important;
+// }
+
+// ::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+//     width: 480px !important;
+// }
+
+// .input-margin {
+//     margin-left: -130px;
+// }
+
+// .upload-btn {
+//     color: #6F2F40 !important;
+//     font-size: 32px;
+//     width: 32px;
+//     height: 32px;
+//     padding: 4px;
+//     background: #FAFAFA;
+//     border-radius: 100%;
+
+//     &:hover {
+//         cursor: pointer;
+//     }
+// }
+
+// .btn-box {
+//     display: flex;
+//     // height: 36px;
+//     // margin-top: 12px;
+//     // flex-direction: column;
+
+//     mat-icon {
+//         &:hover {
+//             cursor: pointer;
+//         }
+//     }
+// }
+
+// .send-btn {
+//     position: absolute;
+//     bottom: 10px;
+//     right: 12px;
+// }
+
+// .upload-icon {
+//     position: absolute;
+//     left: 8px;
+//     bottom: -2px;
+//     z-index: 1;
+// }
+
+// input[type=file]::-webkit-file-upload-button {
+//     // visibility: hidden;
+//     display: none;
+// }
+
+// input[type=file] {
+//     width: 130px;
+// }
+
+// .upload-name {
+//     display: flex;
+//     position: absolute;
+//     bottom: 8px;
+//     left: 46px;
+//     z-index: 1;
+// }
+
+// .drag-active {
+//     background: rgba($color: #000000, $alpha: 0.02) !important;
+// }
+
+
+
+
+.angular-editor-textarea {
+    width: 461px;
+    // padding-left: 12px !important;
+    // padding-right: 0;
+    // padding-top: 4px !important;
+    // padding-bottom: 0;
+    border: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    resize: none !important;
+    height: 50px !important;
+    overflow-y: auto;
+    padding-bottom: 60px !important;
+    position: relative;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        font-style: italic;
+    }
+
+    img {
+        height: 150px;
+        object-fit: cover;
+    }
+}
+
+.angular-editor-button {
+    color: rgba($color: #000000, $alpha: 0.5);
+
+    &:hover {
+        color: #000000;
+    }
+}
+
+.angular-editor-toolbar {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: -5px;
+    border-bottom: none !important;
+    width: 480px;
+}
+
+#strikeThrough-texteditor,
+#link-texteditor,
+#unlink-texteditor,
+#clearFormatting-texteditor,
+#subscript-texteditor,
+#superscript-texteditor,
+#backgroundColorPicker-texteditor,
+#customClassSelector-texteditor,
+.select-heading,
+#texteditor .angular-editor-button[title="Insert Video"],
+#texteditor .angular-editor-button[title="Insert Image"],
+.angular-editor-button[title="Undo"],
+.angular-editor-button[title="Redo"],
+.angular-editor-button[title="Justify Center"],
+.angular-editor-button[title="Horizontal Line"] {
+    display: none !important;
+}
+
+.editor-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    background: #FAFAFA !important;
+}
+
+angular-editor {
+    img {
+        display: none;
+    }
+}
+
+.example-button-container {
+    background-color: #6F2F40 !important;
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
+    margin-bottom: -6px;
+
+    mat-icon {
+        margin-top: -24px;
+        font-size: 20px;
+        color: white;
+    }
+}
+
+.mat-snack-bar-container {
+    min-width: 180px !important;
+    color: white;
+    background-color: #6F2F40 !important;
+}
+
+::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+    width: 480px !important;
+}
+
+.input-margin {
+    margin-left: -130px;
+}
+
+.upload-btn {
+    color: #6F2F40 !important;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    background: #FAFAFA;
+    border-radius: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn-box {
+    display: flex;
+    // height: 36px;
+    // margin-top: 12px;
+    // flex-direction: column;
+
+    mat-icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.send-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+}
+
+.upload-icon {
+    position: absolute;
+    left: 8px;
+    bottom: -2px;
+    z-index: 1;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    // visibility: hidden;
+    display: none;
+}
+
+input[type=file] {
+    width: 130px;
+}
+
+.upload-name {
+    display: flex;
+    position: absolute;
+    bottom: 8px;
+    left: 46px;
+    z-index: 1;
+}
+
+.drag-active {
+    background: rgba($color: #000000, $alpha: 0.02) !important;
+}

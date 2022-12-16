@@ -44,6 +44,7 @@ import { NamePipe } from './name.pipe';
 import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ChatComponent } from './direct-messages-section/chat/chat.component';
+import { AddChatMessageComponent } from './direct-messages-section/add-chat-message/add-chat-message.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { ChatComponent } from './direct-messages-section/chat/chat.component';
     DragDirective,
     NamePipe,
     DialogCreateChatComponent,
-    ChatComponent
+    ChatComponent,
+    AddChatMessageComponent
   ],
   imports: [
     BrowserModule,
