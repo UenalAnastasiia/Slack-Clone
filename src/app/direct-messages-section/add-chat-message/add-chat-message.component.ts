@@ -2,9 +2,12 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { FileHandle } from 'src/app/dragDrop.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { Chat } from 'src/models/chat.class';
+import { Message } from 'src/models/message.class';
+
 
 @Component({
   selector: 'app-add-chat-message',
@@ -13,7 +16,9 @@ import { Chat } from 'src/models/chat.class';
   encapsulation: ViewEncapsulation.None
 })
 export class AddChatMessageComponent implements OnInit {
-  chat: Chat = new Chat();
+  chat: Chat;
+  chatID: any;
+  message: Message = new Message();
 
   public file: any = {};
   files: FileHandle[] = [];
@@ -45,6 +50,9 @@ export class AddChatMessageComponent implements OnInit {
     private service: AuthService) { }
 
   ngOnInit(): void {
+    this.activeRoute.params.subscribe(routeParams => {
+      this.chatID = routeParams['id'];
+    });
   }
 
 
@@ -71,13 +79,23 @@ export class AddChatMessageComponent implements OnInit {
   }
 
 
-  sendMessage() {
-
+  async sendMessage() {
+    let dateTime = new Date();
+    const collRef = collection(this.firestore, "chats", this.chatID, "chatMessage");
+    const dataRef = await addDoc(collRef, {
+      messageText: this.message.messageText
+    });
+    this.message.messageID = dataRef.id;
+    this.message.user = this.service.userName;
+    this.message.userImg = this.service.userImg;
+    this.message.messageDateTime = dateTime.toISOString();
+    await setDoc(doc(this.firestore, "chats", this.chatID, "chatMessage", this.message.messageID), this.message.toJSON());
+    this.message.messageText = '';
   }
 
 
   cleanInputFile(file: any) {
-    this.chat.uploadFile = '';
+    this.message.uploadFile = '';
     this.hideFile = false;
     this.dropzoneHovered = false;
     let index = this.files.indexOf(file);

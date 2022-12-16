@@ -1,7 +1,7 @@
 <div class="editor-box" appDrag (files)="filesDropped($event)" (dragenter)="dropzoneHovered = true"
     (dragleave)="dropzoneHovered = false" [class.drag-active]="dropzoneHovered">
     <angular-editor id="texteditor" [config]="editorConfig" placeholder="Write Message"
-        [(ngModel)]="chat.message" (keypress)="onKeypressEvent($event)">
+        [(ngModel)]="message.messageText" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <div class="btn-box">
@@ -12,7 +12,7 @@
         </div>
 
         <div class="upload-name hide" [class.visible]="hideFile">
-            <input *ngIf="!hideInputChoose" [(ngModel)]="chat.uploadFile" accept="image/*" id="inputFile" multiple
+            <input *ngIf="!hideInputChoose" [(ngModel)]="message.uploadFile" accept="image/*" id="inputFile" multiple
                 type="file" (change)="onFilechange($event)" />
 
             <div *ngFor="let file of files">

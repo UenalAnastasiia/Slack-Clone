@@ -22,12 +22,14 @@
                 </mat-form-field>
             </p>
 
-            <p *ngIf="error" class="error">
+            <p *ngIf="error" class="error user-error"> <mat-icon color="warn">warning</mat-icon>
                 {{ error }}
             </p>
 
+            <p *ngIf="userNameExist" class="user-error"> <mat-icon color="warn">warning</mat-icon> ERROR: Username exist.</p>
+
             <div class="align-center">
-                <button [disabled]="!this.formReg.controls['email'].value || !this.formReg.controls['password'].value" type="submit" mat-raised-button color="warn">Sign up</button>
+                <button [disabled]="!this.formReg.controls['name'].value || !this.formReg.controls['email'].value || !this.formReg.controls['password'].value" type="submit" mat-raised-button color="warn">Sign up</button>
             </div>
         </form>
 
