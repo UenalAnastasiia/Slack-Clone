@@ -57,7 +57,6 @@ export class RegisterComponent implements OnInit {
     const docRef = await addDoc(collection(this.firestore, "users"), this.user.toJSON());
     const auth = getAuth();
     this.user.uid = docRef.id;
-    console.log(auth.currentUser)
     this.user.displayName = this.formReg.get('name').value;
     this.user.photoURL = 'assets/img/profile.png';
     this.user.email = this.formReg.get('email').value;

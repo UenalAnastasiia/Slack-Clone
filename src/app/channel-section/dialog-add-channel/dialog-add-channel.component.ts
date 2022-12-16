@@ -4,7 +4,7 @@ import { Channel } from 'src/models/channel.class';
 import { AppComponent } from '../../app.component';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { collection, addDoc } from '@firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dialog-add-channel',
@@ -16,6 +16,7 @@ export class DialogAddChannelComponent implements OnInit {
 
   constructor(
     private firestore: Firestore,
+    private authService: AuthService,
     public dialogRef: MatDialogRef<DialogAddChannelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AppComponent,
   ) { }
@@ -25,11 +26,9 @@ export class DialogAddChannelComponent implements OnInit {
 
 
   async saveChannel() {
-    const auth = getAuth();
-    const user = auth.currentUser;
     const docRef = await addDoc(collection(this.firestore, "channels"), this.channel.toJSON());
     this.channel.id = docRef.id;
-    this.channel.creator = user.displayName;
+    this.channel.creator = this.authService.userName;
     await setDoc(doc(this.firestore, "channels", this.channel.id), this.channel.toJSON());
     this.dialogRef.close();
   }

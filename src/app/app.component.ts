@@ -9,7 +9,6 @@ import { collection } from '@firebase/firestore';
 import { AuthService } from './services/auth.service';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { getAuth } from 'firebase/auth';
 import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
 import { Chat } from 'src/models/chat.class';
 
@@ -80,11 +79,8 @@ export class AppComponent implements OnInit {
     this.allChats$ = collectionData(chatCollection, {});
 
     this.allChats$.subscribe((data: any) => {
-      const auth = getAuth();
-      const user = auth.currentUser;
-
       for (let i = 0; i < data.length; i++) {
-        if (data[i].firstUser == user.displayName || data[i].secondUser == user.displayName) {
+        if (data[i].firstUser == this.authService.userName || data[i].secondUser == this.authService.userName) {
           let userChats = data[i];
           this.allChats.push(userChats);
         }
@@ -122,10 +118,7 @@ export class AppComponent implements OnInit {
 
 
   openDialogAddChannel() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user.displayName !== null) {
+    if (this.authService.userName !== null) {
       const dialog = this.dialog.open(DialogAddChannelComponent);
       dialog.componentInstance.channel = new Channel(this.channel.toJSON());
     } else {
@@ -135,10 +128,7 @@ export class AppComponent implements OnInit {
 
 
   openDialogCreateChat() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user.displayName !== null) {
+    if (this.authService.userName !== null) {
       this.dialog.open(DialogCreateChatComponent);
     } else {
       this.showMessage();
@@ -147,10 +137,7 @@ export class AppComponent implements OnInit {
 
 
   openDialogEditUser() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user.displayName !== null) {
+    if (this.authService.userName !== null) {
       this.dialog.open(DialogEditUserComponent);
     } else {
       this.showMessage();

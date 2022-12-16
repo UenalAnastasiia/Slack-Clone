@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, doc, getDoc, collectionData } from '@angular/fire/firestore';
-import { collection, query, where, getDocs, orderBy, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, deleteDoc, updateDoc } from 'firebase/firestore';
 import { Channel } from 'src/models/channel.class';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Thread } from 'src/models/thread.class';
 import { ThreadComment } from 'src/models/threadcomment.class';
-import { getAuth } from 'firebase/auth';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-thread-details',
@@ -38,7 +38,10 @@ export class ThreadDetailsComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private messageTipp: MatSnackBar) { }
+  constructor(private activeRoute: ActivatedRoute, 
+    private firestore: Firestore, 
+    private messageTipp: MatSnackBar,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
@@ -79,10 +82,7 @@ export class ThreadDetailsComponent implements OnInit {
 
 
   async deleteThread(id: string, name: string) {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user.displayName == name) {
+    if (this.authService.userName == name) {
       await deleteDoc(doc(this.firestore, "threadComment", id));
       this.updateThreadData();
       this.showSnackMessage();

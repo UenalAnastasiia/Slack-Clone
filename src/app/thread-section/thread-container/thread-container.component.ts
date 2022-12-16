@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { getAuth } from 'firebase/auth';
 import { collection, doc, getDoc, query, where, orderBy, deleteDoc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -73,9 +72,7 @@ export class ThreadContainerComponent implements OnInit {
 
 
   openDetails(id: string) {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user.displayName !== null) {
+    if (this.authService.userName !== null) {
       this.showDetails = !this.showDetails;
       this.threadShow.emit(this.showDetails);
       localStorage.setItem('ThreadID', JSON.stringify(id));
@@ -86,10 +83,7 @@ export class ThreadContainerComponent implements OnInit {
 
 
   async deleteThread(id: string, name: string) {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user.displayName == name) {
+    if (this.authService.userName == name) {
       await deleteDoc(doc(this.firestore, "threads", id));
       this.showSnackMessage('Thread deleted!');
     } else {

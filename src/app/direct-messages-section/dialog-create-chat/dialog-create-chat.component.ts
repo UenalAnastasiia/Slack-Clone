@@ -5,7 +5,7 @@ import { Chat } from 'src/models/chat.class';
 import { User } from 'src/models/user.class';
 import { Observable } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
-import { getAuth } from 'firebase/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dialog-create-chat',
@@ -20,7 +20,9 @@ export class DialogCreateChatComponent implements OnInit {
   value: string;
 
 
-  constructor(public dialogRef: MatDialogRef<DialogCreateChatComponent>, private firestore: Firestore) { }
+  constructor(public dialogRef: MatDialogRef<DialogCreateChatComponent>, 
+    private firestore: Firestore, 
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     const userCollection = collection(this.firestore, 'users');
@@ -33,9 +35,7 @@ export class DialogCreateChatComponent implements OnInit {
 
 
   async create() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    this.chat.firstUser = user.displayName;
+    this.chat.firstUser = this.authService.userName;
     const docRef = await addDoc(collection(this.firestore, "chats"), this.chat.toJSON());
     this.chat.id = docRef.id;
     await setDoc(doc(this.firestore, "chats", this.chat.id), this.chat.toJSON());

@@ -98,11 +98,9 @@ export class AddThreadComponent implements OnInit {
 
 
   sendThread() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (this.thread.message == '' && user.displayName !== null) {
+    if (this.thread.message == '' && this.service.userName !== null) {
       this.showSnackMessage('Please write a message!');
-    } else if (user.displayName == null) {
+    } else if (this.service.userName == null) {
       this.showSnackMessage('Not available for Guest!');
     } else {
       this.saveThread();
