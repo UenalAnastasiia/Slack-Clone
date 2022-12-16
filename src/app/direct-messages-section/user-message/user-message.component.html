@@ -1,0 +1,10 @@
+<div *ngIf="noMessages" class="no-threads-box">
+    <p>No Messages...</p>
+</div>
+
+<div *ngIf="!noMessages">
+    <mat-card *ngFor="let message of allMessages">
+        <p>{{ message.user }}</p>
+        <p>{{ message.messageText }}</p>
+    </mat-card>
+</div>

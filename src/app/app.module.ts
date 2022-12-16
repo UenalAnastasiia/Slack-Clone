@@ -45,6 +45,7 @@ import { DialogCreateChatComponent } from './direct-messages-section/dialog-crea
 import { MatSelectModule } from '@angular/material/select';
 import { ChatComponent } from './direct-messages-section/chat/chat.component';
 import { AddChatMessageComponent } from './direct-messages-section/add-chat-message/add-chat-message.component';
+import { UserMessageComponent } from './direct-messages-section/user-message/user-message.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { AddChatMessageComponent } from './direct-messages-section/add-chat-mess
     NamePipe,
     DialogCreateChatComponent,
     ChatComponent,
-    AddChatMessageComponent
+    AddChatMessageComponent,
+    UserMessageComponent
   ],
   imports: [
     BrowserModule,
