@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { FileHandle } from 'src/app/dragDrop.directive';
 import { AuthService } from 'src/app/services/auth.service';
@@ -98,7 +98,7 @@ export class AddChatMessageComponent implements OnInit {
 
 
   cleanInputFile(file: any) {
-    this.message.uploadFileM = '';
+    this.message.uploadFile = '';
     this.hideFile = false;
     this.dropzoneHovered = false;
     let index = this.files.indexOf(file);
@@ -115,15 +115,11 @@ export class AddChatMessageComponent implements OnInit {
         (error) => { console.log(error) },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log('Img: ', downloadURL)
-            this.message.uploadFileM = downloadURL;
+            this.message.uploadFile = downloadURL;
             this.message.messageText = text;
             await setDoc(doc(this.firestore, "chats", this.chatID, "chatMessage", this.message.messageID), this.message.toJSON());
-            // await updateDoc(doc(this.firestore, "chat", this.chatID, "chatMessage", id),
-            //   { uploadFileM: downloadURL });
           });
         });
     }
   }
-
 }

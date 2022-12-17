@@ -1,7 +1,7 @@
 export class Message {
     user: any;
     messageText: any;
-    uploadFileM: any;
+    uploadFile: any;
     messageDateTime: any;
     messageID: any;
     userImg: any;
@@ -9,7 +9,7 @@ export class Message {
     constructor(obj?: any) {
         this.user = obj ? obj.user : '';
         this.messageText = obj ? obj.messageText : '';
-        this.uploadFileM = obj ? obj.uploadFileM : '';
+        this.uploadFile = obj ? obj.uploadFile : '';
         this.messageDateTime = obj ? obj.messageDateTime : '';
         this.messageID = obj ? obj.messageID : '';
         this.userImg = obj ? obj.userImg : '';
@@ -19,7 +19,7 @@ export class Message {
         return {
             user: this.user,
             messageText: this.messageText,
-            uploadFileM: this.uploadFileM,
+            uploadFile: this.uploadFile,
             messageDateTime: this.messageDateTime,
             messageID: this.messageID,
             userImg: this.userImg

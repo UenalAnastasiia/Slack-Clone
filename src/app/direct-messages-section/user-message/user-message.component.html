@@ -18,8 +18,8 @@
                     <p> {{ message. messageDateTime | date: "dd.MM.yyyy"}} at {{ message.messageDateTime | date: "HH:mm"}} </p>
                 </div>
                 <p>{{ message.messageText }}</p>
-                <a *ngIf=" message.uploadFileM !== '' " href="{{ message.uploadFileM }}" target="_blank">
-                    <img class="uploadImg" src="{{ message.uploadFileM }}">
+                <a *ngIf=" message.uploadFile !== '' " href="{{ message.uploadFile }}" target="_blank">
+                    <img class="uploadImg" src="{{ message.uploadFile }}">
                 </a>
             </div>
         </div>
