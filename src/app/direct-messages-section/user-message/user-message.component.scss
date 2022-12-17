@@ -1,0 +1,67 @@
+.thread-container {
+    margin: 6px;
+    height: max-content;
+    display: flex;
+
+    &:hover {
+        background: rgba($color: #000000, $alpha: 0.03);
+    }
+}
+
+.no-threads-box {
+    margin: 16px;
+}
+
+.thread-btn {
+    background: #5d2836;
+    color: white;
+    position: absolute;
+    bottom: 12px;
+    left: 72px;
+}
+
+.user-data {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+
+    p {
+        &:last-child {
+            margin-left: 12px;
+            margin-top: 2px;
+            font-size: 10px;
+            color: #949494;
+        }
+    }
+}
+
+.uploadImg {
+    height: 80px;
+    margin-bottom: 40px;  
+    object-fit: cover;
+}
+
+.user-img {
+    margin-right: 8px; 
+
+    img {
+        height: 30px;
+        width: 30px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+}
+
+.thread-menu {
+    position: absolute;
+    right:4px;
+    top: 4px;
+}
+
+.delete-icon {
+    margin-right: 0;
+}
+
+.mat-card {
+    padding: 4px !important;
+}

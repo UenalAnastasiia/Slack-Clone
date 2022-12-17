@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { collection } from 'firebase/firestore';
 import { Message } from 'src/models/message.class';
 import { Observable } from 'rxjs';
+import { getStorage, ref } from 'firebase/storage';
+
 
 @Component({
   selector: 'app-user-message',
@@ -36,7 +38,11 @@ export class UserMessageComponent implements OnInit {
 
     this.allMessages$.subscribe((data: any) => {
       this.allMessages = data;
-      data.length >= 1 ? this.noMessages = false : this.noMessages = true;   
+      
+      data.length >= 1 ? this.noMessages = false : this.noMessages = true; 
+      return this.allMessages.sort((a, b) => {
+        return <any>new Date(a.messageDateTime) - <any>new Date(b.messageDateTime);
+      }); 
     });
   }
 }

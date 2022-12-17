@@ -2,7 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { FileHandle } from 'src/app/dragDrop.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { Chat } from 'src/models/chat.class';
@@ -56,10 +57,10 @@ export class AddChatMessageComponent implements OnInit {
   }
 
 
-  onKeypressEvent(event: any) {
+  onKeypressEvent(event: any, text: string) {
     if (event.keyCode == 13) {
       event.preventDefault();
-      this.sendMessage();
+      this.sendMessage(text);
     }
   }
 
@@ -79,7 +80,7 @@ export class AddChatMessageComponent implements OnInit {
   }
 
 
-  async sendMessage() {
+  async sendMessage(text: string) {
     let dateTime = new Date();
     const collRef = collection(this.firestore, "chats", this.chatID, "chatMessage");
     const dataRef = await addDoc(collRef, {
@@ -89,17 +90,40 @@ export class AddChatMessageComponent implements OnInit {
     this.message.user = this.service.userName;
     this.message.userImg = this.service.userImg;
     this.message.messageDateTime = dateTime.toISOString();
+    this.hideFile === true ? this.uploadFileToDB(this.message.messageID, text) : this.hideFile = false;
     await setDoc(doc(this.firestore, "chats", this.chatID, "chatMessage", this.message.messageID), this.message.toJSON());
+    this.cleanInputFile(this.file);
     this.message.messageText = '';
   }
 
 
   cleanInputFile(file: any) {
-    this.message.uploadFile = '';
+    this.message.uploadFileM = '';
     this.hideFile = false;
     this.dropzoneHovered = false;
     let index = this.files.indexOf(file);
     this.files.splice(index, 1);
+  }
+
+
+  uploadFileToDB(id: string, text: string) {
+    const storage = getStorage();
+    const storageRef = ref(storage, this.file.name);
+    if (this.file) {
+      const uploadTask = uploadBytesResumable(storageRef, this.file);
+      uploadTask.on('state_changed', (snapshot) => { const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; },
+        (error) => { console.log(error) },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log('Img: ', downloadURL)
+            this.message.uploadFileM = downloadURL;
+            this.message.messageText = text;
+            await setDoc(doc(this.firestore, "chats", this.chatID, "chatMessage", this.message.messageID), this.message.toJSON());
+            // await updateDoc(doc(this.firestore, "chat", this.chatID, "chatMessage", id),
+            //   { uploadFileM: downloadURL });
+          });
+        });
+    }
   }
 
 }
