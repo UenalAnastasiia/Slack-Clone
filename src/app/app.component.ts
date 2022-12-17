@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collectionData } from '@angular/fire/firestore';
-import { collection } from '@firebase/firestore';
+import { collection, deleteDoc, doc } from '@firebase/firestore';
 import { AuthService } from './services/auth.service';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
@@ -42,7 +42,12 @@ export class AppComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor(public dialog: MatDialog, private firestore: Firestore, public authService: AuthService, private messageTipp: MatSnackBar) {
+  constructor(
+    public dialog: MatDialog,
+    private firestore: Firestore,
+    public authService: AuthService,
+    private messageTipp: MatSnackBar) {
+
     this.authService.getLoggedUser();
   }
 
@@ -89,34 +94,6 @@ export class AppComponent implements OnInit {
   }
 
 
-  showAddBtn() {
-    if (!this.isExpandedAddBtn) {
-      this.isShowingAddBtn = true;
-    }
-  }
-
-
-  hideAddBtn() {
-    if (!this.isExpandedAddBtn) {
-      this.isShowingAddBtn = false;
-    }
-  }
-
-
-  showDMbtn() {
-    if (!this.isExpandedDM) {
-      this.isShowingDM = true;
-    }
-  }
-
-
-  hideDMbtn() {
-    if (!this.isExpandedDM) {
-      this.isShowingDM = false;
-    }
-  }
-
-
   openDialogAddChannel() {
     if (this.authService.userName !== null) {
       const dialog = this.dialog.open(DialogAddChannelComponent);
@@ -142,6 +119,11 @@ export class AppComponent implements OnInit {
     } else {
       this.showMessage();
     }
+  }
+
+
+  async deleteChat(id: string) {
+      await deleteDoc(doc(this.firestore, "chats", id));
   }
 
 

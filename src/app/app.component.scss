@@ -126,3 +126,15 @@
 .loggedUser-btn {
   margin-right: 24px;
 }
+
+.chat-link {
+  mat-icon {
+    visibility: hidden;
+  }
+
+  &:hover {
+    mat-icon {
+      visibility: visible;
+    }
+  }
+}

@@ -27,7 +27,8 @@
 
         <!-- Channels Block -->
         <mat-nav-list>
-            <mat-list-item class="parent color-white" (mouseenter)="showAddBtn()" (mouseleave)="hideAddBtn()">
+            <mat-list-item class="parent color-white" (mouseenter)="isShowingAddBtn = true"
+                (mouseleave)="isShowingAddBtn = false">
                 <span class="full-width size-22" (click)="showSubmenu = !showSubmenu">Channels</span>
                 <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
                     (click)="showSubmenu = !showSubmenu">
@@ -51,7 +52,8 @@
 
         <!-- Direct Messages Block -->
         <mat-nav-list class="margin-top-28 margin-bottom-28">
-            <mat-list-item class="parent color-white" (mouseenter)="showDMbtn()" (mouseleave)="hideDMbtn()">
+            <mat-list-item class="parent color-white" (mouseenter)="isShowingDM = true"
+                (mouseleave)="this.isShowingDM = false">
                 <span class="full-width size-22" (click)="showDMmenu = !showDMmenu">Direct Messages</span>
                 <mat-icon mat-list-icon class="menu-button" [ngClass]="{'rotated' : showDMmenu}"
                     (click)="showDMmenu = !showDMmenu">
@@ -61,10 +63,13 @@
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
-                <a *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}"> 
-                    <span *ngIf="chat.firstUser == authService.userName">{{ chat.secondUser }}</span> 
-                    <span *ngIf="chat.secondUser == authService.userName">{{ chat.firstUser }}</span> 
+                <a class="chat-link" *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}">
+                    <span *ngIf="chat.firstUser == authService.userName">{{ chat.secondUser }}</span>
+                    <span *ngIf="chat.secondUser == authService.userName">{{ chat.firstUser }}</span>
+                        <mat-icon class="addChannel-btn" matTooltipClass="example-tooltip-gold"
+                            (click)="deleteChat(chat.id)" title="Delete Chat">close</mat-icon>
                 </a>
+
                 <div class="add-channel-container">
                     <button mat-raised-button (click)="openDialogCreateChat()">
                         <mat-icon>add_circle</mat-icon>
