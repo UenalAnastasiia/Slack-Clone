@@ -12,7 +12,7 @@
         </div>
         
         <div class="upload-name hide" [class.visible]="hideFile">
-            <input *ngIf="!hideInputChoose" [(ngModel)]="threadComment.uploadFileComment" accept="image/*"
+            <input *ngIf="!hideInputChoose" accept="image/*"
                 id="inputFile" multiple type="file" (change)="onFilechange($event)" />
             <div *ngFor="let file of files">
                 <span> {{ file.file.name }}</span>
