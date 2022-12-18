@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, collectionData } from '@angular/fire/firestore';
 import { Channel } from 'src/models/channel.class';
 import { DialogChannelDetailsComponent } from 'src/app/channel-section/dialog-channel-details/dialog-channel-details.component';
+import { collection } from 'firebase/firestore';
 
 @Component({
   selector: 'app-channel-container',
@@ -14,6 +15,9 @@ export class ChannelContainerComponent implements OnInit {
   channelID: string;
   channel: Channel = new Channel();
   channelData: any;
+  allUsers = [];
+  userLength: number;
+  showMembers: boolean = false;
   
   @Output() threadShow = new EventEmitter<boolean>();
   showDetails: boolean;
@@ -23,6 +27,7 @@ export class ChannelContainerComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getUserLength();
     this.activeRoute.paramMap.subscribe(params => {
       this.channelID = params.get('id');
       this.showDetails = false;
@@ -54,5 +59,18 @@ export class ChannelContainerComponent implements OnInit {
   closeDetails() {
     this.showDetails = !this.showDetails;
     this.threadShow.emit(this.showDetails);
+  }
+
+
+  getUserLength() {
+    const userCollection = collection(this.firestore, 'users');
+    let allusers$ = collectionData(userCollection);
+
+    allusers$.subscribe((data: any) => {
+      this.allUsers = data;
+      this.userLength = data.length;
+      console.log(this.userLength);
+      
+    });
   }
 }

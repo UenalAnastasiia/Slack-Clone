@@ -69,3 +69,33 @@
     cursor: pointer;
     color: #6F2F40;
 }
+
+.header-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.member-length {
+    margin-bottom: 0;
+    margin-right: 16px;
+}
+
+.member-box {
+    display: flex;
+    flex-direction: column;
+
+    div {
+        display: flex;
+        align-items: center;
+        margin-left: 6px;
+        margin-bottom: 6px;
+    }
+
+    img {
+        height: 24px;
+        width: 24px;
+        object-fit: cover;
+        border-radius: 100%;
+        margin-right: 4px;
+    }
+}

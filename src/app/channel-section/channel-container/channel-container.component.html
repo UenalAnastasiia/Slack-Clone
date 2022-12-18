@@ -1,9 +1,24 @@
 <div class="channel-container">
     <div class="left-container">
-        <mat-card class="card-style">
+        <mat-card class="card-style header-card">
             <div class="name-header" (click)="openChannelDetails()">
                 <h1> # {{ channel.name }}</h1>
                 <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
+
+            <div>
+                <button mat-button class="thread-menu member-length" mat-icon [matMenuTriggerFor]="deleteThreadBtn">
+                    Members: {{ userLength }}
+                </button>
+
+                <mat-menu #deleteThreadBtn="matMenu">
+                    <div class="member-box" *ngFor="let user of allUsers">
+                        <div>
+                            <img src="{{ user.photoURL }}">
+                            <span>{{ user.displayName }}</span>
+                        </div>
+                    </div>
+                </mat-menu>
             </div>
         </mat-card>
 

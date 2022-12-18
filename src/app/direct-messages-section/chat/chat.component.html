@@ -1,9 +1,13 @@
 <div class="channel-container">
     <div class="left-container">
-        <mat-card class="card-style">
+        <mat-card class="card-style chat-header">
             <div class="name-header">
                 <h1 *ngIf="chat.firstUser == authService.userName">Chat with {{ chat.secondUser }}</h1> 
                 <h1 *ngIf="chat.secondUser == authService.userName">Chat with {{ chat.firstUser }}</h1> 
+            </div>
+
+            <div>
+                <button mat-button (click)="cleanChat(chat.id)"> <mat-icon>delete</mat-icon> Clean Chat</button>
             </div>
         </mat-card>
 

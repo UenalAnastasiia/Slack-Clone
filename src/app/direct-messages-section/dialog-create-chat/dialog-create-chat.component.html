@@ -4,7 +4,7 @@
         <mat-label>Choose User</mat-label>
         <mat-select [(ngModel)]="chat.secondUser">
             <mat-option *ngFor="let user of allusers" [value]="user.displayName">
-                {{user.displayName}}
+                {{ user.displayName }}
             </mat-option>
         </mat-select>
     </mat-form-field>

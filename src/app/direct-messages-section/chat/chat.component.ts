@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import { Chat } from 'src/models/chat.class';
 
@@ -37,4 +37,11 @@ export class ChatComponent implements OnInit {
   }
 
 
+  async cleanChat(id: string) {
+    const querySnapshot = await getDocs(collection(this.firestore, "chats", id, "chatMessage"));
+    
+    querySnapshot.forEach(async (message) => {
+      await deleteDoc(doc(this.firestore, "chats", id, "chatMessage", message.id));
+    });
+  }
 }

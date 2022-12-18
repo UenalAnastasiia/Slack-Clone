@@ -4,18 +4,23 @@
 
 <div *ngIf="!noMessages">
     <mat-card *ngFor="let message of allMessages" class="thread-container">
-            <!-- <button mat-menu-item>
+        <!-- <button mat-menu-item>
                 <mat-icon class="delete-icon">delete</mat-icon> Delete
             </button> -->
 
         <div class="d-flex width-100">
+            <button (click)="deleteMessage(message.messageID, message.user)" class="delete-btn" mat-icon-button
+                aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon>close</mat-icon>
+            </button>
             <div class="user-img">
                 <img src="{{ message.userImg }}" alt="">
             </div>
             <div>
                 <div class="user-data">
                     <p> {{ message.user }} </p>
-                    <p> {{ message. messageDateTime | date: "dd.MM.yyyy"}} at {{ message.messageDateTime | date: "HH:mm"}} </p>
+                    <p> {{ message. messageDateTime | date: "dd.MM.yyyy"}} at {{ message.messageDateTime | date:
+                        "HH:mm"}} </p>
                 </div>
                 <p>{{ message.messageText }}</p>
                 <a *ngIf=" message.uploadFile !== '' " href="{{ message.uploadFile }}" target="_blank">
