@@ -42,25 +42,22 @@ export class AppComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor(
-    public dialog: MatDialog,
+  constructor(public dialog: MatDialog,
     private firestore: Firestore,
     public authService: AuthService,
-    private messageTipp: MatSnackBar) {
-
-    this.authService.getLoggedUser();
-  }
+    private messageTipp: MatSnackBar) { }
 
 
   ngOnInit(): void {
+    this.authService.getLoggedUser();
     this.checkURL();
-    this.loadChannelMenu();
   }
 
 
   checkURL() {
     if (window.location.href.includes('channel') || window.location.href.includes('register') || window.location.href.includes('chat')) {
       this.auth = false;
+      this.loadChannelMenu();
       this.loadUserChats();
     }
   }
@@ -84,12 +81,8 @@ export class AppComponent implements OnInit {
     this.allChats$ = collectionData(chatCollection, {});
 
     this.allChats$.subscribe((data: any) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].firstUser == this.authService.userName || data[i].secondUser == this.authService.userName) {
-          let userChats = data[i];
-          this.allChats.push(userChats);
-        }
-      }
+      let filteredChats = data.filter(data => data.firstUser == this.authService.userName || data.secondUser == this.authService.userName);
+      this.allChats = filteredChats;
     });
   }
 
@@ -113,6 +106,11 @@ export class AppComponent implements OnInit {
   }
 
 
+  async deleteChat(id: string) {
+    await deleteDoc(doc(this.firestore, "chats", id));
+  }
+
+
   openDialogEditUser() {
     if (this.authService.userName !== null) {
       this.dialog.open(DialogEditUserComponent);
@@ -122,8 +120,12 @@ export class AppComponent implements OnInit {
   }
 
 
-  async deleteChat(id: string) {
-      await deleteDoc(doc(this.firestore, "chats", id));
+  showMessage() {
+    this.messageTipp.open('Not available for Guest!', '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 1000
+    });
   }
 
 
@@ -134,14 +136,5 @@ export class AppComponent implements OnInit {
         window.location.href = '/login';
       })
       .catch(error => console.log(error));
-  }
-
-
-  showMessage() {
-    this.messageTipp.open('Not available for Guest!', '', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 1000
-    });
   }
 }

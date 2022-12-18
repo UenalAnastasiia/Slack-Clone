@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { addDoc, collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { Chat } from 'src/models/chat.class';
 import { User } from 'src/models/user.class';
 import { Observable } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
-import { ShareService } from 'src/app/services/share.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-create-chat',
@@ -14,7 +14,7 @@ import { ShareService } from 'src/app/services/share.service';
   styleUrls: ['./dialog-create-chat.component.scss']
 })
 export class DialogCreateChatComponent implements OnInit {
-  chat: Chat = new Chat();
+  chat = new Chat();
   user = new User();
   allusers$: Observable<any>;
   allusers: any = [];
@@ -24,12 +24,11 @@ export class DialogCreateChatComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogCreateChatComponent>,
     private firestore: Firestore,
     private authService: AuthService,
-    public shared: ShareService) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     const userCollection = collection(this.firestore, 'users');
     this.allusers$ = collectionData(userCollection);
-    console.log('Data: ', this.allusers$)
 
     this.allusers$.subscribe((data: any) => {
       this.allusers = data;
@@ -42,7 +41,7 @@ export class DialogCreateChatComponent implements OnInit {
     this.chat.id = docRef.id;
     this.chat.firstUser = this.authService.userName;
     await setDoc(doc(this.firestore, "chats", this.chat.id), this.chat.toJSON());
-    location.reload();
-    window.location.href = `chat/${this.chat.id}`;
+    this.dialogRef.close();
+    this.router.navigateByUrl(`chat/${this.chat.id}`);
   }
 }
