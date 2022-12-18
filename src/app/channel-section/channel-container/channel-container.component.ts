@@ -69,8 +69,6 @@ export class ChannelContainerComponent implements OnInit {
     allusers$.subscribe((data: any) => {
       this.allUsers = data;
       this.userLength = data.length;
-      console.log(this.userLength);
-      
     });
   }
 }
