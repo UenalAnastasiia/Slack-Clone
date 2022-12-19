@@ -9,6 +9,18 @@
     padding-bottom: 60px !important;
     position: relative;
 
+    @media (max-width: 1500px) {
+        width: 380px !important;
+    }
+
+    @media (max-width: 420px) {
+        width: 300px !important;
+    }
+
+    @media (max-width: 350px) {
+        width: 264px !important;
+    }
+
     &:hover {
         cursor: pointer;
     }
@@ -41,6 +53,18 @@
     margin-bottom: -5px;
     border-bottom: none !important;
     width: 480px;
+
+    @media (max-width: 1500px) {
+        width: 380px !important;
+    }
+
+    @media (max-width: 420px) {
+        width: 320px !important;
+    }
+
+    @media (max-width: 350px) {
+        width: 284px !important;
+    }
 }
 
 #strikeThrough-texteditor,
@@ -68,6 +92,15 @@
     bottom: 14px;
     right: 34px;
     overflow-y: hidden;
+
+    @media (max-width: 1000px) {
+        right: inherit;
+        margin-left: 36px;
+    }
+
+    @media (max-width: 450px) {
+        margin-left: 0px;
+    }
 }
 
 angular-editor {
@@ -98,6 +131,18 @@ angular-editor {
 
 ::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
     width: 461px !important;
+
+    @media (max-width: 1500px) {
+        width: 360px !important;
+    }
+
+    @media (max-width: 420px) {
+        width: 300px !important;
+    }
+
+    @media (max-width: 350px) {
+        width: 264px !important;
+    }
 }
 
 .upload-btn {
@@ -116,9 +161,6 @@ angular-editor {
 
 .btn-box {
     display: flex;
-    // height: 36px;
-    // margin-top: 12px;
-    // flex-direction: column;
 
     mat-icon {
         &:hover {
@@ -141,7 +183,6 @@ angular-editor {
 }
 
 input[type=file]::-webkit-file-upload-button {
-    // visibility: hidden;
     display: none;
 }
 

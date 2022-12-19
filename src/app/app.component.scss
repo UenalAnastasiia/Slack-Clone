@@ -9,6 +9,10 @@
   @media (max-width: 600px) {
     height: calc(100vh - 56px);
   }
+
+  @media (max-width: 370px) {
+    height: calc(100vh - 62px);
+  }
 }
 
 .example-sidenav-content {

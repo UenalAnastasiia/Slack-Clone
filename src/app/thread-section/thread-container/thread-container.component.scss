@@ -25,12 +25,23 @@
     align-items: center;
     margin-top: 4px;
 
+    @media (max-width: 320px) {
+        align-items: unset;
+        margin-top: 0px;
+        flex-direction: column;
+    }
+
     p {
         &:last-child {
             margin-left: 12px;
             margin-top: 2px;
             font-size: 10px;
             color: #949494;
+
+            @media (max-width: 320px) {
+                margin-left: 0px;
+                margin-top: -12px;
+            }
         }
     }
 }
@@ -49,6 +60,11 @@
         width: 50px;
         object-fit: cover;
         border-radius: 100%;
+
+        @media (max-width: 400px) {
+            height: 30px;
+            width: 30px;
+        }
     }
 }
 

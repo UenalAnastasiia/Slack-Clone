@@ -13,6 +13,34 @@
     height: calc(100vh - 68px);
     background-color: white;
     border-left: 1px solid #ede5e5;
+
+    @media (max-width: 1500px) {
+        min-width: 45vw;
+        max-width: 45vw;
+    }
+
+    @media (max-width: 1000px) {
+        min-width: 85vw;
+        max-width: 85vw;
+        position: absolute;
+        right: 0;
+        background: white;
+        z-index: 1;    
+    }
+
+    @media (max-width: 600px) {
+        height: calc(100vh - 58px);
+        min-width: 98vw;
+        max-width: 100%;
+    }    
+    
+    @media (max-width: 400px) {
+        height: calc(100vh - 64px);
+    }
+
+    @media (max-width: 370px) {
+        height: calc(100vh - 70px);
+    }
 }
 
 .card-style {
@@ -52,9 +80,26 @@
 }
 
 .add-thread-box {
-    // width: 42vw;
     width: 500px;
     margin-left: 20vw;
+
+    @media (max-width: 1500px) {
+        margin-left: 5vw;
+    }
+
+    @media (max-width: 1200px) {
+        margin-left: 2vw;
+    }
+
+    @media (max-width: 500px) {
+        width: 330px;
+        justify-content: unset;
+    }
+
+    @media (max-width: 450px) {
+        width: 280px;
+        justify-content: unset;
+    }
 }
 
 .thread-container {

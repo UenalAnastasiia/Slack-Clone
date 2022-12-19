@@ -23,7 +23,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container" autosize>
-    <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" *ngIf="!auth">
+    <mat-sidenav #sidenav class="example-sidenav" [opened]="openSidenav" [mode]="mode" *ngIf="!auth">
 
         <!-- Channels Block -->
         <mat-nav-list>
@@ -39,7 +39,7 @@
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
                 <a *ngFor="let channel of allChannels | name" mat-list-item
-                    routerLink="channel/{{ channel.channelID }}"># {{
+                    routerLink="channel/{{ channel.channelID }}" (click)="sidenav.toggle()"># {{
                     channel.name }}</a>
                 <div class="add-channel-container">
                     <button mat-raised-button (click)="openDialogAddChannel()">
@@ -63,7 +63,7 @@
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
-                <a class="chat-link" *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}">
+                <a class="chat-link" *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}" (click)="sidenav.toggle()">
                     <span *ngIf="chat.firstUser == authService.userName">{{ chat.secondUser }}</span>
                     <span *ngIf="chat.secondUser == authService.userName">{{ chat.firstUser }}</span>
                         <mat-icon class="addChannel-btn" matTooltipClass="example-tooltip-gold"

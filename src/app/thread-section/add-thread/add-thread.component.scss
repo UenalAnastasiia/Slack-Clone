@@ -1,9 +1,5 @@
 .angular-editor-textarea {
     width: 461px;
-    // padding-left: 12px !important;
-    // padding-right: 0;
-    // padding-top: 4px !important;
-    // padding-bottom: 0;
     border: none;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -12,6 +8,18 @@
     overflow-y: auto;
     padding-bottom: 60px !important;
     position: relative;
+
+    @media (max-width: 1500px) {
+        width: 361px !important;
+    }
+
+    @media (max-width: 420px) {
+        width: 300px !important;
+    }
+
+    @media (max-width: 350px) {
+        width: 264px !important;
+    }
 
     &:focus {
         outline: none;
@@ -41,6 +49,18 @@
     margin-bottom: -5px;
     border-bottom: none !important;
     width: 480px;
+
+    @media (max-width: 1500px) {
+        width: 380px !important;
+    }
+
+    @media (max-width: 420px) {
+        width: 320px !important;
+    }
+
+    @media (max-width: 350px) {
+        width: 284px !important;
+    }
 }
 
 #strikeThrough-texteditor,
@@ -67,6 +87,14 @@
     flex-direction: column;
     position: relative;
     background: #FAFAFA !important;
+
+    @media (max-width: 500px) {
+        align-items: unset;
+    }
+
+    @media (max-width: 450px) {
+        display: none;
+    }
 }
 
 angular-editor {
@@ -97,6 +125,18 @@ angular-editor {
 
 ::ng-deep .angular-editor .angular-editor-wrapper .angular-editor-textarea {
     width: 480px !important;
+
+    @media (max-width: 1500px) {
+        width: 360px !important;
+    }
+
+    @media (max-width: 420px) {
+        width: 300px !important;
+    }
+
+    @media (max-width: 350px) {
+        width: 264px !important;
+    }
 }
 
 .input-margin {
@@ -109,7 +149,7 @@ angular-editor {
     width: 32px;
     height: 32px;
     padding: 4px;
-    background: #FAFAFA;
+    background: white;
     border-radius: 100%;
 
     &:hover {
@@ -119,9 +159,6 @@ angular-editor {
 
 .btn-box {
     display: flex;
-    // height: 36px;
-    // margin-top: 12px;
-    // flex-direction: column;
 
     mat-icon {
         &:hover {
@@ -133,18 +170,25 @@ angular-editor {
 .send-btn {
     position: absolute;
     bottom: 10px;
-    right: 12px;
+    right: 60px;
+
+    @media (max-width: 500px) {
+        right: 120px;
+    }
 }
 
 .upload-icon {
     position: absolute;
-    left: 8px;
-    bottom: -2px;
+    bottom: 0;
+    left: 60px;
     z-index: 1;
+
+    @media (max-width: 500px) {
+        left: 10px;
+    }
 }
 
 input[type=file]::-webkit-file-upload-button {
-    // visibility: hidden;
     display: none;
 }
 

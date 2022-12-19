@@ -1,7 +1,7 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Channel } from 'src/models/channel.class';
 import { DialogAddChannelComponent } from './channel-section/dialog-add-channel/dialog-add-channel.component';
 import { Firestore, collectionData } from '@angular/fire/firestore';
@@ -20,6 +20,11 @@ import { Chat } from 'src/models/chat.class';
 })
 export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
+  showToggle: string;
+  mode: any;
+  openSidenav: boolean;
+  private screenWidth$ = new BehaviorSubject<number>
+  (window.innerWidth);
 
   isExpandedAddBtn: boolean = false;
   isExpandedDM: boolean = false;
@@ -51,6 +56,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getLoggedUser();
     this.checkURL();
+    this.checkScreenWidth();
   }
 
 
@@ -60,6 +66,32 @@ export class AppComponent implements OnInit {
       this.loadChannelMenu();
       this.loadUserChats();
     }
+  }
+
+
+  checkScreenWidth() {
+    this.getScreenWidth().subscribe(width => {
+      if (width < 1500) {
+        this.showToggle = 'show';
+        this.mode = 'over';
+        this.openSidenav = false;
+      } else if (width > 1500) {
+        this.showToggle = 'hide';
+        this.mode = 'side';
+        this.openSidenav = true;
+      }
+    });
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth$.next(event.target.innerWidth);
+  }
+
+
+  getScreenWidth(): Observable<number> {
+    return this.screenWidth$.asObservable();
   }
 
 
