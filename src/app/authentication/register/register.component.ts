@@ -27,8 +27,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 
   onSubmit() {
@@ -69,7 +68,6 @@ export class RegisterComponent implements OnInit {
 
   async createUserInDB() {
     const docRef = await addDoc(collection(this.firestore, "users"), this.user.toJSON());
-    const auth = getAuth();
     this.user.uid = docRef.id;
     this.user.displayName = this.formReg.get('name').value;
     this.user.photoURL = 'assets/img/profile.png';

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
-import { FileHandle } from 'src/app/dragDrop.directive';
+import { FileHandle } from 'src/app/services/dragDrop.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { Chat } from 'src/models/chat.class';
 import { Message } from 'src/models/message.class';
@@ -83,9 +83,8 @@ export class AddChatMessageComponent implements OnInit {
   async sendMessage(text: string) {
     let dateTime = new Date();
     const collRef = collection(this.firestore, "chats", this.chatID, "chatMessage");
-    const dataRef = await addDoc(collRef, {
-      messageText: this.message.messageText
-    });
+    const dataRef = await addDoc(collRef, { messageText: this.message.messageText });
+    
     this.message.messageID = dataRef.id;
     this.message.user = this.service.userName;
     this.message.userImg = this.service.userImg;

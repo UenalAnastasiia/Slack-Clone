@@ -23,8 +23,7 @@ export class UserMessageComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, private authService: AuthService, private messageTipp: MatSnackBar) { }
-
+  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public authService: AuthService, private messageTipp: MatSnackBar) { }
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe(params => {
       this.chatID = params.get('id');

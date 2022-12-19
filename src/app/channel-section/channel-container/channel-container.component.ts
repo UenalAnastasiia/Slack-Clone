@@ -5,6 +5,7 @@ import { Firestore, doc, getDoc, collectionData } from '@angular/fire/firestore'
 import { Channel } from 'src/models/channel.class';
 import { DialogChannelDetailsComponent } from 'src/app/channel-section/dialog-channel-details/dialog-channel-details.component';
 import { collection } from 'firebase/firestore';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-channel-container',
@@ -23,7 +24,7 @@ export class ChannelContainerComponent implements OnInit {
   showDetails: boolean;
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { }
+  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog, public shared: ShareService) { }
 
 
   ngOnInit(): void {

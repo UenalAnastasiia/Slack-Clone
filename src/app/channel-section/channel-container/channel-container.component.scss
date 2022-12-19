@@ -73,6 +73,7 @@
 .header-card {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .member-length {
@@ -99,4 +100,25 @@
         border-radius: 100%;
         margin-right: 4px;
     }
+}
+
+.search-box {
+    height: 50px;
+    margin-top: -10px;
+
+    mat-form-field {
+        width: 20vw;
+
+        input {
+            padding-left: 8px;
+        }
+    }
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: #6F2F40 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+    background-color: #6F2F40 !important;
 }

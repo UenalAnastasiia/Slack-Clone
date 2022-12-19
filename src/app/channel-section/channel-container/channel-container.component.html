@@ -6,6 +6,12 @@
                 <mat-icon>keyboard_arrow_down</mat-icon>
             </div>
 
+            <div class="search-box">
+                <mat-form-field appearance="standard" class="search-box">
+                    <input name="search" [(ngModel)]="shared.searchText" matInput autocomplete="off" placeholder="Search in # {{ channel.name }}">
+                </mat-form-field>
+            </div>
+
             <div>
                 <button mat-button class="thread-menu member-length" mat-icon [matMenuTriggerFor]="deleteThreadBtn">
                     Members: {{ userLength }}

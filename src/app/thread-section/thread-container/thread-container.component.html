@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="!noThreads">
-    <mat-card *ngFor="let thread of allThreads" class="thread-container">
+    <mat-card *ngFor="let thread of allThreads | filter:shared.searchText" class="thread-container">
         <button mat-icon-button class="thread-menu" mat-icon [matMenuTriggerFor]="deleteThreadBtn">
             <mat-icon>more_vert</mat-icon>
         </button>
@@ -23,13 +23,11 @@
                     <p> {{ thread.currentUser }} </p>
                     <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
                 </div>
-                <p>{{ thread.message }}</p>
+                <p innerHTML="{{ thread.message }}"></p>
                 <a href="{{ thread.uploadFile }}" target="_blank">
                     <img class="uploadImg" src="{{ thread.uploadFile }}">
                 </a>
             </div>
-            <!-- <p>Thread ID: {{ thread.id }}</p>
-        <p>Channel ID: {{ thread.channelID }}</p> -->
 
             <button *ngIf="thread.commentLengthText" class="thread-btn" mat-raised-button
                 (click)="openDetails(thread.id)">

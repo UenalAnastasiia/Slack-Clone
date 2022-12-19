@@ -87,9 +87,7 @@ export class DialogEditUserComponent implements OnInit {
         (error) => { console.log(error) }, () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             const auth = getAuth();
-            await updateProfile(auth.currentUser, {
-              photoURL: downloadURL
-            }).then(() => {
+            await updateProfile(auth.currentUser, { photoURL: downloadURL }).then(() => {
               this.updateUser(auth.currentUser, downloadURL);
             }).catch((error) => { console.log(error) });
           });

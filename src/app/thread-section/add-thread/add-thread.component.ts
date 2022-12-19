@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { AuthService } from 'src/app/services/auth.service';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { FileHandle } from 'src/app/dragDrop.directive';
+import { FileHandle } from 'src/app/services/dragDrop.directive';
 
 
 @Component({
@@ -58,6 +58,7 @@ export class AddThreadComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log('Text ', this.thread.message.innerHTML)
     this.service.getLoggedUser();
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);

@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ThreadComment } from 'src/models/threadcomment.class';
-import { FileHandle } from 'src/app/dragDrop.directive';
+import { FileHandle } from 'src/app/services/dragDrop.directive';
 
 @Component({
   selector: 'app-add-thread-comment',

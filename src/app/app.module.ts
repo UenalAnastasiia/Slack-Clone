@@ -39,13 +39,14 @@ import { LoginComponent } from './authentication/login/login.component';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
-import { DragDirective } from './dragDrop.directive';
-import { NamePipe } from './name.pipe';
+import { DragDirective } from './services/dragDrop.directive';
+import { NamePipe } from './services/name.pipe';
 import { DialogCreateChatComponent } from './direct-messages-section/dialog-create-chat/dialog-create-chat.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ChatComponent } from './direct-messages-section/chat/chat.component';
 import { AddChatMessageComponent } from './direct-messages-section/add-chat-message/add-chat-message.component';
 import { UserMessageComponent } from './direct-messages-section/user-message/user-message.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -93,6 +94,7 @@ import { UserMessageComponent } from './direct-messages-section/user-message/use
     MatSnackBarModule,
     MatMenuModule,
     MatSelectModule,
+    Ng2SearchPipeModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),

@@ -35,7 +35,12 @@ export class ThreadContainerComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor(private firestore: Firestore, private activeRoute: ActivatedRoute, public service: ShareService, public authService: AuthService, private messageTipp: MatSnackBar) { }
+  constructor(private firestore: Firestore, 
+    private activeRoute: ActivatedRoute, 
+    public service: ShareService, 
+    public authService: AuthService, 
+    private messageTipp: MatSnackBar,
+    public shared: ShareService) { }
 
   ngOnInit(): void {
     this.activeRoute.paramMap.subscribe(params => {

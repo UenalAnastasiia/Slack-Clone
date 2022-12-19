@@ -43,6 +43,7 @@ export class ThreadDetailsComponent implements OnInit {
     private messageTipp: MatSnackBar,
     private authService: AuthService) { }
 
+    
   ngOnInit(): void {
     this.detailsID = JSON.parse(localStorage.getItem('ThreadID'));
     this.activeRoute.params.subscribe(routeParams => {
