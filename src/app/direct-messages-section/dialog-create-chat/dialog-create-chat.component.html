@@ -1,13 +1,14 @@
 
-<div class="progress-spinner" *ngIf="loadProgress"><mat-spinner></mat-spinner></div>
-
 <h1 mat-dialog-title>Create Chat</h1>
 <div mat-dialog-content>
     <mat-form-field appearance="fill">
         <mat-label>Choose User</mat-label>
         <mat-select [(ngModel)]="chat.secondUser">
             <mat-option *ngFor="let user of allusers" [value]="user.displayName">
-                {{ user.displayName }}
+                <div class="user-option">
+                <img src="{{ user.photoURL }}" alt="">
+                <span>{{ user.displayName }}</span>
+            </div>
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -16,5 +17,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="dialogRef.close()" cdkFocusInitial> Cancel </button>
-    <button mat-button cdkFocusInitial (click)="saveChat(chat.secondUser)"> Create </button>
+    <button mat-button cdkFocusInitial (click)="createChat()"> Create </button>
 </div>

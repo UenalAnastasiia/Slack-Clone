@@ -15,10 +15,12 @@
                     <p>{{ thread.currentUser || 'Guest'}} </p>
                     <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
                 </div>
-                <span class="message-box">{{ thread.message }}</span>
-                <a href="{{ thread.uploadFile }}" target="_blank">
-                    <img class="uploadImg" src="{{ thread.uploadFile }}">
-                </a>
+                <div class="message-img">
+                    <span class="message-box">{{ thread.message }}</span>
+                    <a href="{{ thread.uploadFile }}" target="_blank">
+                        <img class="uploadImg" src="{{ thread.uploadFile }}">
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -30,7 +32,8 @@
 
     <div *ngIf="showComments" class="comment-box">
         <div *ngFor="let threadComment of allComments" class="thread-container margin-left-28 d-flex">
-            <div class="delete-btn" mat-menu-item (click)="deleteThread(threadComment.commentID, threadComment.commentUser)">
+            <div class="delete-btn" mat-menu-item
+                (click)="deleteThread(threadComment.commentID, threadComment.commentUser)">
                 <mat-icon>delete</mat-icon>
             </div>
 

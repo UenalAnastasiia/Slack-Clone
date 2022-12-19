@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, query, setDoc, where } from 'firebase/firestore';
 import { Chat } from 'src/models/chat.class';
 import { User } from 'src/models/user.class';
 import { Observable } from 'rxjs';
@@ -19,18 +19,21 @@ export class DialogCreateChatComponent implements OnInit {
   user = new User();
   allusers$: Observable<any>;
   allusers: any = [];
+
+  allChats$: Observable<any>;
+  allChats: any = [];
+  chatNames: any = [];
+
   value: string;
   chatExist: boolean;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  loadProgress: boolean = false;
 
 
   constructor(public dialogRef: MatDialogRef<DialogCreateChatComponent>,
     private firestore: Firestore,
     private authService: AuthService,
-    private router: Router,
-    private messageTipp: MatSnackBar) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     const userCollection = collection(this.firestore, 'users');
@@ -42,43 +45,12 @@ export class DialogCreateChatComponent implements OnInit {
   }
 
 
-  saveChat(user: string) {
-    this.loadProgress = true;
-    const chatCollection = collection(this.firestore, 'chats');
-    let allChats$ = collectionData(chatCollection);
-
-    allChats$.subscribe((data: any) => {
-      this.chatExist = data.some((data) => { return data.firstUser === user || data.secondUser === user });
-      this.checkChatExist(this.chatExist);
-    });
-  }
-
-
-  checkChatExist(chatExist: boolean) {
-    if (chatExist) {
-      this.messageTipp.open('Tipp: It is not possible create 2 chats with one user.', '', {
-        horizontalPosition: this.horizontalPosition,
-        verticalPosition: this.verticalPosition,
-        duration: 1000
-      });
-    }
-    
-    if (!chatExist) {
-      this.createNewChat();
-    }
-  }
-
-
-  async createNewChat() {
+  async createChat() {
       const docRef = await addDoc(collection(this.firestore, "chats"), this.chat.toJSON());
       this.chat.id = docRef.id;
       this.chat.firstUser = this.authService.userName;
       await setDoc(doc(this.firestore, "chats", this.chat.id), this.chat.toJSON());
-
-      setTimeout(() => {
-        this.loadProgress = false;
-        location.reload();
-      }, 2000);
+      location.reload();
       this.router.navigateByUrl(`chat/${this.chat.id}`);
     }
   }
