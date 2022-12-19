@@ -1,47 +1,51 @@
-<mat-card class="login-card">
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
-            <p>
-                <mat-form-field>
-                    <input type="text" matInput placeholder="E-Mail" formControlName="email" required autocomplete="off">
-                </mat-form-field>
+<div class="register-container">
+    <mat-card class="login-card">
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+                <p>
+                    <mat-form-field>
+                        <input type="text" matInput placeholder="E-Mail" formControlName="email" required
+                            autocomplete="off">
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field>
+                        <input type="password" matInput placeholder="Password" formControlName="password" required
+                            autocomplete="off">
+                    </mat-form-field>
+                </p>
+
+                <p *ngIf="error" class="error">
+                    {{ error }}
+                </p>
+
+                <div class="align-center">
+                    <button type="submit" mat-raised-button color="warn">Sign in</button>
+                </div>
+            </form>
+
+            <p class="align-center or-text">
+                <span>OR</span>
             </p>
 
-            <p>
-                <mat-form-field>
-                    <input type="password" matInput placeholder="Password" formControlName="password" required autocomplete="off">
-                </mat-form-field>
-            </p>
+            <div class="login-options-btn">
+                <button mat-button (click)="signInWithGoogle()">
+                    <img src="../../../assets/img/google.png">
+                    <label class="form-label">Login with Google</label>
+                </button>
 
-            <p *ngIf="error" class="error">
-                {{ error }}
-            </p>
-
-            <div class="align-center">
-                <button type="submit" mat-raised-button color="warn">Sign in</button>
+                <button mat-button (click)="guestLogin()">
+                    <mat-icon class="icon-guest">psychology_alt</mat-icon> Login as Guest
+                </button>
             </div>
-        </form>
+        </mat-card-content>
 
-        <p class="align-center or-text">
-            <span>OR</span>
+        <p class="or-text align-center sign-up-btn">
+            <label class="form-label"> Don't have an account?
+                <button mat-button routerLink="/register" class="text-danger">Sign up</button>
+            </label>
         </p>
-
-        <div class="login-options-btn">
-            <button mat-button (click)="signInWithGoogle()">
-                <img src="../../../assets/img/google.png">
-                <label class="form-label">Login with Google</label>
-            </button>
-
-            <button mat-button (click)="guestLogin()">
-                <mat-icon class="icon-guest">psychology_alt</mat-icon> Login as Guest
-            </button>
-        </div>
-    </mat-card-content>
-
-    <p class="or-text align-center sign-up-btn">
-        <label class="form-label"> Don't have an account?
-            <button mat-button routerLink="/register" class="text-danger">Sign up</button>
-        </label>
-    </p>
-</mat-card>
+    </mat-card>
+</div>

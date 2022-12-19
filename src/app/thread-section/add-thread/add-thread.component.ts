@@ -58,7 +58,6 @@ export class AddThreadComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('Text ', this.thread.message.innerHTML)
     this.service.getLoggedUser();
     this.activeRoute.params.subscribe(routeParams => {
       this.getDocRef(routeParams['id']);

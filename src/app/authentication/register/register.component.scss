@@ -1,11 +1,30 @@
+.register-container {
+    height: calc(100vh - 68px);
+    width: 100vw;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .login-card {
     width: max-content;
-    margin-left: 35vw;
-    margin-top: 15vh;
+    height: max-content;
 }
 
 mat-form-field {
     width: 350px;
+
+    @media (max-width: 400px) {
+        width: 270px; 
+    }
+
+    @media (max-width: 320px) {
+        width: 240px; 
+    }
 }
 
 .mat-card-title {

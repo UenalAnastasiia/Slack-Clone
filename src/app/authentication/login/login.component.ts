@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.currentChannelID = JSON.parse(localStorage.getItem('ChannelID')) || '2Ecs6JiwGiJbOzwMYY8F';
+    this.currentChannelID = JSON.parse(localStorage.getItem('ChannelID')) || 'EGhRaztagDCfBZXhWlEs';
   }
 
 
