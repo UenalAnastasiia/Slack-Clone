@@ -1,27 +1,60 @@
-<div class="editor-box" appDrag (files)="filesDropped($event)" (dragenter)="dropzoneHovered = true"
-    (dragleave)="dropzoneHovered = false" [class.drag-active]="dropzoneHovered">
+<div class="editor-box" appDrag (files)="filesDropped($event)">
     <angular-editor id="texteditor" [config]="editorConfig" placeholder="Answer on Thread from User..."
-        [(ngModel)]="threadComment.message" (keypress)="onKeypressEvent($event)">
+        [(ngModel)]="thread.message" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <div class="btn-box">
-        <div class="upload-icon" (mouseenter)="showUploadTipp()">
+        <div>
             <label for="inputFile" class="md-button md-raised md-primary">
                 <mat-icon class="upload-btn">upload_file</mat-icon>
             </label>
         </div>
-        
+
         <div class="upload-name hide" [class.visible]="hideFile">
-            <input *ngIf="!hideInputChoose" accept="image/*"
-                id="inputFile" multiple type="file" (change)="onFilechange($event)" />
+            <input *ngIf="!hideInputChoose" accept="image/*" id="inputFile" multiple type="file"
+                (change)="onFilechange($event)" />
+
             <div *ngFor="let file of files">
                 <span> {{ file.file.name }}</span>
             </div>
             <mat-icon (click)="cleanInputFile(file)">close</mat-icon>
         </div>
+
+        <button mat-fab (click)="sendComment()" class="example-button-container">
+            <mat-icon>send</mat-icon>
+        </button>
+
+    </div>
+</div>
+<div class="responsive-addbox" appDrag (files)="filesDropped($event)">
+    <div>
+        <mat-form-field appearance="fill" class="mobil-width">
+            <mat-label> Send Message </mat-label>
+            <input matInput [(ngModel)]="threadComment.message">
+        </mat-form-field>
     </div>
 
-    <button mat-fab (click)="sendComment()" class="example-button-container send-btn">
-        <mat-icon>send</mat-icon>
-    </button>
+    <div class="mobil-btn">
+        <div>
+            <label for="inputFile" class="md-button md-raised md-primary">
+                <mat-icon class="upload-btn">upload_file</mat-icon>
+            </label>
+        </div>
+
+        <div class="upload-name hide" [class.visible]="hideFile">
+            <input *ngIf="!mobileInputChoose" accept="image/*"  multiple type="file"
+                (change)="onFilechange($event)" />
+
+            <div>
+                <span> {{ file.name }}</span>
+            </div>
+            <mat-icon (click)="cleanInputFile(file)">close</mat-icon>
+        </div>
+
+        <div>
+            <button mat-fab (click)="sendComment()" class="example-button-container">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </div>
 </div>

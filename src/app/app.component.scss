@@ -70,6 +70,10 @@
 .tag-icon {
   margin-left: 18px;
   color: #E08862;
+
+  @media (max-width: 350px) {
+    margin-left: 2px;
+  }
 }
 
 .addChannel-btn {
@@ -129,10 +133,26 @@
   width: 42px;
   border-radius: 100%;
   margin-right: 6px;
+
+  @media (max-width: 500px) {
+    margin-right: -16px;
+    height: 32px;
+    width: 32px;
+  }
 }
 
 .loggedUser-btn {
   margin-right: 24px;
+
+  @media (max-width: 500px) {
+    margin-right: 0px;
+  }
+
+  span {
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
 }
 
 .chat-link {

@@ -33,6 +33,7 @@ export class AddThreadCommentComponent implements OnInit {
   files: FileHandle[] = [];
   dropzoneHovered: boolean;
   hideInputChoose: boolean  = false;
+  mobileInputChoose: boolean = false;
   hideFile: boolean = false;
 
   thread = new Thread();
@@ -95,6 +96,7 @@ export class AddThreadCommentComponent implements OnInit {
   onFilechange(event: any) {
     this.file = event.target.files[0];
     this.hideFile = true;
+    this.mobileInputChoose = true;
   }
 
 

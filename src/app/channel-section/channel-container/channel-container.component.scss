@@ -20,26 +20,22 @@
     }
 
     @media (max-width: 1000px) {
-        min-width: 85vw;
-        max-width: 85vw;
+        min-width: calc(100vw - 16px);
+        max-width: 100%;
+        height: calc(100vh - 74px);
+        margin: 8px;
         position: absolute;
         right: 0;
         background: white;
-        z-index: 1;    
+        z-index: 1;
     }
 
     @media (max-width: 600px) {
-        height: calc(100vh - 58px);
-        min-width: 98vw;
-        max-width: 100%;
-    }    
-    
-    @media (max-width: 400px) {
-        height: calc(100vh - 64px);
+        height: calc(100vh - 66px);
     }
 
     @media (max-width: 370px) {
-        height: calc(100vh - 70px);
+        height: calc(100vh - 72px);
     }
 }
 
@@ -63,10 +59,20 @@
         h1 {
             font-weight: 600;
             margin-bottom: 0;
+
+            @media (max-width: 350px) {
+                margin-left: -16px;
+                margin-top: -8px;
+                font-size: 18px;
+            } 
         }
 
         mat-icon {
             margin-left: 8px;
+
+            @media (max-width: 350px) {
+                margin-top: -12px;
+            } 
         }
     }
 }
@@ -80,7 +86,6 @@
 }
 
 .add-thread-box {
-    width: 500px;
     margin-left: 20vw;
 
     @media (max-width: 1500px) {
@@ -92,12 +97,6 @@
     }
 
     @media (max-width: 500px) {
-        width: 330px;
-        justify-content: unset;
-    }
-
-    @media (max-width: 450px) {
-        width: 280px;
         justify-content: unset;
     }
 }
@@ -119,11 +118,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 750px) {
+        justify-content: unset;
+    }
+
+    @media (max-width: 550px) {
+        align-items: unset;
+        flex-direction: column;
+    }
 }
 
 .member-length {
     margin-bottom: 0;
     margin-right: 16px;
+
+    @media (max-width: 750px) {
+        position: absolute;
+        right: 0;
+        top: 6px;
+    }
+
+    @media (max-width: 350px) {
+        top: 0px;
+    }
 }
 
 .member-box {
@@ -151,8 +169,24 @@
     height: 50px;
     margin-top: -10px;
 
+    @media (max-width: 750px) {
+        margin-left: 22px;
+    }
+
+    @media (max-width: 550px) {
+        margin-left: 10px;
+    }
+
+    @media (max-width: 350px) {
+        margin-left: 2px;
+    }
+
     mat-form-field {
         width: 20vw;
+
+        @media (max-width: 750px) {
+            width: 170px;
+        }
 
         input {
             padding-left: 8px;

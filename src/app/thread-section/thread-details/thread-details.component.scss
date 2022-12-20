@@ -27,12 +27,23 @@
     align-items: center;
     margin-top: 8px;
 
+    @media (max-width: 320px) {
+        align-items: unset;
+        margin-top: 0px;
+        flex-direction: column;
+    }
+
     p {
         &:last-child {
             margin-left: 12px;
             margin-top: 2px;
             font-size: 10px;
             color: #949494;
+
+            @media (max-width: 320px) {
+                margin-left: 0px;
+                margin-top: -12px;
+            }
         }
     }
 }
@@ -62,6 +73,10 @@
     @media (max-width: 1000px) {
         right: 35vw;
     }
+
+    @media (max-width: 320px) {
+        right: 25vw;
+    }
 }
 
 .comment-box {
@@ -78,11 +93,6 @@
     }
 
     @media (max-width: 1000px) {
-        max-width: 70vw;
-        width: 70vw;
-    }
-
-    @media (max-width: 600px) {
         max-width: 90vw;
         width: 90vw;
     }
