@@ -16,7 +16,7 @@
                     <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
                 </div>
                 <div class="message-img">
-                    <span class="message-box" innerHTML="{{ thread.message }}"></span>
+                    <span class="message-box word-wrap" innerHTML="{{ thread.message }}"></span>
                     <a href="{{ thread.uploadFile }}" target="_blank">
                         <img class="uploadImg" src="{{ thread.uploadFile }}">
                     </a>
@@ -48,7 +48,7 @@
                     </p>
                 </div>
                 <div class="comment-message-img">
-                    <span>{{ threadComment.message }}</span>
+                    <span class="word-wrap span-width">{{ threadComment.message }}</span>
                     <a href="{{ threadComment.uploadFileComment }}" target="_blank">
                         <img class="uploadImg" src="{{ threadComment.uploadFileComment }}">
                     </a>

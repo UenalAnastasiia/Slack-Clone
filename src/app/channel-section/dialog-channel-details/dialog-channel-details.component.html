@@ -13,7 +13,7 @@
                 <p> {{ channel.description }} </p>
             </mat-tab>
             <mat-tab label="Settings">
-                <p>
+                <p class="options">
                     <b>Posting authorizations:</b> <br> 
                     <mat-icon>check</mat-icon> Everyone can post <br>
                     <mat-icon>check</mat-icon> Everyone can reply to threads <br> <br>
@@ -23,6 +23,11 @@
                 <div class="delete-btn">
                     <button  mat-raised-button (click)="openDialogEdit()">Edit Channel</button>
                     <button color="warn" mat-raised-button (click)="deleteChannel()">Delete Channel</button>
+                </div>
+
+                <div class="delete-btn-mobil">
+                    <button  mat-icon-button (click)="openDialogEdit()"><mat-icon>edit</mat-icon></button>
+                    <button color="warn" mat-icon-button (click)="deleteChannel()"><mat-icon>delete</mat-icon></button>
                 </div>
             </mat-tab>
         </mat-tab-group>

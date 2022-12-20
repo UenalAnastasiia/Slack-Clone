@@ -12,3 +12,9 @@
         object-fit: cover;
     }
 }
+
+.mat-form-field {
+    @media (max-width: 320px) {
+        width: 150px;
+    }
+}

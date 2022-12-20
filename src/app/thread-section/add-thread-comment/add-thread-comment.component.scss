@@ -90,7 +90,6 @@
     align-items: center;
     position: fixed;
     bottom: 14px;
-    right: 34px;
     overflow-y: hidden;
 
     @media (max-width: 1000px) {
@@ -200,4 +199,17 @@ input[type=file] {
 
 .drag-active {
     background: rgba($color: #000000, $alpha: 0.02) !important;
+}
+
+.responsive-addbox {
+    display: none;
+    background: none !important;
+    position: absolute;
+    bottom: 15px;
+    left: 12px;
+
+    @media (max-width: 550px) {
+        display: flex;
+        flex-direction: column;
+    }
 }

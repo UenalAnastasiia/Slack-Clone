@@ -58,6 +58,11 @@
 
 .message-box {
     position: relative;
+    width: 35vw;
+
+    @media (max-width: 1000px) {
+        width: 75vw;
+    }
 }
 
 .pd-24 {
@@ -155,4 +160,12 @@
 .message-img {
     display: flex;
     flex-direction: column;
+}
+
+.span-width {
+    width: 25vw;
+
+    @media (max-width: 1000px) {
+        width: 70vw;
+    }
 }

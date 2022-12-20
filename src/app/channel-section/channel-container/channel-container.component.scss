@@ -34,8 +34,14 @@
         height: calc(100vh - 66px);
     }
 
+    @media (max-width: 550px) {
+        height: calc(100vh - 74px);
+        margin: 0;
+    }
+
     @media (max-width: 370px) {
-        height: calc(100vh - 72px);
+        height: calc(100vh - 64px);
+        overflow-x: hidden;
     }
 }
 
@@ -64,7 +70,7 @@
                 margin-left: -16px;
                 margin-top: -8px;
                 font-size: 18px;
-            } 
+            }
         }
 
         mat-icon {
@@ -72,7 +78,7 @@
 
             @media (max-width: 350px) {
                 margin-top: -12px;
-            } 
+            }
         }
     }
 }

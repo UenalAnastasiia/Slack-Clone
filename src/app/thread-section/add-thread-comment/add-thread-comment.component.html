@@ -1,6 +1,6 @@
 <div class="editor-box" appDrag (files)="filesDropped($event)">
     <angular-editor id="texteditor" [config]="editorConfig" placeholder="Answer on Thread from User..."
-        [(ngModel)]="thread.message" (keypress)="onKeypressEvent($event)">
+        [(ngModel)]="threadComment.message" (keypress)="onKeypressEvent($event)">
     </angular-editor>
 
     <div class="btn-box">

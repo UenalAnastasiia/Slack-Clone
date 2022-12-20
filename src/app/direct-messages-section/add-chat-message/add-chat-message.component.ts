@@ -26,6 +26,7 @@ export class AddChatMessageComponent implements OnInit {
   dropzoneHovered: boolean;
   hideInputChoose: boolean = false;
   hideFile: boolean = false;
+  mobileInputChoose: boolean = false;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -68,6 +69,7 @@ export class AddChatMessageComponent implements OnInit {
   onFilechange(event: any) {
     this.file = event.target.files[0];
     this.hideFile = true;
+    this.mobileInputChoose = true;
   }
 
 
@@ -116,7 +118,7 @@ export class AddChatMessageComponent implements OnInit {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             this.message.uploadFile = downloadURL;
             this.message.messageText = text;
-            await setDoc(doc(this.firestore, "chats", this.chatID, "chatMessage", this.message.messageID), this.message.toJSON());
+            await setDoc(doc(this.firestore, "chats", this.chatID, "chatMessage", id), this.message.toJSON());
           });
         });
     }

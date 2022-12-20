@@ -50,4 +50,25 @@
     display: flex;
     justify-content: space-around;
     margin-top: 36px;
+
+    @media (max-width: 450px) {
+        display: none;
+    }
+}
+
+.delete-btn-mobil {
+    display: none;
+
+    @media (max-width: 450px) {
+        display: flex;
+        justify-content: space-around;
+        margin-top: -8px;
+    }
+}
+
+.options {
+    @media (max-width: 400px) {
+        font-size: 12px;
+        margin-top: 8px;
+    }
 }

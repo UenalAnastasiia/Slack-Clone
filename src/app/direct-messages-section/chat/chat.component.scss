@@ -35,6 +35,11 @@
         h1 {
             font-weight: 600;
             margin-bottom: 0;
+
+            @media (max-width: 450px) {
+                font-size: 18px;
+                margin-left: -18px;
+            }
         }
 
         mat-icon {
@@ -52,9 +57,20 @@
 }
 
 .add-thread-box {
-    // width: 42vw;
-    width: 500px;
-    margin-left: 20vw;
+    margin-left: 30vw;
+
+    @media (max-width: 1500px) {
+        margin-left: 30vw;
+    }
+
+    @media (max-width: 800px) {
+        margin-left: 20vw;
+    }
+
+    @media (max-width: 500px) {
+        justify-content: unset;
+        margin-left: 4px;
+    }
 }
 
 .thread-container {

@@ -1,5 +1,9 @@
 ::ng-deep .cdk-overlay-pane {
     width: 30vw;
+
+    @media (max-width: 1000px) {
+        width: 60vw;
+    }
 }
 
 .mat-dialog-content {

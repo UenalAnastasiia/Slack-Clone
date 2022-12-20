@@ -23,7 +23,7 @@
                     <p> {{ thread.currentUser }} </p>
                     <p> {{ thread.sendDateTime | date: "dd.MM.yyyy"}} at {{ thread.sendDateTime | date: "HH:mm"}} </p>
                 </div>
-                <p innerHTML="{{ thread.message }}"></p>
+                <p class="word-wrap p-width" innerHTML="{{ thread.message }}"></p>
                 <a href="{{ thread.uploadFile }}" target="_blank">
                     <img class="uploadImg" src="{{ thread.uploadFile }}">
                 </a>

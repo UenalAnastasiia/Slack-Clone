@@ -5,12 +5,28 @@
     position: relative;
     min-width: 300px;
 
+    @media (max-width: 450px) {
+        min-width: 220px;
+    }
+
+    @media (max-width: 350px) {
+        max-width: 180px;
+    }
+
     .close-btn {
         position: absolute;
         top: -22px;
         right: -22px;
         cursor: pointer;
         color: #6F2F40;
+
+        @media (max-width: 350px) {
+            right: -10px;
+        }
+
+        @media (max-width: 320px) {
+            right: 12px;
+        }
     }
 }
 
@@ -19,6 +35,11 @@
     width: 200px;
     object-fit: cover;
     border-radius: 10px;
+
+    @media (max-width: 350px) {
+        height: 150px;
+        width: 150px;
+    }
 }
 
 .user-info {
@@ -38,8 +59,6 @@
 
 .edit-profil {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .edit-icon {
