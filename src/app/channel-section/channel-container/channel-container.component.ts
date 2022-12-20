@@ -24,7 +24,10 @@ export class ChannelContainerComponent implements OnInit {
   showDetails: boolean;
 
 
-  constructor(private activeRoute: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog, public shared: ShareService) { }
+  constructor(private activeRoute: ActivatedRoute, 
+    private firestore: Firestore, 
+    public dialog: MatDialog, 
+    public shared: ShareService) { }
 
 
   ngOnInit(): void {

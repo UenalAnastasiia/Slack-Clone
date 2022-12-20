@@ -34,7 +34,7 @@
                     (click)="showSubmenu = !showSubmenu">
                     expand_more</mat-icon>
                 <mat-icon *ngIf="isShowingAddBtn || isShowingAddBtn" class="addChannel-btn"
-                    matTooltipClass="example-tooltip-gold" (click)="openDialogAddChannel()">add_circle</mat-icon>
+                    matTooltipClass="example-tooltip-gold" (click)="openDialogAddChannel()" (click)="sidenav.toggle()">add_circle</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
@@ -42,7 +42,7 @@
                     routerLink="channel/{{ channel.channelID }}" (click)="sidenav.toggle()"># {{
                     channel.name }}</a>
                 <div class="add-channel-container">
-                    <button mat-raised-button (click)="openDialogAddChannel()">
+                    <button mat-raised-button (click)="openDialogAddChannel()" (click)="sidenav.toggle()">
                         <mat-icon>add_circle</mat-icon>
                         <span>Add new Channel</span>
                     </button>
@@ -59,7 +59,7 @@
                     (click)="showDMmenu = !showDMmenu">
                     expand_more</mat-icon>
                 <mat-icon *ngIf="isExpandedDM || isShowingDM" class="addChannel-btn"
-                    matTooltipClass="example-tooltip-gold" (click)="openDialogCreateChat()">add_circle</mat-icon>
+                    matTooltipClass="example-tooltip-gold" (click)="openDialogCreateChat()" (click)="sidenav.toggle()">add_circle</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
@@ -71,7 +71,7 @@
                 </a>
 
                 <div class="add-channel-container">
-                    <button mat-raised-button (click)="openDialogCreateChat()">
+                    <button mat-raised-button (click)="openDialogCreateChat()" (click)="sidenav.toggle()">
                         <mat-icon>add_circle</mat-icon>
                         <span>Write Direct Message</span>
                     </button>

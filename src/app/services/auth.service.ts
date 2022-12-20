@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, 
+  signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
