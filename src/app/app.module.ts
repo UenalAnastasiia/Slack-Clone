@@ -47,6 +47,9 @@ import { ChatComponent } from './direct-messages-section/chat/chat.component';
 import { AddChatMessageComponent } from './direct-messages-section/add-chat-message/add-chat-message.component';
 import { UserMessageComponent } from './direct-messages-section/user-message/user-message.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FooterComponent } from './footer/footer.component';
+import { DataProtectionComponent } from './data-protection/data-protection.component';
+import { ImprintComponent } from './imprint/imprint.component';
 
 
 @NgModule({
@@ -68,7 +71,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     DialogCreateChatComponent,
     ChatComponent,
     AddChatMessageComponent,
-    UserMessageComponent
+    UserMessageComponent,
+    FooterComponent,
+    DataProtectionComponent,
+    ImprintComponent
   ],
   imports: [
     BrowserModule,

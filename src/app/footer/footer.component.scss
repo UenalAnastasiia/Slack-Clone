@@ -1,0 +1,25 @@
+.link-box {
+    height: 48px;
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #5d283682;
+  
+    span {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        margin-right: 32px;
+  
+        &:last-child {
+            margin-right: -32px;
+        }
+  
+        &:hover {
+            cursor: pointer;
+            color: #5d2836;
+        }
+    }
+  }

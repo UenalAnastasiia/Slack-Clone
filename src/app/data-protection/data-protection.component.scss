@@ -1,0 +1,28 @@
+.start-container {
+    width: calc(100vw - 16px);
+    max-width: 100%;
+}
+
+.header-box {
+    padding: 12px;
+    min-height: 80vh;
+    margin-left: 56px;
+    margin-bottom: 70px;
+    font-size: 16px;
+
+    a {
+        color: #5d2836;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .header-box {
+        margin-left: 0px;
+        font-size: 12px;
+        overflow-x: hidden;
+    }
+}

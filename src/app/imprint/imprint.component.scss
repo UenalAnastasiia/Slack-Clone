@@ -1,0 +1,49 @@
+.start-container {
+    height: calc(100vh - 2px);
+}
+
+.header-box {
+    padding: 12px;
+    min-height: 80vh;
+    margin-left: 56px;
+    margin-top: 32px;
+    font-size: 16px;
+
+    h1 {
+        font-size: 36px;
+        font-weight: 600;
+        color: #5d2836;
+        letter-spacing: 2px;
+    }
+
+    p {
+        font-style: italic;
+        font-weight: 500;
+    }
+
+    a {
+        color: #5d2836;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .start-container {
+        height: calc(100vh - 12px);
+    }
+}
+
+@media (max-width: 400px) {
+    .header-box {
+        margin-top: 0;
+        margin-left: 16px;
+        font-size: 14px;
+
+        h1 {
+            font-size: 28px;
+        }
+    }
+}
