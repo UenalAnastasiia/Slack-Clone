@@ -75,7 +75,9 @@
 
 .thread-container {
     height: calc(100vh - 320px);
+    width: calc(100vw - 310px);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .close-btn {
@@ -89,4 +91,5 @@
 .chat-header {
     display: flex;
     justify-content: space-between;
+    width: calc(100vw - 310px);
 }

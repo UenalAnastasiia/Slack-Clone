@@ -34,15 +34,15 @@
                     (click)="showSubmenu = !showSubmenu">
                     expand_more</mat-icon>
                 <mat-icon *ngIf="isShowingAddBtn || isShowingAddBtn" class="addChannel-btn"
-                    matTooltipClass="example-tooltip-gold" (click)="openDialogAddChannel()" (click)="sidenav.toggle()">add_circle</mat-icon>
+                    matTooltipClass="example-tooltip-gold" (click)="openDialogAddChannel()">add_circle</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}">
                 <a *ngFor="let channel of allChannels | name" mat-list-item
-                    routerLink="channel/{{ channel.channelID }}" (click)="sidenav.toggle()"># {{
+                    routerLink="channel/{{ channel.channelID }}"># {{
                     channel.name }}</a>
                 <div class="add-channel-container">
-                    <button mat-raised-button (click)="openDialogAddChannel()" (click)="sidenav.toggle()">
+                    <button mat-raised-button (click)="openDialogAddChannel()">
                         <mat-icon>add_circle</mat-icon>
                         <span>Add new Channel</span>
                     </button>
@@ -59,11 +59,11 @@
                     (click)="showDMmenu = !showDMmenu">
                     expand_more</mat-icon>
                 <mat-icon *ngIf="isExpandedDM || isShowingDM" class="addChannel-btn"
-                    matTooltipClass="example-tooltip-gold" (click)="openDialogCreateChat()" (click)="sidenav.toggle()">add_circle</mat-icon>
+                    matTooltipClass="example-tooltip-gold" (click)="openDialogCreateChat()">add_circle</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showDMmenu}">
-                <a class="chat-link" *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}" (click)="sidenav.toggle()">
+                <a class="chat-link" *ngFor="let chat of allChats" mat-list-item routerLink="chat/{{ chat.id }}">
                     <span *ngIf="chat.firstUser == authService.userName">{{ chat.secondUser }}</span>
                     <span *ngIf="chat.secondUser == authService.userName">{{ chat.firstUser }}</span>
                         <mat-icon class="addChannel-btn" matTooltipClass="example-tooltip-gold"
@@ -71,7 +71,7 @@
                 </a>
 
                 <div class="add-channel-container">
-                    <button mat-raised-button (click)="openDialogCreateChat()" (click)="sidenav.toggle()">
+                    <button mat-raised-button (click)="openDialogCreateChat()">
                         <mat-icon>add_circle</mat-icon>
                         <span>Write Direct Message</span>
                     </button>
